@@ -1,0 +1,5 @@
+{
+  "functions": {
+    "api/tutor.js": { "includeFiles": "assets/js/data.js", "maxDuration": 60 }
+  }
+}

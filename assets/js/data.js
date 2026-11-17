@@ -584,20 +584,20 @@ const TERM_IMG = {
 
 /* Videos: [youtubeId, title, channel, note] */
 const VIDEOS = {
-  1:[["fTv4S1q7p_c","APUSH Unit 1 Review (1491–1607)","Heimler's History","The whole unit in one video"],
+  1:[["fTv4S1q7p_c","AP US History Unit 1 Review (1491–1607)","Heimler's History","The whole unit in one video"],
      ["TTYOQ05oDOI","The Natives and the English","Crash Course US History #3","Funny & fast"]],
-  2:[["t0wIU4R0MhI","APUSH Unit 2 Review (1607–1754)","Heimler's History","The whole unit in one video"],
+  2:[["t0wIU4R0MhI","AP US History Unit 2 Review (1607–1754)","Heimler's History","The whole unit in one video"],
      ["o69TvQqyGdg","When is Thanksgiving? Colonizing America","Crash Course US History #2","Jamestown & the Pilgrims"],
      ["p47tZLJbdag","The Quakers, the Dutch, and the Ladies","Crash Course US History #4","Middle colonies & women"]],
-  3:[["1oNumKYNUaE","APUSH Unit 3 Review (1754–1800)","Heimler's History","The whole unit, about 36 min"],
+  3:[["1oNumKYNUaE","AP US History Unit 3 Review (1754–1800)","Heimler's History","The whole unit, about 36 min"],
      ["1EMkWD0hr5E","The American Revolution (Topic 3.5)","Heimler's History","Short topic video"],
      ["eCoFYgZ0Pf0","Shaping a New Republic","Heimler's History","Articles → Constitution"]],
-  4:[["kO5cfLxN44Y","APUSH Unit 4 Review (1800–1848)","Heimler's History","The whole unit, about 40 min"],
+  4:[["kO5cfLxN44Y","AP US History Unit 4 Review (1800–1848)","Heimler's History","The whole unit, about 40 min"],
      ["XwPFSMxoD68","The Market Revolution, Explained","Heimler's History","About 10 min"],
      ["5ofOfZIZc5I","How Andrew Jackson Expanded Federal Power","Heimler's History","About 11 min"],
      ["_wf6-Ir55TI","An Age of Reform","Heimler's History","Reform movements"],
      ["beN4qE-e5O8","Age of Jackson","Crash Course US History #14","Funny & fast"]],
-  5:[["JVrwXC0AnIk","APUSH Unit 5 Review playlist","Heimler's History","10 short videos, plays in order","PLEHRHjICEfDWmb7bduiSCHYnUmYx6r36N"],
+  5:[["JVrwXC0AnIk","AP US History Unit 5 Review playlist","Heimler's History","10 short videos, plays in order","PLEHRHjICEfDWmb7bduiSCHYnUmYx6r36N"],
      ["GzTrKccmj_I","The Civil War, Part 2","Crash Course US History #21","How the war was won"]]
 };
 
@@ -688,7 +688,7 @@ const SOURCES = {
      ["penn","Penn's Treaty with the Indians","Benjamin West, 1771–72",["William Penn trading fairly with the Lenape","Calm, peaceful, respectful mood","Painted about 90 years later, by a Pennsylvanian"],"Compare: Pennsylvania's peaceful Native relations vs. King Philip's War in New England."],
      ["salem","Salem witch trials","19th-century illustration of 1692",["An accused woman faces a crowd of accusers","Shows Puritan fear and religious intensity","About 20 people were executed"],"Shows tension and anxiety in Puritan New England society."],
      ["compact","The Mayflower Compact, 1620","Jean Leon Gerome Ferris, 1899",["Men signing an agreement on board the ship","A heroic, patriotic scene","Painted almost 300 years later"],"Mayflower Compact = early self-government. Remember to source the date of the painting!"]],
-  3:[["joinordie","“Join, or Die.”","Benjamin Franklin, Pennsylvania Gazette, 1754",["A snake cut into pieces, each one a colony","Message: divided, we die; united, we survive","Made for the Albany Plan of Union during the French & Indian War"],"One of the most-tested images in APUSH. It was later reused against Britain during the Revolution!"],
+  3:[["joinordie","“Join, or Die.”","Benjamin Franklin, Pennsylvania Gazette, 1754",["A snake cut into pieces, each one a colony","Message: divided, we die; united, we survive","Made for the Albany Plan of Union during the French & Indian War"],"One of the most-tested images in AP US History. It was later reused against Britain during the Revolution!"],
      ["massacre","The Bloody Massacre in King Street","Paul Revere, 1770",["British soldiers shooting in a neat line on command","Colonists look innocent and unarmed","In reality it was a chaotic street brawl"],"PROPAGANDA. Revere's purpose was to make people angry at Britain. A classic 'purpose / point of view' question."],
      ["delaware","Washington Crossing the Delaware","Emanuel Leutze, 1851",["Washington standing heroically at the front of the boat","Night crossing on Dec. 25, 1776 before the surprise attack at Trenton","Historically inaccurate: wrong flag, wrong boat, and standing up would tip it over!"],"Shows how Americans in the 1850s mythologized the Revolution."],
      ["commonsense","Common Sense title page","Thomas Paine, January 1776",["'Written by an Englishman' (Paine had just arrived from England)","Plain language for ordinary readers","Sold over 100,000 copies in months"],"Shifted public opinion toward independence just months before July 1776."]],
@@ -787,3 +787,42 @@ const PARTIES = [
   ["1854 →","Republicans (Lincoln, anti-slavery expansion) vs. Democrats (split N/S in 1860)"]
 ];
 
+
+/* =========================================================
+   PICTURES FOR EVENTS: every timeline event gets a painting,
+   map or portrait. Keyword match first, then the unit's pool.
+   ========================================================= */
+const UNIT_POOL = {
+  1:["cahokia","taos","columbus","smallpox","cortes","lascasas"],
+  2:["mayflower","compact","penn","salem","whitefield","slaveship"],
+  3:["joinordie","massacre","teaparty","commonsense","writingdecl","declaration","delaware","cornwallis","constitution","washington","hamilton","paine"],
+  4:["jefferson","lewisclark","tecumseh","marshall","missouri","cottongin","clay","jackson","calhoun","trailmap","douglass","stanton"],
+  5:["progress","acquisitions","cession","uncletom","caning","dredscott","election1860","lincoln","gettysburg","emancipation","grant","lee","ajohnson","firstcolored","tubman"]
+};
+const EVENT_KEYS = [
+  [/cahokia|mississippian/i,"cahokia"],[/pueblo|po'?p[eé]/i,"taos"],[/columbus|reconquista/i,"columbus"],[/cort[eé]s|aztec/i,"cortes"],
+  [/las casas|valladolid/i,"lascasas"],[/smallpox|columbian exchange|tordesillas/i,"smallpox"],
+  [/mayflower|pilgrim|plymouth/i,"compact"],[/jamestown|virginia company/i,"mayflower"],[/penn(sylvania)?\b|quaker/i,"penn"],[/salem|witch/i,"salem"],
+  [/awakening|whitefield|edwards/i,"whitefield"],[/stono|middle passage|africans arrive|slave code/i,"slaveship"],
+  [/albany|french (and|&) indian/i,"joinordie"],[/boston massacre/i,"massacre"],[/\btea\b/i,"teaparty"],[/common sense/i,"commonsense"],
+  [/declaration of independence|independence declared/i,"declaration"],[/trenton|delaware|saratoga/i,"delaware"],[/yorktown|cornwallis/i,"cornwallis"],
+  [/seneca falls|stanton/i,"stanton"],[/constitution(al)? convention|constitution ratified|bill of rights|federalist/i,"constitution"],
+  [/farewell|washington/i,"washington"],[/hamilton|first bank|whiskey/i,"hamilton"],[/louisiana|jefferson/i,"jefferson"],[/lewis/i,"lewisclark"],
+  [/tecumseh|tippecanoe|war of 1812|1812/i,"tecumseh"],[/marbury|mcculloch|gibbons|marshall/i,"marshall"],[/missouri compromise/i,"missouri"],
+  [/cotton gin|whitney/i,"cottongin"],[/\bclay\b|american system|corrupt bargain/i,"clay"],[/nullification|calhoun/i,"calhoun"],
+  [/removal|trail of tears|cherokee|worcester/i,"trailmap"],[/jackson|tariff of abominations|bank war/i,"jackson"],
+  [/douglass|liberator|garrison|abolition/i,"douglass"],[/tubman|underground railroad|fugitive slave/i,"tubman"],
+  [/manifest destiny|texas|oregon/i,"progress"],[/gadsden|land/i,"acquisitions"],[/mexican|guadalupe|wilmot/i,"cession"],[/uncle tom/i,"uncletom"],
+  [/sumner|bleeding kansas|kansas/i,"caning"],[/dred scott/i,"dredscott"],[/election of 1860|lincoln elected|secession|secede/i,"election1860"],
+  [/emancipation/i,"emancipation"],[/gettysburg|vicksburg|antietam/i,"gettysburg"],[/fort sumter|\blee\b/i,"lee"],[/appomattox|\bgrant\b|surrender/i,"grant"],
+  [/lincoln|homestead/i,"lincoln"],[/impeach|andrew johnson/i,"ajohnson"],[/reconstruction|13th|14th|15th|freedmen|compromise of 1877|black codes/i,"firstcolored"]
+];
+function eventPic(text, unit, used){
+  used = used || new Set();
+  for(const [re,k] of EVENT_KEYS){ if(re.test(text) && IMG[k] && !used.has(k)){ used.add(k); return k; } }
+  const pool = (UNIT_POOL[unit] || []).filter(k=>IMG[k]);
+  const fresh = pool.find(k=>!used.has(k));
+  if(fresh){ used.add(fresh); return fresh; }
+  for(const [re,k] of EVENT_KEYS){ if(re.test(text) && IMG[k]) return k; }
+  return pool[(text.length) % (pool.length || 1)] || null;
+}

@@ -1,0 +1,9 @@
+{
+  "name": "us-ap-history-study-guide",
+  "private": true,
+  "description": "US AP History Study Guide, Units 1-5, with Mr Marvin the AI tutor",
+  "engines": { "node": ">=20" },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^1.8.0"
+  }
+}

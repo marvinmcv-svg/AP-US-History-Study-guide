@@ -10,7 +10,7 @@ let state = {
 };
 function save(){ for(const k in state) store.set(k,state[k]); if(typeof renderXP==="function" && document.getElementById("xpPillM")) renderXP(); }
 
-const LEVELS = [[0,"Colonist"],[100,"Minuteman"],[250,"Patriot"],[500,"Founder"],[850,"Statesman"],[1300,"Justice"],[2000,"APUSH Legend"]];
+const LEVELS = [[0,"Colonist"],[100,"Minuteman"],[250,"Patriot"],[500,"Founder"],[850,"Statesman"],[1300,"Justice"],[2000,"History Legend"]];
 function levelInfo(xp){
   let i = 0; for(let j=0;j<LEVELS.length;j++) if(xp>=LEVELS[j][0]) i=j;
   const cur = LEVELS[i][0], next = LEVELS[i+1] ? LEVELS[i+1][0] : cur;
@@ -112,7 +112,7 @@ function animateView(v){
 $("#menuBtn").addEventListener("click",()=>document.body.classList.add("nav-open"));
 $("#scrim").addEventListener("click",()=>document.body.classList.remove("nav-open"));
 document.getElementById("tabs").addEventListener("click",e=>{
-  const b = e.target.closest(".tab"); if(!b || b.tagName==="A") return;
+  const b = e.target.closest(".tab"); if(!b || b.tagName==="A" || !b.dataset.view) return;
   go(b.dataset.view, b.dataset.unit);
 });
 document.addEventListener("click",e=>{
@@ -129,7 +129,7 @@ function renderHome(){
     const m = unitMastery(U.id); const qs = state.qstats[U.id];
     const acc = qs && qs.t ? Math.round(qs.c/qs.t*100)+"%" : "–";
     return `<button class="urow" style="--uc:var(${U.color})" data-go="unit" data-unit="${U.id}">
-      <span class="n">0${U.id}</span>
+      <span class="uthumb">${IMG[HERO_IMG[U.id]] ? `<img src="${imgURL(HERO_IMG[U.id],240)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">` : ""}<span class="n">0${U.id}</span></span>
       <span><h3>${esc(U.title)}</h3><span class="yrs">${U.years}</span></span>
       <span class="w">${U.weight}<small>of exam</small></span>
       <span class="prog">${m.m}/${m.total} terms · quiz ${acc}<span class="progress"><i style="width:${m.pct}%"></i></span></span>
@@ -146,7 +146,32 @@ function renderHome(){
   $("#statAcc").textContent = t ? Math.round(c/t*100)+"%" : "–";
   $("#statWrong").textContent = Object.keys(state.wrongs).length;
   $("#missionText").innerHTML = mission().text;
+  renderHowTo();
 }
+/* "How to use this site": four steps that tick off as you go */
+function renderHowTo(){
+  const m = mission(); const u = m.unit || 1; const U = UNITS[u-1];
+  const storyDone = store.get("story"+u,false), mm = unitMastery(u), qs = state.qstats[u];
+  const steps = [
+    ["columbus","Pick your unit",`Start with the unit your class is on. Up next for you: <b>Unit ${u}, ${esc(U.title)}</b>.`,"Open Unit "+u,`data-go="unit" data-unit="${u}"`,true],
+    ["teaparty","Read the story","Ten minutes of short scenes with real paintings, then the group chat. Tap “I read it” at the end.","Read the story",`data-go="unit" data-unit="${u}"`,storyDone],
+    ["compact","Flip the cards","Say the answer out loud, then flip. Mark “Got it” only when you truly know it. Aim for 60%.","Flip cards",`data-go="cards"`,mm.pct>=60],
+    ["gettysburg","Take the quiz","AP-style questions with explanations. Mistakes go to a review pile so you can fix them.","Start the quiz",`data-quiz-unit="${u}"`,!!(qs && qs.t>=5)]
+  ];
+  const firstOpen = steps.findIndex(s=>!s[5]);
+  $("#howSteps").innerHTML = steps.map((s,i)=>{
+    const st = s[5] ? "done" : (i===firstOpen ? "now" : "todo");
+    return `<li class="hstep ${st}">
+      <div class="pic">${IMG[s[0]]?`<img src="${imgURL(s[0],500)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">`:""}<span class="num">${i+1}</span><span class="badge">${st==="done"?"✓ Done":st==="now"?"Do this next":"Coming up"}</span></div>
+      <h3>${s[1]}</h3><p>${s[2]}</p>
+      <button class="btn sm${st==="now"?"":" ghost"}" ${s[4]}>${s[3]} <span class="arr">→</span></button></li>`;
+  }).join("");
+  const av = $("#askAv"); if(av && window.MrMarvin && !av.childElementCount) av.innerHTML = MrMarvin.avatar();
+}
+document.addEventListener("click",e=>{
+  const q = e.target.closest("[data-quiz-unit]"); if(!q) return;
+  go("quiz"); startQuiz([+q.dataset.quizUnit],10,false);
+});
 function mission(){
   // first unit that isn't well-mastered
   for(const U of UNITS){
@@ -627,3 +652,4 @@ $("#timerBreak").addEventListener("click",()=>setMode(tMode==="focus"?"break":"f
 /* home hero painting + cast */
 $("#castStrip").innerHTML = WHO.slice().sort((a,b)=>a[3]-b[3]).map(w=>`<div class="p" data-go="who" style="--uc:${unitColor(w[3])}">${pic(w[0],{cap:false,zoom:false,badge:false,w:240}).replace("<figure ",`<figure data-ini="${w[1].split(" ").filter(x=>/^[A-Z]/.test(x)).map(x=>x[0]).join("").slice(0,3)}" `)}<b>${esc(w[1])}</b><span>Unit 0${w[3]}</span></div>`).join("");
 renderXP(); drawTimer(); route(true);
+document.addEventListener("DOMContentLoaded",()=>setTimeout(()=>{ const av=$("#askAv"); if(av && window.MrMarvin && !av.childElementCount) av.innerHTML = MrMarvin.avatar(); }));
