@@ -3,388 +3,597 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>APUSH Quest</title>
+<title>APUSH Field Notes</title>
 <meta name="description" content="Interactive AP U.S. History study guide, Units 1–5 (1491–1877): stories, flashcards, quizzes, timeline games and memory hacks.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
+/* =========================================================
+   TOKENS
+   ========================================================= */
 :root{
-  --bg:#f6f1e7; --bg2:#efe7d6; --card:#fffdf8; --ink:#1f2430; --muted:#5d6472; --line:#e0d6c2;
-  --accent:#c8102e; --accent2:#1d3f8f; --gold:#c99a2e; --ok:#1f8a4c; --bad:#c0392b;
-  --u1:#16857a; --u2:#5e7d1c; --u3:#b3261e; --u4:#1d4fa8; --u5:#6b3fa0;
-  --shadow:0 2px 0 rgba(0,0,0,.04),0 8px 24px rgba(60,40,10,.08);
-  --radius:16px;
+  --bg:#f3efe6; --bg2:#ebe5d8; --card:#faf8f3; --ink:#1b1a17; --ink2:#3a3833; --muted:#6f6a5f; --line:#d9d2c3; --line2:#e6e0d3;
+  --accent:#9b2c1f; --accent2:#24416b; --gold:#a8792a; --ok:#2f6b3f; --bad:#a8322a;
+  --u1:#2e6b63; --u2:#66702b; --u3:#9b2c1f; --u4:#2b4c7e; --u5:#6a3f6c;
+  --rule:#b7442f;            /* index-card red rule */
+  --cardline:#c9d6e3;        /* index-card blue lines */
+  --shadow:0 1px 0 rgba(27,26,23,.04),0 1px 2px rgba(27,26,23,.05);
+  --lift:0 1px 2px rgba(27,26,23,.06),0 10px 30px -12px rgba(27,26,23,.18);
+  --radius:6px;
+  --serif:Newsreader,"Iowan Old Style",Georgia,serif;
+  --sans:Geist,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"Geist Mono",ui-monospace,"SF Mono",Menlo,monospace;
+  --side:252px;
+  color-scheme:light;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --bg:#14161c; --bg2:#1b1e26; --card:#20242e; --ink:#eef0f4; --muted:#a3a9b6; --line:#323846;
-    --accent:#ff5a6e; --accent2:#7ea2ff; --gold:#f0c35a; --ok:#4cd187; --bad:#ff6b5b;
-    --u1:#3cc4b6; --u2:#9cc24a; --u3:#ff6b5f; --u4:#6f9bff; --u5:#b48cf2;
-    --shadow:0 8px 24px rgba(0,0,0,.35);
+    --bg:#141412; --bg2:#1c1b18; --card:#1f1e1b; --ink:#ece7dc; --ink2:#cfc9bc; --muted:#9a9488; --line:#34322d; --line2:#2a2925;
+    --accent:#e0735f; --accent2:#8eaee0; --gold:#d6a85a; --ok:#7fbf8c; --bad:#e8786b;
+    --u1:#6fb7ac; --u2:#b2bd6a; --u3:#e0735f; --u4:#86a6dc; --u5:#c195c3;
+    --rule:#c9614b; --cardline:#2f3a45;
+    --shadow:0 1px 0 rgba(0,0,0,.2); --lift:0 10px 30px -12px rgba(0,0,0,.6);
+    color-scheme:dark;
   }
 }
 :root[data-theme="dark"]{
-  --bg:#14161c; --bg2:#1b1e26; --card:#20242e; --ink:#eef0f4; --muted:#a3a9b6; --line:#323846;
-  --accent:#ff5a6e; --accent2:#7ea2ff; --gold:#f0c35a; --ok:#4cd187; --bad:#ff6b5b;
-  --u1:#3cc4b6; --u2:#9cc24a; --u3:#ff6b5f; --u4:#6f9bff; --u5:#b48cf2;
-  --shadow:0 8px 24px rgba(0,0,0,.35);
+  --bg:#141412; --bg2:#1c1b18; --card:#1f1e1b; --ink:#ece7dc; --ink2:#cfc9bc; --muted:#9a9488; --line:#34322d; --line2:#2a2925;
+  --accent:#e0735f; --accent2:#8eaee0; --gold:#d6a85a; --ok:#7fbf8c; --bad:#e8786b;
+  --u1:#6fb7ac; --u2:#b2bd6a; --u3:#e0735f; --u4:#86a6dc; --u5:#c195c3;
+  --rule:#c9614b; --cardline:#2f3a45;
+  --shadow:0 1px 0 rgba(0,0,0,.2); --lift:0 10px 30px -12px rgba(0,0,0,.6);
+  color-scheme:dark;
 }
+
+/* =========================================================
+   BASE
+   ========================================================= */
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.55;font-size:16px;overflow-x:hidden}
-h1,h2,h3,h4{font-family:Fraunces,Georgia,serif;line-height:1.15;margin:0 0 .5em}
-h2{font-size:clamp(1.5rem,3.5vw,2.1rem)}
-h3{font-size:1.25rem}
-p{margin:0 0 .8em}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.6;font-size:16px;overflow-x:hidden;-webkit-font-smoothing:antialiased;font-feature-settings:"ss01"}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:500;line-height:1.12;margin:0 0 .45em;letter-spacing:-.012em;text-wrap:balance}
+h2{font-size:clamp(1.6rem,3.4vw,2.25rem)}
+h3{font-size:1.3rem}
+p{margin:0 0 .85em;text-wrap:pretty}
+b,strong{font-weight:600}
+a{color:inherit}
 button{font:inherit;cursor:pointer;color:inherit}
-.wrap{max-width:1100px;margin:0 auto;padding:0 16px}
-/* header */
-header{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-.topbar{display:flex;align-items:center;gap:12px;padding:10px 0}
-.brand{font-family:Fraunces,Georgia,serif;font-weight:800;font-size:1.3rem;display:flex;align-items:center;gap:8px;white-space:nowrap}
-.brand .star{color:var(--accent)}
-.xpbox{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:.85rem}
-.pill{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-weight:600;white-space:nowrap}
-.xpbar{width:90px;height:8px;background:var(--bg2);border-radius:99px;overflow:hidden}
-.xpbar i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--accent));width:0;transition:width .5s}
-@media(max-width:560px){.xpbar{display:none}.brand{font-size:1.1rem}.xpbox{gap:6px;font-size:.78rem}.pill{padding:4px 9px}}
-@media(max-width:400px){.brand .txt{display:none}}
-.iconbtn{background:var(--card);border:1px solid var(--line);border-radius:10px;width:36px;height:36px;display:grid;place-items:center}
-nav.tabs{display:flex;gap:6px;overflow-x:auto;padding:0 0 10px;scrollbar-width:none}
-nav.tabs::-webkit-scrollbar{display:none}
-.tab{border:1px solid var(--line);background:var(--card);padding:7px 14px;border-radius:999px;font-weight:600;font-size:.9rem;white-space:nowrap}
-.tab.active{background:var(--ink);color:var(--bg);border-color:var(--ink)}
-main{padding:24px 0 80px}
-.view{display:none;animation:fade .35s ease}
-.view.active{display:block}
-@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
-.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px}
-.grid{display:grid;gap:16px}
-.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
-.g3{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+:focus-visible{outline:2px solid var(--accent2);outline-offset:2px}
+::selection{background:color-mix(in srgb,var(--gold) 35%,transparent)}
 .muted{color:var(--muted)}
 .small{font-size:.88rem}
-.section{margin:32px 0}
-.kicker{text-transform:uppercase;letter-spacing:.12em;font-size:.75rem;font-weight:700;color:var(--accent)}
-.btn{display:inline-flex;align-items:center;gap:8px;border:none;border-radius:12px;padding:11px 18px;font-weight:700;background:var(--accent);color:#fff;transition:transform .1s, filter .2s}
-.btn:hover{filter:brightness(1.08)}
-.btn:active{transform:scale(.97)}
-.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
-.btn.dark{background:var(--ink);color:var(--bg)}
-.btn.sm{padding:7px 12px;font-size:.88rem;border-radius:10px}
+.mono{font-family:var(--mono);font-feature-settings:"zero" 0}
+.kicker{font-family:var(--mono);text-transform:uppercase;letter-spacing:.08em;font-size:.72rem;font-weight:500;color:var(--muted);margin-bottom:.6em;display:block}
 .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
-/* hero */
-.hero{display:grid;grid-template-columns:1.4fr 1fr;gap:20px;align-items:stretch}
-@media(max-width:800px){.hero{grid-template-columns:1fr}}
-.hero-main{background:linear-gradient(135deg,var(--accent2),#0d1f4d);color:#fff;border-radius:22px;padding:28px;position:relative;overflow:hidden}
-.hero-main h1{font-size:clamp(1.9rem,5vw,2.8rem);margin-bottom:.3em}
-.hero-main p{opacity:.92;max-width:52ch}
-.hero-main .stars{position:absolute;right:-20px;top:-10px;font-size:9rem;opacity:.08;transform:rotate(12deg)}
-.hero-main .btn:not(.ghost){background:#fff;color:#0d1f4d}
-.stat{display:flex;flex-direction:column;gap:2px}
-.stat b{font-size:1.8rem;font-family:Fraunces,serif}
-.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:6px}
-.note{border-left:4px solid var(--gold);background:color-mix(in srgb,var(--gold) 10%,var(--card));padding:14px 16px;border-radius:10px}
-/* unit cards */
-.unitcard{cursor:pointer;border-top:6px solid var(--uc);transition:transform .15s}
-.unitcard:hover{transform:translateY(-3px)}
-.unitcard .num{font-family:Fraunces,serif;font-size:2.4rem;font-weight:800;color:var(--uc);line-height:1}
-.progress{height:8px;background:var(--bg2);border-radius:99px;overflow:hidden;margin-top:10px}
-.progress i{display:block;height:100%;background:var(--uc,var(--accent));transition:width .5s}
-.weight{font-size:.78rem;font-weight:700;background:color-mix(in srgb,var(--uc) 14%,transparent);color:var(--uc);padding:2px 8px;border-radius:99px}
-/* unit view */
-.unit-hero{border-radius:22px;padding:26px;color:#fff;background:linear-gradient(135deg,var(--uc),color-mix(in srgb,var(--uc) 55%,#000))}
-.unit-hero h2{font-size:clamp(1.7rem,4.5vw,2.5rem)}
-.unitnav{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0 0}
-.unitnav button{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:999px;padding:5px 12px;font-size:.85rem;font-weight:600}
-.unitnav button.on{background:#fff;color:#111}
-.story p{font-size:1.05rem}
-.story .big{font-family:Fraunces,serif;font-size:1.3rem;line-height:1.35;border-left:5px solid var(--uc);padding-left:14px;margin-bottom:14px}
-details.acc{border:1px solid var(--line);border-radius:12px;background:var(--card);margin-bottom:10px;overflow:hidden}
-details.acc summary{padding:14px 16px;font-weight:700;cursor:pointer;list-style:none;display:flex;gap:10px;align-items:center}
-details.acc summary::-webkit-details-marker{display:none}
-details.acc summary::before{content:"▸";color:var(--uc,var(--accent));transition:transform .2s}
-details.acc[open] summary::before{transform:rotate(90deg)}
-details.acc .body{padding:0 16px 14px 36px}
-details.acc ul{margin:0;padding-left:18px}
-details.acc li{margin-bottom:6px}
-/* flip cards */
-.flipgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
-.flip{perspective:1000px;height:200px;cursor:pointer}
-.flip .inner{position:relative;width:100%;height:100%;transition:transform .55s;transform-style:preserve-3d}
-.flip.flipped .inner{transform:rotateY(180deg)}
-.flip .face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:14px;padding:16px;display:flex;flex-direction:column;border:1px solid var(--line);background:var(--card);box-shadow:var(--shadow);overflow:auto}
-.flip .front{justify-content:center;align-items:center;text-align:center;border-bottom:5px solid var(--uc)}
-.flip .front b{font-family:Fraunces,serif;font-size:1.2rem}
-.flip .front .yr{font-size:.85rem;color:var(--uc);font-weight:700;margin-top:6px}
-.flip .back{transform:rotateY(180deg);font-size:.88rem}
-.flip .back .why{margin-top:auto;padding-top:8px;border-top:1px dashed var(--line);color:var(--uc);font-weight:600}
-.tap{font-size:.72rem;color:var(--muted);margin-top:10px}
-.mastered-badge{position:absolute;top:8px;right:10px;font-size:.9rem}
-/* timeline */
-.tl{position:relative;padding-left:28px}
-.tl::before{content:"";position:absolute;left:9px;top:4px;bottom:4px;width:3px;background:linear-gradient(var(--uc),color-mix(in srgb,var(--uc) 20%,transparent));border-radius:3px}
-.tl-item{position:relative;margin-bottom:14px}
-.tl-item::before{content:"";position:absolute;left:-25px;top:6px;width:13px;height:13px;border-radius:50%;background:var(--card);border:3px solid var(--uc)}
-.tl-item .y{font-weight:800;color:var(--uc);font-family:Fraunces,serif;margin-right:8px}
-/* hacks & chains */
-.hack{border:2px dashed var(--uc);border-radius:14px;padding:16px;background:color-mix(in srgb,var(--uc) 6%,var(--card))}
-.hack h4{font-family:Inter,sans-serif;font-size:1rem;margin-bottom:6px}
-.hack .mn{font-family:Fraunces,serif;font-size:1.15rem;font-weight:800;color:var(--uc);margin-bottom:6px}
-.chain{display:flex;flex-direction:column;gap:8px}
-.link{padding:10px 14px;border-radius:10px;background:var(--bg2);border-left:4px solid var(--uc);animation:fade .35s}
-.link.hidden{display:none}
-.arrow{text-align:center;color:var(--uc);font-weight:800;line-height:.6}
-.arrow.hidden{display:none}
-/* quiz */
-.qwrap{max-width:760px;margin:0 auto}
-.qhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:10px;flex-wrap:wrap}
-.qbar{flex:1;min-width:120px;height:10px;background:var(--bg2);border-radius:99px;overflow:hidden}
-.qbar i{display:block;height:100%;background:var(--accent);transition:width .4s}
-.stim{background:var(--bg2);border-radius:12px;padding:14px 16px;font-family:Fraunces,Georgia,serif;font-style:italic;margin-bottom:14px;border-left:4px solid var(--gold)}
-.stim cite{display:block;font-style:normal;font-family:Inter,sans-serif;font-size:.82rem;color:var(--muted);margin-top:6px}
-.qtext{font-weight:700;font-size:1.1rem;margin-bottom:14px}
-.opt{display:flex;gap:12px;align-items:flex-start;text-align:left;width:100%;padding:13px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--card);margin-bottom:10px;transition:border-color .15s,background .15s}
-.opt:hover:not([disabled]){border-color:var(--accent2)}
-.opt .l{flex:none;width:28px;height:28px;border-radius:8px;display:grid;place-items:center;font-weight:800;background:var(--bg2)}
-.opt.right{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 12%,var(--card))}
-.opt.right .l{background:var(--ok);color:#fff}
-.opt.wrong{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 12%,var(--card))}
-.opt.wrong .l{background:var(--bad);color:#fff}
-.opt[disabled]{cursor:default}
-.explain{border-radius:12px;padding:14px 16px;margin:6px 0 14px;animation:fade .3s}
-.explain.good{background:color-mix(in srgb,var(--ok) 12%,var(--card));border:1px solid var(--ok)}
-.explain.badx{background:color-mix(in srgb,var(--bad) 10%,var(--card));border:1px solid var(--bad)}
-.chk{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border:1.5px solid var(--line);border-radius:999px;font-weight:600;font-size:.9rem;cursor:pointer;user-select:none}
-.chk input{accent-color:var(--accent)}
-.score-big{font-family:Fraunces,serif;font-size:4rem;font-weight:800;line-height:1;color:var(--accent)}
-/* order game */
-.vs{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:stretch}
-@media(max-width:640px){.vs{grid-template-columns:1fr}.vs .or{padding:0}}
-.evt{padding:22px 18px;border-radius:16px;border:2px solid var(--line);background:var(--card);font-weight:700;font-size:1.05rem;min-height:120px;display:flex;flex-direction:column;justify-content:center;text-align:center;transition:transform .12s,border-color .2s;box-shadow:var(--shadow)}
-.evt:hover:not([disabled]){transform:translateY(-2px);border-color:var(--accent2)}
-.evt .yy{font-family:Fraunces,serif;font-size:1.6rem;margin-top:8px;color:var(--muted);min-height:1.6em}
-.evt.right{border-color:var(--ok)} .evt.right .yy{color:var(--ok)}
-.evt.wrong{border-color:var(--bad)} .evt.wrong .yy{color:var(--bad)}
-.or{display:grid;place-items:center;font-family:Fraunces,serif;font-weight:800;color:var(--muted);padding:0 4px}
-.streak{font-size:1.1rem;font-weight:800}
-/* tables */
-.tbl{width:100%;border-collapse:collapse;font-size:.92rem}
-.tbl th,.tbl td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
-.tbl th{font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
-.tbl tr:hover td{background:var(--bg2)}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr))}
+.section{margin:56px 0}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:22px;box-shadow:var(--shadow)}
 .scroll{overflow-x:auto}
-.tag{display:inline-block;font-size:.72rem;font-weight:700;padding:2px 8px;border-radius:99px;background:var(--bg2);white-space:nowrap}
-/* flashcard mode */
-.bigcard{max-width:600px;margin:0 auto;height:320px}
-.bigcard .face{padding:28px}
-.bigcard .front b{font-size:1.8rem}
-.bigcard .back{font-size:1rem}
-/* timer */
-.timer{font-family:Fraunces,serif;font-size:3rem;font-weight:800;text-align:center;letter-spacing:.02em}
-/* toast + confetti */
-.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(120px);background:var(--ink);color:var(--bg);padding:12px 20px;border-radius:999px;font-weight:700;z-index:100;transition:transform .35s;max-width:calc(100% - 32px);text-align:center}
-.toast.show{transform:translateX(-50%) translateY(0)}
-.confetti{position:fixed;top:-20px;z-index:99;pointer-events:none;font-size:22px;animation:fall linear forwards}
-@keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:.7}}
-.search{width:100%;padding:12px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);font:inherit}
-.theme-chip{display:flex;gap:10px;align-items:flex-start}
-.theme-chip .ab{flex:none;font-weight:800;font-size:.8rem;background:var(--accent2);color:#fff;border-radius:8px;padding:4px 7px}
-footer{text-align:center;padding:30px 16px;color:var(--muted);font-size:.85rem}
 
-/* ================= V2: IMAGES, MEDIA, CHAT ================= */
-.ph{position:relative;overflow:hidden;border-radius:14px;background:linear-gradient(135deg,color-mix(in srgb,var(--uc,var(--accent2)) 60%,#000),color-mix(in srgb,var(--uc,var(--accent2)) 25%,#111));margin:0}
-.ph img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .5s}
+/* =========================================================
+   APP SHELL: sidebar (desktop) / drawer (mobile)
+   ========================================================= */
+.side{position:fixed;inset:0 auto 0 0;width:var(--side);border-right:1px solid var(--line);background:var(--bg);display:flex;flex-direction:column;z-index:60;overflow-y:auto;scrollbar-width:thin}
+.brand{display:flex;align-items:center;gap:12px;padding:22px 20px 18px;border-bottom:1px solid var(--line)}
+.brand .mark{flex:none;width:38px;height:38px;border:1.5px solid var(--ink);display:grid;place-items:center;font-family:var(--serif);font-weight:600;font-size:1.05rem;letter-spacing:-.02em;border-radius:3px;position:relative}
+.brand .mark::after{content:"";position:absolute;left:5px;right:5px;bottom:6px;height:1.5px;background:var(--accent)}
+.brand b{display:block;font-family:var(--serif);font-weight:500;font-size:1.12rem;line-height:1.1}
+.brand small{display:block;font-family:var(--mono);font-size:.68rem;color:var(--muted);letter-spacing:.02em;margin-top:3px}
+nav.tabs{padding:10px 10px 16px;display:flex;flex-direction:column;gap:1px}
+.navgrp{font-family:var(--mono);font-size:.66rem;text-transform:uppercase;letter-spacing:.1em;color:var(--muted);padding:16px 10px 6px}
+.tab{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:none;border:0;border-radius:4px;padding:7px 10px;font-size:.9rem;color:var(--ink2);position:relative;transition:background .15s,color .15s}
+.tab:hover{background:var(--bg2);color:var(--ink)}
+.tab .ix{flex:none;width:20px;font-family:var(--mono);font-size:.72rem;color:var(--muted)}
+.tab .lbl{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tab .meter{flex:none;width:34px;height:3px;background:var(--line);border-radius:2px;overflow:hidden}
+.tab .meter i{display:block;height:100%;width:0;background:var(--uc,var(--ink))}
+.tab.active{background:var(--card);color:var(--ink);font-weight:500;box-shadow:inset 0 0 0 1px var(--line)}
+.tab.active::before{content:"";position:absolute;left:-10px;top:8px;bottom:8px;width:2px;background:var(--accent)}
+.side-foot{margin-top:auto;padding:16px 20px 20px;border-top:1px solid var(--line)}
+.lvl{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.lvl b{font-family:var(--serif);font-weight:500;font-size:1.05rem}
+.lvl span{font-family:var(--mono);font-size:.75rem;color:var(--muted)}
+.xpbar{height:3px;background:var(--line);margin:10px 0 12px;border-radius:2px;overflow:hidden}
+.xpbar i{display:block;height:100%;width:0;background:var(--accent);transition:width .6s}
+.iconbtn{background:none;border:1px solid var(--line);border-radius:4px;height:32px;padding:0 10px;display:inline-flex;align-items:center;gap:8px;font-size:.8rem;color:var(--ink2)}
+.iconbtn:hover{border-color:var(--ink2)}
+.iconbtn svg{width:15px;height:15px}
+.mtop{display:none}
+.scrim{display:none}
+.shell{margin-left:var(--side);min-height:100vh;display:flex;flex-direction:column}
+main{flex:1;width:100%;max-width:1040px;margin:0 auto;padding:44px 48px 96px}
+footer{max-width:1040px;margin:0 auto;width:100%;padding:24px 48px 40px;color:var(--muted);font-size:.8rem;font-family:var(--mono);border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+
+@media(max-width:900px){
+  .side{transform:translateX(-102%);transition:transform .28s cubic-bezier(.2,.8,.2,1);box-shadow:var(--lift);width:min(300px,86vw)}
+  body.nav-open .side{transform:none}
+  .scrim{display:block;position:fixed;inset:0;background:rgba(10,10,8,.4);z-index:55;opacity:0;pointer-events:none;transition:opacity .25s}
+  body.nav-open .scrim{opacity:1;pointer-events:auto}
+  .shell{margin-left:0}
+  .mtop{display:flex;position:sticky;top:0;z-index:50;align-items:center;gap:12px;padding:10px 16px;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+  .mtop .where{font-family:var(--serif);font-size:1.05rem;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .mtop .xp{font-family:var(--mono);font-size:.75rem;color:var(--muted)}
+  main{padding:28px 16px 80px}
+  footer{padding:20px 16px 32px}
+}
+
+/* =========================================================
+   BUTTONS & CONTROLS
+   ========================================================= */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid var(--ink);border-radius:4px;padding:10px 18px;font-weight:500;font-size:.94rem;background:var(--ink);color:var(--bg);transition:background .15s,border-color .15s,color .15s,transform .08s;text-decoration:none;line-height:1.3}
+.btn:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn:active{transform:translateY(1px)}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}
+.btn.ghost:hover{border-color:var(--ink);background:transparent;color:var(--ink)}
+.btn.dark{background:var(--ink);color:var(--bg)}
+.btn.sm{padding:7px 12px;font-size:.85rem}
+.btn[disabled]{opacity:.45;pointer-events:none}
+.btn .arr{font-family:var(--mono);transition:transform .15s}
+.btn:hover .arr{transform:translateX(3px)}
+.pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);background:var(--card);border-radius:4px;padding:5px 11px;font-size:.82rem;font-family:var(--mono);white-space:nowrap}
+.chk{display:inline-flex;align-items:center;gap:8px;padding:7px 12px;border:1px solid var(--line);border-radius:4px;font-size:.88rem;cursor:pointer;user-select:none;background:var(--card);transition:border-color .15s}
+.chk:hover{border-color:var(--ink2)}
+.chk:has(input:checked){border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink)}
+.chk input{accent-color:var(--ink);margin:0}
+select.pill{appearance:none;-webkit-appearance:none;padding-right:26px;background:var(--card) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' fill='none' stroke='%23888' stroke-width='1.5'/%3E%3C/svg%3E") no-repeat right 9px center;color:var(--ink)}
+.search{width:100%;padding:13px 16px;border-radius:4px;border:1px solid var(--line);background:var(--card);color:var(--ink);font:inherit;font-size:1rem}
+.search:focus{outline:none;border-color:var(--ink)}
+.tag{display:inline-block;font-family:var(--mono);font-size:.7rem;padding:2px 7px;border-radius:3px;border:1px solid var(--line);white-space:nowrap;letter-spacing:.02em;color:var(--ink2)}
+.tag.u{border-color:color-mix(in srgb,var(--uc) 45%,transparent);color:var(--uc)}
+
+/* =========================================================
+   PAGE HEADERS & SECTION HEADERS
+   ========================================================= */
+.phead{margin-bottom:28px;max-width:62ch}
+.phead h2{font-size:clamp(2rem,4.6vw,2.9rem);margin-bottom:.3em}
+.phead p{color:var(--ink2);font-size:1.05rem}
+.sh{display:grid;grid-template-columns:auto 1fr;column-gap:16px;align-items:baseline;margin-bottom:20px;padding-top:18px;border-top:1px solid var(--line)}
+.sh .sn{font-family:var(--mono);font-size:.78rem;color:var(--uc,var(--accent));grid-row:span 2;padding-top:.5em}
+.sh h2,.sh h3{margin:0 0 .25em;font-size:clamp(1.45rem,3vw,1.85rem)}
+.sh p{grid-column:2;margin:0;color:var(--muted);font-size:.95rem;max-width:64ch}
+@media(max-width:560px){.sh{grid-template-columns:1fr}.sh .sn{grid-row:auto;padding:0 0 4px}.sh p{grid-column:1}}
+.sec-title .em{display:none}
+
+/* =========================================================
+   HOME
+   ========================================================= */
+.mast{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:40px;align-items:end;padding-bottom:32px;border-bottom:1px solid var(--ink)}
+.mast .dateline{font-family:var(--mono);font-size:.75rem;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;margin-bottom:18px;display:flex;gap:14px;flex-wrap:wrap}
+.mast h1{font-size:clamp(2.4rem,6.2vw,4.1rem);line-height:1.02;letter-spacing:-.025em;margin:0 0 .35em}
+.mast h1 em{font-style:italic;color:var(--accent)}
+.mast .lede{font-family:var(--serif);font-size:1.2rem;line-height:1.5;color:var(--ink2);max-width:46ch;margin:0}
+.aside-note{font-family:var(--serif);font-style:italic;font-size:1.02rem;line-height:1.55;color:var(--ink2);border-left:2px solid var(--accent);padding:2px 0 2px 16px;margin:0}
+.aside-note b{font-weight:500;color:var(--ink)}
+@media(max-width:800px){.mast{grid-template-columns:1fr;gap:24px}}
+
+.today{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);border:1px solid var(--line);background:var(--card);border-radius:var(--radius);margin-top:32px;box-shadow:var(--shadow);overflow:hidden}
+.today .next{padding:26px 28px}
+.today .next .kicker{color:var(--accent)}
+.today .next p{font-family:var(--serif);font-size:1.3rem;line-height:1.4;margin:0 0 20px;color:var(--ink)}
+.today .next p b{font-weight:500;box-shadow:inset 0 -.4em 0 color-mix(in srgb,var(--gold) 25%,transparent)}
+.stats{display:grid;grid-template-columns:1fr;border-left:1px solid var(--line)}
+.stat{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding:14px 22px;border-bottom:1px solid var(--line2)}
+.stat:last-child{border-bottom:0}
+.stat b{font-family:var(--serif);font-weight:500;font-size:1.9rem;line-height:1;order:2}
+.stat span{font-size:.86rem;color:var(--muted)}
+@media(max-width:700px){.today{grid-template-columns:1fr}.stats{border-left:0;border-top:1px solid var(--line);grid-template-columns:repeat(3,1fr)}.stat{flex-direction:column;align-items:flex-start;border-bottom:0;border-right:1px solid var(--line2);padding:14px 16px}.stat:last-child{border-right:0}.stat b{order:0;font-size:1.6rem}.stat span{font-size:.75rem;line-height:1.3}}
+
+/* proportional era ruler */
+.ruler{margin:8px 0 6px}
+.ruler .bar{display:flex;height:34px;gap:2px}
+.ruler .seg{position:relative;flex:var(--span) 1 0;background:color-mix(in srgb,var(--uc) 14%,var(--card));border:0;border-radius:2px;overflow:hidden;padding:0;min-width:28px;transition:filter .15s}
+.ruler .seg:hover{filter:brightness(.96)}
+.ruler .seg i{position:absolute;inset:0 auto 0 0;width:var(--pct);background:var(--uc);opacity:.85}
+.ruler .seg span{position:relative;font-family:var(--mono);font-size:.72rem;color:var(--uc);mix-blend-mode:normal;padding-left:8px;display:flex;align-items:center;height:100%;font-weight:500}
+.ruler .ticks{display:flex;justify-content:space-between;font-family:var(--mono);font-size:.7rem;color:var(--muted);margin-top:6px}
+.ulist{border-top:1px solid var(--ink)}
+.urow{display:grid;grid-template-columns:44px minmax(0,1fr) 110px 150px 20px;gap:18px;align-items:center;padding:16px 4px;border-bottom:1px solid var(--line);cursor:pointer;transition:background .15s;background:none;border-left:0;border-right:0;border-top:0;width:100%;text-align:left}
+.urow:hover{background:color-mix(in srgb,var(--uc) 6%,transparent)}
+.urow .n{font-family:var(--mono);font-size:.85rem;color:var(--uc)}
+.urow h3{margin:0;font-size:1.25rem}
+.urow .yrs{font-family:var(--mono);font-size:.78rem;color:var(--muted)}
+.urow .w{font-family:var(--mono);font-size:.75rem;color:var(--ink2)}
+.urow .w small{display:block;color:var(--muted);font-size:.68rem}
+.urow .prog{font-family:var(--mono);font-size:.72rem;color:var(--muted)}
+.urow .go{font-family:var(--mono);color:var(--muted);transition:transform .15s,color .15s}
+.urow:hover .go{transform:translateX(3px);color:var(--ink)}
+@media(max-width:700px){.urow{grid-template-columns:34px minmax(0,1fr) 16px;gap:10px 12px}.urow .w,.urow .prog{grid-column:2}.urow .w{display:none}}
+.progress{height:3px;background:var(--line);border-radius:2px;overflow:hidden;margin-top:7px}
+.progress i{display:block;height:100%;background:var(--uc,var(--ink));transition:width .5s}
+.weight{font-family:var(--mono);font-size:.72rem;color:var(--uc)}
+
+/* cast */
+.cast{display:flex;gap:18px;overflow-x:auto;padding:2px 2px 14px;scroll-snap-type:x mandatory;scrollbar-width:thin}
+.cast .p{flex:none;width:112px;scroll-snap-align:start;cursor:pointer}
+.cast .ph{width:112px;height:140px;border-radius:3px;filter:grayscale(.85) contrast(1.05);transition:filter .3s}
+.cast .p:hover .ph{filter:none}
+.cast .ph.noimg::before{content:attr(data-ini);align-items:center;justify-content:center;font-size:2rem;font-style:normal;letter-spacing:-.02em}
+.cast .p b{display:block;font-family:var(--serif);font-weight:500;font-size:.98rem;margin-top:8px;line-height:1.2}
+.cast .p span{font-family:var(--mono);font-size:.68rem;color:var(--uc)}
+
+.tricks{counter-reset:t;display:grid;gap:0}
+.tricks p{counter-increment:t;display:grid;grid-template-columns:28px 1fr;gap:6px;padding:12px 0;border-top:1px solid var(--line2);margin:0}
+.tricks p::before{content:"0" counter(t);font-family:var(--mono);font-size:.75rem;color:var(--accent);padding-top:3px}
+.timer{font-family:var(--mono);font-size:clamp(3rem,8vw,4.2rem);font-weight:400;text-align:center;letter-spacing:-.04em;line-height:1;margin:18px 0 6px;font-variant-numeric:tabular-nums}
+.note{border-left:2px solid var(--gold);background:color-mix(in srgb,var(--gold) 9%,var(--card));padding:14px 16px;border-radius:0 4px 4px 0}
+
+/* =========================================================
+   TABLES
+   ========================================================= */
+.tbl{width:100%;border-collapse:collapse;font-size:.92rem}
+.tbl th,.tbl td{padding:11px 12px 11px 0;border-bottom:1px solid var(--line2);text-align:left;vertical-align:top}
+.tbl th{font-family:var(--mono);font-weight:400;font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);border-bottom:1px solid var(--ink)}
+.tbl td:first-child{white-space:nowrap}
+.tbl tr:last-child td{border-bottom:0}
+.tbl td:last-child{white-space:nowrap}
+@media(max-width:560px){.ruler .ticks .mid{display:none}}
+
+/* =========================================================
+   UNIT VIEW
+   ========================================================= */
+.unit-hero{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:36px;align-items:end;padding-bottom:28px;border-bottom:1px solid var(--ink);position:relative}
+.unit-hero .kicker{color:var(--uc)}
+.unit-hero h2{font-size:clamp(2.2rem,5.4vw,3.6rem);line-height:1.02;letter-spacing:-.025em;margin-bottom:.35em}
+.unit-hero .hook{font-family:var(--serif);font-size:1.18rem;line-height:1.5;color:var(--ink2);max-width:52ch}
+.unit-hero .mastery{display:flex;align-items:center;gap:14px;margin-top:22px;font-family:var(--mono);font-size:.75rem;color:var(--muted)}
+.unit-hero .mastery .progress{flex:0 1 220px;margin:0}
+.unit-hero .ph{aspect-ratio:4/3.2;border-radius:3px}
+.unit-hero .credit{display:none}
+@media(max-width:800px){.unit-hero{grid-template-columns:1fr;gap:22px}.unit-hero .ph{order:-1;aspect-ratio:16/9}}
+.unitnav{position:sticky;top:0;z-index:40;display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid var(--line);margin:0 0 8px;padding:8px 0}
+.unitnav::-webkit-scrollbar{display:none}
+.unitnav button{flex:none;background:none;border:0;border-radius:3px;padding:6px 10px;font-size:.84rem;color:var(--ink2);white-space:nowrap}
+.unitnav button span{font-family:var(--mono);font-size:.7rem;color:var(--muted);margin-right:6px}
+.unitnav button:hover,.unitnav button.on{background:var(--card);color:var(--ink);box-shadow:inset 0 0 0 1px var(--line)}
+@media(max-width:900px){.unitnav{top:53px;margin:0 -16px 8px;padding:8px 16px}}
+#view-unit .section{scroll-margin-top:70px}
+@media(max-width:900px){#view-unit .section{scroll-margin-top:110px}}
+
+/* story scenes */
+.scene{display:grid;grid-template-columns:minmax(0,320px) minmax(0,1fr);gap:28px;align-items:start;padding:22px 0;border-bottom:1px solid var(--line2)}
+.scene:last-of-type{border-bottom:0}
+.scene .ph{aspect-ratio:4/3;border-radius:3px}
+.scene .num{font-family:var(--mono);font-size:.72rem;color:var(--uc);letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px}
+.scene p{font-family:var(--serif);font-size:1.16rem;line-height:1.62;margin:0;color:var(--ink)}
+.scene p b{font-weight:600}
+@media(max-width:720px){.scene{grid-template-columns:1fr;gap:16px}}
+.story .big{font-family:var(--serif);font-size:1.3rem}
+
+/* figures */
+.ph{position:relative;overflow:hidden;border-radius:3px;margin:0;background:var(--bg2)}
+.ph img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .6s}
 .ph.zoom{cursor:zoom-in}
-.ph.zoom:hover img{transform:scale(1.04)}
+.ph.zoom:hover img{transform:scale(1.03)}
 .ph.noimg img,.ph.noimg .zbadge{display:none}
-.ph.noimg::before{content:attr(data-emoji);position:absolute;inset:0;display:grid;place-items:center;font-size:3.4rem}
-.ph figcaption{position:absolute;left:0;right:0;bottom:0;padding:22px 12px 9px;font-size:.76rem;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.82));line-height:1.3}
-.ph .zbadge{position:absolute;top:8px;right:8px;background:rgba(0,0,0,.55);color:#fff;border-radius:99px;font-size:.7rem;padding:3px 8px;font-weight:700}
-/* hero with painting */
-.hero-main.painted{background:linear-gradient(100deg,rgba(8,16,40,.94) 30%,rgba(8,16,40,.55)),var(--bgimg) center/cover,linear-gradient(135deg,var(--accent2),#0d1f4d);min-height:360px}
-.unit-hero{background:linear-gradient(100deg,color-mix(in srgb,var(--uc) 92%,#000) 25%,color-mix(in srgb,var(--uc) 45%,transparent)),var(--bgimg,none) center/cover,var(--uc)!important;min-height:300px;position:relative}
-.unit-hero .credit{position:absolute;right:12px;bottom:8px;font-size:.66rem;opacity:.7}
-/* cast strip */
-.cast{display:flex;gap:12px;overflow-x:auto;padding:4px 2px 12px;scroll-snap-type:x mandatory}
-.cast .p{flex:none;width:110px;text-align:center;scroll-snap-align:start;cursor:pointer}
-.cast .ph{width:110px;height:130px;border-radius:16px;border:3px solid var(--card);box-shadow:var(--shadow)}
-.cast .p b{display:block;font-size:.82rem;margin-top:6px;line-height:1.2}
-.cast .p span{font-size:.72rem;color:var(--muted)}
-/* scenes */
-.scene{display:grid;grid-template-columns:300px 1fr;gap:20px;align-items:center;margin-bottom:22px}
-.scene:nth-child(even){grid-template-columns:1fr 300px}
-.scene:nth-child(even) .ph{order:2}
-.scene .ph{aspect-ratio:4/3;box-shadow:var(--shadow)}
-.scene .num{font-family:Fraunces,serif;font-weight:800;color:var(--uc);font-size:.85rem;letter-spacing:.1em;text-transform:uppercase}
-@media(max-width:720px){.scene,.scene:nth-child(even){grid-template-columns:1fr}.scene:nth-child(even) .ph{order:0}}
+.ph.noimg{background:
+  repeating-linear-gradient(135deg,transparent 0 7px,color-mix(in srgb,var(--uc,var(--ink)) 7%,transparent) 7px 8px),
+  color-mix(in srgb,var(--uc,var(--ink)) 6%,var(--card));
+  box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--uc,var(--ink)) 20%,transparent)}
+.ph.noimg::before{content:attr(data-alt);position:absolute;inset:0;display:flex;align-items:flex-end;padding:14px;font-family:var(--serif);font-style:italic;font-size:.95rem;line-height:1.3;color:color-mix(in srgb,var(--uc,var(--ink)) 80%,var(--ink))}
+.ph.noimg::after{content:"Plate";position:absolute;top:10px;left:12px;font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.ph.noimg figcaption{display:none}
+.ph figcaption{position:absolute;left:0;right:0;bottom:0;padding:26px 12px 9px;font-size:.74rem;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.75));line-height:1.35}
+.ph .zbadge{position:absolute;top:8px;right:8px;background:rgba(20,20,18,.6);color:#fff;border-radius:3px;font-family:var(--mono);font-size:.62rem;padding:3px 7px;letter-spacing:.05em;text-transform:uppercase;opacity:0;transition:opacity .2s}
+.ph:hover .zbadge{opacity:1}
+
 /* video cards */
-.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
-.vcard{display:block;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);transition:transform .15s}
-.vcard:hover{transform:translateY(-3px)}
-.vcard .ph{aspect-ratio:16/9;border-radius:0}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,240px),1fr));gap:18px}
+.vcard{display:block;text-decoration:none;color:inherit;transition:transform .15s}
+.vcard .ph{aspect-ratio:16/9;--uc:var(--ink)}
 .vcard .play{position:absolute;inset:0;display:grid;place-items:center}
-.vcard .play i{width:58px;height:40px;border-radius:12px;background:#e62117;display:grid;place-items:center;color:#fff;font-style:normal;font-size:1.1rem;box-shadow:0 4px 14px rgba(0,0,0,.4)}
-.vcard .vb{padding:12px 14px}
-.vcard .vb b{display:block;line-height:1.3}
+.vcard .play i{width:44px;height:44px;border-radius:50%;background:rgba(250,248,243,.94);display:grid;place-items:center;color:#1b1a17;font-style:normal;font-size:.8rem;padding-left:3px;box-shadow:0 4px 14px rgba(0,0,0,.25);transition:transform .15s}
+.vcard:hover .play i{transform:scale(1.08)}
+.vcard .vb{padding:10px 0 0}
+.vcard .vb b{display:block;font-family:var(--serif);font-weight:500;font-size:1.05rem;line-height:1.3}
 .vcard .vb span{font-size:.8rem;color:var(--muted)}
-.vcard.done .vb b::after{content:" ✅"}
+.vcard.done .vb b::after{content:"  · watched";font-family:var(--mono);font-size:.68rem;color:var(--ok);font-weight:400}
+
 /* group chat */
-.phone{max-width:430px;margin:0 auto;background:var(--bg2);border:8px solid #111;border-radius:34px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.25)}
-.phone .bar{background:var(--card);padding:12px 14px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--line)}
-.phone .bar .gav{width:38px;height:38px;border-radius:50%;background:var(--uc);display:grid;place-items:center;font-size:1.2rem}
-.phone .bar b{display:block;font-size:.95rem}
-.phone .bar span{font-size:.72rem;color:var(--muted)}
-.msgs{padding:14px 12px;min-height:280px;max-height:470px;overflow-y:auto;display:flex;flex-direction:column;gap:9px}
-.msg{display:flex;gap:8px;align-items:flex-end;max-width:88%;animation:pop .3s ease}
-.msg .av{flex:none;width:30px;height:30px;border-radius:50%;overflow:hidden;background:var(--uc);display:grid;place-items:center;font-size:.85rem;color:#fff;font-weight:700}
+.phone{max-width:460px;background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden;box-shadow:var(--lift)}
+.phone .bar{padding:12px 16px;display:flex;align-items:center;gap:12px;border-bottom:1px solid var(--line)}
+.phone .bar .gav{width:34px;height:34px;border-radius:50%;background:color-mix(in srgb,var(--uc) 16%,var(--card));color:var(--uc);display:grid;place-items:center;font-family:var(--mono);font-size:.75rem}
+.phone .bar b{display:block;font-size:.95rem;font-weight:600}
+.phone .bar span{font-size:.74rem;color:var(--muted)}
+.msgs{padding:16px 14px;min-height:300px;max-height:480px;overflow-y:auto;display:flex;flex-direction:column;gap:10px;background:var(--bg)}
+.msg{display:flex;gap:8px;align-items:flex-end;max-width:86%;animation:pop .28s ease}
+.msg .av{flex:none;width:28px;height:28px;border-radius:50%;overflow:hidden;background:color-mix(in srgb,var(--uc) 18%,var(--card));color:var(--uc);display:grid;place-items:center;font-size:.66rem;font-family:var(--mono)}
 .msg .av img{width:100%;height:100%;object-fit:cover}
-.msg .bub{background:var(--card);border-radius:18px 18px 18px 4px;padding:8px 12px;font-size:.92rem;box-shadow:0 1px 2px rgba(0,0,0,.08)}
-.msg .who{font-size:.7rem;font-weight:700;color:var(--uc);margin-bottom:2px}
+.msg .bub{background:var(--card);border:1px solid var(--line2);border-radius:16px 16px 16px 4px;padding:8px 12px;font-size:.93rem;line-height:1.45}
+.msg .who{font-size:.68rem;font-weight:600;color:var(--uc);margin-bottom:2px}
 .msg.me{align-self:flex-end;flex-direction:row-reverse}
-.msg.me .bub{background:#1e7cf2;color:#fff;border-radius:18px 18px 4px 18px}
-.msg.me .who{color:#d6e6ff}
-.sys{align-self:center;font-size:.76rem;color:var(--muted);background:var(--card);border-radius:99px;padding:4px 12px;text-align:center;animation:pop .3s}
-.sys.fact{background:color-mix(in srgb,var(--gold) 22%,var(--card));color:var(--ink);border-radius:12px;max-width:95%}
-.typing{align-self:flex-start;background:var(--card);border-radius:18px;padding:10px 14px;display:flex;gap:4px}
-.typing i{width:7px;height:7px;border-radius:50%;background:var(--muted);animation:blink 1s infinite}
+.msg.me .bub{background:var(--ink);color:var(--bg);border-color:var(--ink);border-radius:16px 16px 4px 16px}
+.msg.me .who{color:color-mix(in srgb,var(--bg) 70%,transparent)}
+.sys{align-self:center;font-family:var(--mono);font-size:.7rem;color:var(--muted);padding:2px 10px;text-align:center;animation:pop .28s}
+.sys.fact{font-family:var(--sans);font-size:.82rem;background:color-mix(in srgb,var(--gold) 12%,var(--card));border:1px solid color-mix(in srgb,var(--gold) 35%,transparent);color:var(--ink);border-radius:6px;max-width:95%;padding:8px 12px;text-align:left}
+.typing{align-self:flex-start;background:var(--card);border:1px solid var(--line2);border-radius:16px;padding:10px 14px;display:flex;gap:4px}
+.typing i{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:blink 1s infinite}
 .typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
-@keyframes blink{0%,100%{opacity:.3}50%{opacity:1}}
-@keyframes pop{from{opacity:0;transform:translateY(6px) scale(.97)}to{opacity:1;transform:none}}
-.phone .ctrl{padding:10px;background:var(--card);border-top:1px solid var(--line);display:flex;gap:8px;justify-content:center}
+@keyframes blink{0%,100%{opacity:.25}50%{opacity:1}}
+@keyframes pop{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.phone .ctrl{padding:10px 12px;border-top:1px solid var(--line);display:flex;gap:8px;justify-content:flex-end}
+
 /* then vs now */
-.tvn{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
-.tvn .c{border-radius:16px;overflow:hidden;border:1px solid var(--line);background:var(--card);box-shadow:var(--shadow)}
-.tvn .then{padding:14px 16px;background:color-mix(in srgb,var(--uc) 14%,var(--card));border-bottom:2px dashed var(--line)}
-.tvn .now{padding:14px 16px}
-.tvn small{display:block;font-weight:800;letter-spacing:.1em;text-transform:uppercase;font-size:.68rem;margin-bottom:4px;color:var(--uc)}
-.tvn .now small{color:var(--accent2)}
-/* source analysis */
-.src{display:grid;grid-template-columns:1fr 1fr;gap:0;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:var(--card);box-shadow:var(--shadow);margin-bottom:16px}
-.src .ph{border-radius:0;min-height:260px}
-.src .sb{padding:18px}
-.src .meta{font-size:.8rem;color:var(--muted);margin-bottom:8px}
-.src .reveal{display:none;animation:fade .3s}
+.tvn{display:grid;gap:0;border-top:1px solid var(--ink)}
+.tvn .c{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);border-bottom:1px solid var(--line)}
+.tvn .then{padding:16px 20px 16px 0;font-family:var(--serif);font-size:1.1rem}
+.tvn .then b{font-weight:500}
+.tvn .now{padding:16px 0 16px 20px;border-left:1px solid var(--line2);color:var(--ink2)}
+.tvn small{display:block;font-family:var(--mono);text-transform:uppercase;letter-spacing:.08em;font-size:.64rem;margin-bottom:4px;color:var(--uc)}
+.tvn .now small{color:var(--muted)}
+@media(max-width:620px){.tvn .c{grid-template-columns:1fr}.tvn .now{border-left:0;padding:0 0 16px}}
+
+/* concepts accordion */
+details.acc{border-bottom:1px solid var(--line)}
+details.acc:first-of-type{border-top:1px solid var(--ink)}
+details.acc summary{padding:16px 0;font-family:var(--serif);font-size:1.18rem;cursor:pointer;list-style:none;display:flex;gap:14px;align-items:baseline}
+details.acc summary::-webkit-details-marker{display:none}
+details.acc summary::after{content:"+";margin-left:auto;font-family:var(--mono);color:var(--muted);transition:transform .2s}
+details.acc[open] summary::after{transform:rotate(45deg)}
+details.acc summary::before{content:counter(acc,decimal-leading-zero);counter-increment:acc;font-family:var(--mono);font-size:.72rem;color:var(--uc)}
+#u-concepts{counter-reset:acc}
+details.acc .body{padding:0 0 18px 34px}
+details.acc ul{margin:0;padding-left:18px}
+details.acc li{margin-bottom:6px;color:var(--ink2)}
+details.acc li::marker{color:var(--uc)}
+
+/* sources */
+.src{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);border:1px solid var(--line);background:var(--card);border-radius:var(--radius);overflow:hidden;margin-bottom:18px}
+.src .ph{border-radius:0;min-height:280px}
+.src .sb{padding:22px 24px}
+.src .sb h3{margin-bottom:.2em}
+.src .meta{font-family:var(--mono);font-size:.72rem;color:var(--muted);margin-bottom:14px}
+.src .reveal{display:none;animation:pop .3s;margin-top:4px}
+.src .reveal ul{padding-left:18px;margin:6px 0 14px}
 .src.open .reveal{display:block}
 .src.open .askbtn{display:none}
 @media(max-width:720px){.src{grid-template-columns:1fr}.src .ph{aspect-ratio:4/3;min-height:0}}
-/* who am I */
-.who-wrap{display:grid;grid-template-columns:280px 1fr;gap:20px;align-items:start}
-.who-wrap .ph{aspect-ratio:3/4;box-shadow:var(--shadow)}
-@media(max-width:700px){.who-wrap{grid-template-columns:1fr}.who-wrap .ph{max-width:260px;margin:0 auto;width:100%}}
-.quote-bub{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px 16px;font-family:Fraunces,serif;font-size:1.1rem;margin-bottom:14px;position:relative}
-/* lightbox */
-.lb{position:fixed;inset:0;z-index:120;background:rgba(0,0,0,.9);display:none;flex-direction:column;align-items:center;justify-content:center;padding:16px}
-.lb.show{display:flex;animation:fade .25s}
-.lb img{max-width:100%;max-height:78vh;border-radius:10px;box-shadow:0 10px 40px rgba(0,0,0,.6)}
-.lb p{color:#eee;max-width:720px;text-align:center;font-size:.92rem;margin-top:12px}
-.lb a{color:#9ec1ff}
-.lb .x{position:absolute;top:14px;right:16px;background:#fff;color:#000;border:none;border-radius:99px;width:40px;height:40px;font-size:1.2rem;font-weight:800}
-/* quiz image */
-.qimg{max-width:420px;margin:0 auto 14px;aspect-ratio:4/3}
-.qimg img{object-fit:contain;background:#fff}
-/* image-card fronts */
-.flip .front .thumb{width:64px;height:64px;border-radius:50%;overflow:hidden;margin-bottom:8px;border:3px solid var(--uc)}
-.flip .front .thumb.ph{border-radius:50%}
+
+/* index-card flashcards */
+.flipgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,230px),1fr));gap:16px}
+.flip{perspective:1200px;height:210px;cursor:pointer}
+.flip .inner{position:relative;width:100%;height:100%;transition:transform .55s cubic-bezier(.3,.7,.2,1);transform-style:preserve-3d}
+.flip.flipped .inner{transform:rotateY(180deg)}
+.flip .face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:3px;padding:16px 18px;display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow);overflow:auto}
+.flip:hover .face{box-shadow:var(--lift)}
+.flip .front{justify-content:center;align-items:center;text-align:center;background:
+  linear-gradient(var(--rule),var(--rule)) 0 34px/100% 2px no-repeat,
+  repeating-linear-gradient(to bottom,transparent 0 23px,color-mix(in srgb,var(--cardline) 55%,transparent) 23px 24px) 0 36px/100% calc(100% - 36px) no-repeat,
+  var(--card)}
+.flip .front::before{content:attr(data-u);position:absolute;top:10px;left:14px;font-family:var(--mono);font-size:.64rem;letter-spacing:.06em;color:var(--uc)}
+.flip .front b{background:var(--card);padding:0 8px;font-family:var(--serif);font-weight:500;font-size:1.32rem;line-height:1.2}
+.flip .front .yr{background:var(--card);padding:0 6px;font-family:var(--mono);font-size:.75rem;color:var(--muted);margin-top:8px}
+.flip .back{transform:rotateY(180deg);font-size:.9rem;line-height:24px;background:
+  repeating-linear-gradient(to bottom,transparent 0 23px,var(--cardline) 23px 24px) 0 16px/100% auto, var(--card);
+  border-top:2px solid var(--rule)}
+.flip .back .why{margin-top:auto;padding-top:10px;font-family:var(--serif);font-style:italic;color:var(--uc);font-size:.95rem}
+.tap{position:absolute;bottom:10px;left:0;right:0;font-family:var(--mono);font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.mastered-badge{position:absolute;top:8px;right:12px;font-family:var(--mono);font-size:.62rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ok);border:1px solid color-mix(in srgb,var(--ok) 40%,transparent);padding:1px 6px;border-radius:2px}
+.btn.ok{background:var(--ok);border-color:var(--ok);color:#fff}
+.flip .front .thumb{width:58px;height:58px;border-radius:50%;overflow:hidden;margin-bottom:10px;filter:grayscale(.6)}
 .flip .front .thumb.noimg{display:none}
-.bigcard .front .thumb{width:96px;height:96px}
-/* res cards */
-.res{display:flex;gap:12px;align-items:flex-start;text-decoration:none;color:inherit}
-.res .ic{flex:none;width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-size:1.4rem;background:var(--bg2)}
-.sec-title{display:flex;align-items:center;gap:10px}
-.sec-title .em{font-size:1.6rem}
+
+/* timeline */
+.tl{position:relative}
+.tl-item{display:grid;grid-template-columns:72px 18px 1fr;gap:10px;align-items:baseline;padding:9px 0;border-bottom:1px dashed var(--line2)}
+.tl-item:last-child{border-bottom:0}
+.tl-item .y{font-family:var(--mono);font-size:.85rem;color:var(--uc);text-align:right}
+.tl-item::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--uc);justify-self:center;grid-column:2;grid-row:1;align-self:center}
+.tl-item .y{grid-column:1;grid-row:1}
+.tl-item .ev{grid-column:3;grid-row:1}
+
+/* memory hacks */
+.hack{border:1px solid var(--line);border-radius:var(--radius);padding:20px;background:var(--card);position:relative}
+.hack h4{font-family:var(--mono);font-weight:400;font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:10px}
+.hack .mn{font-family:var(--serif);font-size:1.5rem;line-height:1.2;color:var(--uc);margin-bottom:10px;letter-spacing:-.01em}
+.hack .small{color:var(--ink2)}
+
+/* chains */
+.chain{display:flex;flex-direction:column;gap:0}
+.link{padding:10px 0 10px 14px;border-left:2px solid var(--uc);animation:pop .3s;font-size:.95rem}
+.link:first-child{font-weight:500}
+.link.hidden,.arrow.hidden{display:none}
+.arrow{font-family:var(--mono);font-size:.72rem;color:var(--muted);padding:2px 0 2px 10px;border-left:2px dotted var(--line);line-height:1.4}
+.arrow::after{content:" leads to"}
+
+/* unit quiz band */
+.band{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:center;padding:32px;background:var(--ink);color:var(--bg);border-radius:var(--radius)}
+.band h3{font-size:clamp(1.5rem,3vw,2rem);margin-bottom:.25em}
+.band p{margin:0;opacity:.75}
+.band .kicker{color:color-mix(in srgb,var(--bg) 60%,transparent)}
+.band .btn{background:var(--bg);color:var(--ink);border-color:var(--bg)}
+.band .btn:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+.band .btn.ghost{background:transparent;color:var(--bg);border-color:color-mix(in srgb,var(--bg) 35%,transparent)}
+@media(max-width:640px){.band{grid-template-columns:1fr;padding:24px}}
+
+/* =========================================================
+   QUIZ
+   ========================================================= */
+.qwrap{max-width:720px}
+.qhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;gap:14px;flex-wrap:wrap}
+.qbar{flex:1;min-width:120px;height:3px;background:var(--line);border-radius:2px;overflow:hidden}
+.qbar i{display:block;height:100%;background:var(--ink);transition:width .4s}
+.qcount{font-family:var(--mono);font-size:.8rem;color:var(--muted)}
+.qcount b{color:var(--ink);font-weight:500}
+.stim{background:var(--bg);border-left:2px solid var(--gold);padding:14px 18px;font-family:var(--serif);font-style:italic;font-size:1.08rem;line-height:1.55;margin-bottom:18px}
+.stim cite{display:block;font-style:normal;font-family:var(--mono);font-size:.72rem;color:var(--muted);margin-top:8px}
+.qtext{font-family:var(--serif);font-size:1.32rem;line-height:1.35;margin-bottom:18px}
+.opt{display:flex;gap:14px;align-items:flex-start;text-align:left;width:100%;padding:13px 14px;border-radius:4px;border:1px solid var(--line);background:var(--card);margin-bottom:8px;transition:border-color .15s,background .15s;line-height:1.45}
+.opt:hover:not([disabled]){border-color:var(--ink)}
+.opt .l{flex:none;width:24px;height:24px;border-radius:3px;display:grid;place-items:center;font-family:var(--mono);font-size:.75rem;border:1px solid var(--line);color:var(--muted)}
+.opt.right{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 8%,var(--card))}
+.opt.right .l{background:var(--ok);border-color:var(--ok);color:#fff}
+.opt.wrong{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 7%,var(--card))}
+.opt.wrong .l{background:var(--bad);border-color:var(--bad);color:#fff}
+.opt[disabled]{cursor:default}
+.opt[disabled]:not(.right):not(.wrong){opacity:.55}
+.explain{padding:14px 0 14px 16px;margin:14px 0 16px;animation:pop .3s;border-left:2px solid}
+.explain.good{border-color:var(--ok)}
+.explain.badx{border-color:var(--bad)}
+.explain > b:first-child{display:block;font-family:var(--mono);font-weight:400;font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}
+.explain.good > b:first-child{color:var(--ok)}
+.explain.badx > b:first-child{color:var(--bad)}
+.score-big{font-family:var(--serif);font-size:clamp(4rem,12vw,6.5rem);font-weight:400;line-height:1;letter-spacing:-.04em}
+.setup h3{font-family:var(--mono);font-weight:400;font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0 0 10px}
+.qimg{max-width:420px;margin:0 0 16px;aspect-ratio:4/3}
+.qimg img{object-fit:contain;background:#fff}
+
+/* order game */
+.vs{display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:stretch}
+@media(max-width:640px){.vs{grid-template-columns:1fr}.vs .or{padding:0}}
+.evt{padding:26px 22px;border-radius:var(--radius);border:1px solid var(--line);background:var(--card);font-family:var(--serif);font-size:1.25rem;line-height:1.3;min-height:150px;display:flex;flex-direction:column;justify-content:space-between;text-align:left;transition:transform .12s,border-color .2s,box-shadow .2s;box-shadow:var(--shadow);gap:16px}
+.evt:hover:not([disabled]){border-color:var(--ink);box-shadow:var(--lift)}
+.evt .yy{font-family:var(--mono);font-size:1.4rem;color:var(--muted)}
+.evt.right{border-color:var(--ok)} .evt.right .yy{color:var(--ok)}
+.evt.wrong{border-color:var(--bad)} .evt.wrong .yy{color:var(--bad)}
+.or{display:grid;place-items:center;font-family:var(--serif);font-style:italic;color:var(--muted);padding:0 4px}
+.streak b{color:var(--accent);font-weight:500}
+
+/* who am I */
+.who-wrap{display:grid;grid-template-columns:280px 1fr;gap:28px;align-items:start}
+.who-wrap .ph{aspect-ratio:3/4;filter:grayscale(.3)}
+@media(max-width:700px){.who-wrap{grid-template-columns:1fr}.who-wrap .ph{max-width:240px;width:100%}}
+.quote-bub{font-family:var(--serif);font-size:1.45rem;line-height:1.35;margin-bottom:18px;letter-spacing:-.005em}
+.quote-bub::before{content:"Clue";display:block;font-family:var(--mono);font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:8px}
+
+/* flashcard mode */
+.bigcard{max-width:620px;height:340px}
+.bigcard .face{padding:28px 32px}
+.bigcard .front{background:linear-gradient(var(--rule),var(--rule)) 0 44px/100% 2px no-repeat,repeating-linear-gradient(to bottom,transparent 0 27px,color-mix(in srgb,var(--cardline) 55%,transparent) 27px 28px) 0 46px/100% calc(100% - 46px) no-repeat,var(--card)}
+.bigcard .front b{font-size:2.1rem}
+.bigcard .back{font-size:1.05rem;line-height:28px;background:repeating-linear-gradient(to bottom,transparent 0 27px,var(--cardline) 27px 28px) 0 28px/100% auto,var(--card)}
+.bigcard .front .thumb{width:84px;height:84px}
+
+/* reference */
+.theme-chip{display:grid;grid-template-columns:44px 1fr;gap:12px;align-items:baseline;padding:10px 0;border-bottom:1px solid var(--line2)}
+.theme-chip .ab{font-family:var(--mono);font-size:.74rem;color:var(--accent)}
+.res{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:baseline;text-decoration:none;color:inherit;padding:14px 0;border-bottom:1px solid var(--line2)}
+.res .ic{font-family:var(--mono);font-size:.72rem;color:var(--muted)}
+.res:hover b{text-decoration:underline;text-underline-offset:3px}
+.skills ol,.skills ul{padding-left:20px;margin:0}
+.skills li{margin-bottom:8px}
+.skills li::marker{font-family:var(--mono);color:var(--accent);font-size:.85em}
+.formula{font-family:var(--serif);font-size:1.25rem;line-height:1.45;padding:16px 20px;border-left:2px solid var(--gold);background:var(--bg);margin:6px 0 14px}
+.hit{padding:12px 0 12px 14px;border-left:2px solid var(--uc,var(--ink));border-bottom:1px solid var(--line2);margin-bottom:4px}
+
+/* toast, confetti, lightbox */
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(120px);background:var(--ink);color:var(--bg);padding:11px 18px;border-radius:4px;font-size:.9rem;z-index:100;transition:transform .35s cubic-bezier(.2,.8,.2,1);max-width:calc(100% - 32px);text-align:center;box-shadow:var(--lift)}
+.toast{opacity:0;visibility:hidden}
+.toast.show{transform:translateX(-50%) translateY(0);opacity:1;visibility:visible}
+.confetti{position:fixed;top:-20px;z-index:99;pointer-events:none;width:8px;height:14px;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:.6}}
+.lb{position:fixed;inset:0;z-index:120;background:rgba(12,12,10,.92);display:none;flex-direction:column;align-items:center;justify-content:center;padding:16px}
+.lb.show{display:flex;animation:fadein .25s}
+.lb img{max-width:100%;max-height:78vh;border-radius:2px}
+.lb p{color:#ddd;max-width:720px;text-align:center;font-family:var(--serif);font-size:1rem;margin-top:14px}
+.lb a{color:#c9d8f2;font-family:var(--mono);font-size:.75rem}
+.lb .x{position:absolute;top:14px;right:16px;background:none;color:#fff;border:1px solid rgba(255,255,255,.35);border-radius:4px;width:40px;height:40px;font-size:1rem}
+
+.view{display:none}
+.view.active{display:block;animation:fadein .3s ease}
+@keyframes fadein{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
-<header>
-  <div class="wrap">
-    <div class="topbar">
-      <div class="brand"><span class="star">★</span><span class="txt"> APUSH Quest</span></div>
-      <div class="xpbox">
-        <span class="pill" id="levelPill">Colonist</span>
-        <div class="xpbar" title="Progress to next level"><i id="xpFill"></i></div>
-        <span class="pill" id="xpPill">0 XP</span>
-        <button class="iconbtn" id="themeBtn" title="Toggle dark mode" aria-label="Toggle dark mode">🌓</button>
-      </div>
-    </div>
-    <nav class="tabs" id="tabs">
-      <button class="tab active" data-view="home">🏠 Home</button>
-      <button class="tab" data-view="unit" data-unit="1">Unit 1</button>
-      <button class="tab" data-view="unit" data-unit="2">Unit 2</button>
-      <button class="tab" data-view="unit" data-unit="3">Unit 3</button>
-      <button class="tab" data-view="unit" data-unit="4">Unit 4</button>
-      <button class="tab" data-view="unit" data-unit="5">Unit 5</button>
-      <button class="tab" data-view="cards">🃏 Flashcards</button>
-      <button class="tab" data-view="quiz">🎯 Quiz Arena</button>
-      <button class="tab" data-view="order">⏳ Which Came First?</button>
-      <button class="tab" data-view="who">🕵️ Who Am I?</button>
-      <button class="tab" data-view="videos">📺 Videos</button>
-      <button class="tab" data-view="cheat">📜 Cheat Sheets</button>
-      <button class="tab" data-view="skills">🧠 MCQ Skills</button>
-    </nav>
+<aside class="side" id="side" aria-label="Main navigation">
+  <div class="brand">
+    <span class="mark">US</span>
+    <div><b>APUSH Field Notes</b><small>Units 1–5 · 1491–1877</small></div>
   </div>
-</header>
+  <nav class="tabs" id="tabs">
+    <button class="tab active" data-view="home"><span class="ix">—</span><span class="lbl">Today</span></button>
+    <div class="navgrp">Units</div>
+    <button class="tab" data-view="unit" data-unit="1" style="--uc:var(--u1)"><span class="ix">01</span><span class="lbl">Native Societies</span><span class="meter"><i></i></span></button>
+    <button class="tab" data-view="unit" data-unit="2" style="--uc:var(--u2)"><span class="ix">02</span><span class="lbl">Colonial America</span><span class="meter"><i></i></span></button>
+    <button class="tab" data-view="unit" data-unit="3" style="--uc:var(--u3)"><span class="ix">03</span><span class="lbl">Revolution</span><span class="meter"><i></i></span></button>
+    <button class="tab" data-view="unit" data-unit="4" style="--uc:var(--u4)"><span class="ix">04</span><span class="lbl">Early Republic</span><span class="meter"><i></i></span></button>
+    <button class="tab" data-view="unit" data-unit="5" style="--uc:var(--u5)"><span class="ix">05</span><span class="lbl">Civil War Era</span><span class="meter"><i></i></span></button>
+    <div class="navgrp">Practice</div>
+    <button class="tab" data-view="cards"><span class="ix">A</span><span class="lbl">Flashcards</span></button>
+    <button class="tab" data-view="quiz"><span class="ix">B</span><span class="lbl">Quiz</span></button>
+    <button class="tab" data-view="order"><span class="ix">C</span><span class="lbl">Which Came First?</span></button>
+    <button class="tab" data-view="who"><span class="ix">D</span><span class="lbl">Who Am I?</span></button>
+    <div class="navgrp">Reference</div>
+    <button class="tab" data-view="videos"><span class="ix">E</span><span class="lbl">Videos</span></button>
+    <button class="tab" data-view="cheat"><span class="ix">F</span><span class="lbl">Cheat Sheets</span></button>
+    <button class="tab" data-view="skills"><span class="ix">G</span><span class="lbl">MCQ Skills</span></button>
+  </nav>
+  <div class="side-foot">
+    <div class="lvl"><b id="levelPill">Colonist</b><span id="xpPill">0 XP</span></div>
+    <div class="xpbar" title="Progress to next rank"><i id="xpFill"></i></div>
+    <div class="row" style="justify-content:space-between">
+      <span class="small muted" id="nextLvl"></span>
+      <button class="iconbtn" id="themeBtn" aria-label="Toggle dark mode"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><circle cx="8" cy="8" r="6"/><path d="M8 2a6 6 0 0 0 0 12z" fill="currentColor"/></svg>Theme</button>
+    </div>
+  </div>
+</aside>
+<div class="scrim" id="scrim"></div>
 
-<main class="wrap">
+<div class="shell">
+<div class="mtop">
+  <button class="iconbtn" id="menuBtn" aria-label="Open menu"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 4h12M2 8h12M2 12h12"/></svg></button>
+  <span class="where" id="whereLbl">Today</span>
+  <span class="xp" id="xpPillM">0 XP</span>
+</div>
+
+<main>
 
 <!-- ============ HOME ============ -->
 <section class="view active" id="view-home">
-  <div class="hero">
-    <div class="hero-main painted" id="homeHero">
-      <div class="kicker" style="color:#ffd27a">Units 1–5 · 1491 → 1877</div>
-      <h1>Hey Santiago 👋<br>Let's make history stick.</h1>
-      <p>This isn't a wall of notes. It's a game: watch the story in real paintings, spy on history's group chats, guess who's who, flip cards, crush quizzes, and earn XP. Small sessions, real progress.</p>
-      <div class="row" style="margin-top:16px">
-        <button class="btn" id="startMission">▶ Start today's mission</button>
-        <button class="btn ghost" style="color:#fff;border-color:rgba(255,255,255,.4)" data-go="quiz">Jump to a quiz</button>
+  <div class="mast">
+    <div>
+      <div class="dateline"><span id="todayDate"></span><span>Units 1–5 · 1491 → 1877</span></div>
+      <h1>Santiago,<br>let's make <em>history</em> stick.</h1>
+      <p class="lede">Stories told with real paintings, history's group chats, index cards, and AP-style questions. Small sessions. Real progress.</p>
+    </div>
+    <p class="aside-note"><b>A real talk first.</b> I know things have been a lot lately. You don't need four-hour marathons. <b>Fifteen focused minutes a day beats one panic night.</b> Use the focus timer, take the break when it tells you to, and remember: every card you flip counts.</p>
+  </div>
+
+  <div class="today">
+    <div class="next">
+      <span class="kicker">Next up</span>
+      <p id="missionText">Loading your mission…</p>
+      <div class="row">
+        <button class="btn" id="startMission">Begin <span class="arr">→</span></button>
+        <button class="btn ghost" data-go="quiz">Jump to a quiz</button>
       </div>
     </div>
-    <div class="card">
-      <h3>Your progress</h3>
-      <div class="stats">
-        <div class="stat"><b id="statMastered">0</b><span class="small muted">terms mastered</span></div>
-        <div class="stat"><b id="statAcc">–</b><span class="small muted">quiz accuracy</span></div>
-        <div class="stat"><b id="statWrong">0</b><span class="small muted">mistakes to review</span></div>
-      </div>
-      <div class="note small" style="margin-top:14px" id="missionText">Loading your mission…</div>
+    <div class="stats">
+      <div class="stat"><b id="statMastered">0</b><span>terms mastered</span></div>
+      <div class="stat"><b id="statAcc">–</b><span>quiz accuracy</span></div>
+      <div class="stat"><b id="statWrong">0</b><span>mistakes to review</span></div>
     </div>
   </div>
 
   <div class="section">
-    <div class="note">
-      <b>A real talk first.</b> I know things have been a lot lately. You don't need 4-hour study marathons. <b>Fifteen focused minutes a day beats one panic night.</b> Use the focus timer below, take the break when it tells you to, and remember: every card you flip counts. You've got this. 💪
-    </div>
+    <div class="sh"><span class="sn">§ 01</span><h2>Five units, one story</h2><p>The bar is the timeline drawn to scale, filled in as you master terms. Units 3–5 are each worth 10–17% of the exam, so give them extra energy.</p></div>
+    <div class="ruler" id="ruler"></div>
+    <div class="ulist" id="unitCards"></div>
   </div>
 
   <div class="section">
-    <div class="kicker">The cast</div>
-    <h2>Meet the main characters 🎬</h2>
-    <p class="muted">These are the people who show up again and again. Tap a face to play <b>Who Am I?</b></p>
+    <div class="sh"><span class="sn">§ 02</span><h2>The cast</h2><p>The people who show up again and again. Tap a face to play <b>Who Am I?</b></p></div>
     <div class="cast" id="castStrip"></div>
   </div>
 
-  <div class="section">
-    <div class="kicker">The map</div>
-    <h2>Five units, one story</h2>
-    <p class="muted">Tap a unit to study it. The % badge shows roughly how much of the AP exam each unit covers, so put extra energy into Units 3–5.</p>
-    <div class="grid g3" id="unitCards"></div>
-  </div>
-
-  <div class="section grid g2">
+  <div class="section grid g2" style="gap:24px">
     <div class="card">
-      <div class="kicker">How to use this</div>
-      <h3>The 3 tricks top students use</h3>
-      <p><b>1. Active recall:</b> don't just re-read. Cover the answer and <i>force</i> your brain to pull it out. That's what the flip cards and quizzes do.</p>
-      <p><b>2. Spaced practice:</b> a little every day. Cards you mark “Got it” step aside so you spend time on what you don't know yet.</p>
-      <p><b>3. Mix it up:</b> once you've done a few units, quiz across <i>all</i> of them. The real test jumps between eras, so practice should too.</p>
+      <span class="kicker">How to use this</span>
+      <h3>Three things top students do</h3>
+      <div class="tricks">
+        <p><span><b>Active recall.</b> Don't just re-read. Cover the answer and <i>force</i> your brain to pull it out. That's what the cards and quizzes do.</span></p>
+        <p><span><b>Spaced practice.</b> A little every day. Cards you mark “Got it” step aside so you spend time on what you don't know yet.</span></p>
+        <p><span><b>Mix it up.</b> Once you've done a few units, quiz across <i>all</i> of them. The real test jumps between eras.</span></p>
+      </div>
     </div>
-    <div class="card">
-      <div class="kicker">Focus timer</div>
-      <h3>15 on, 5 off</h3>
+    <div class="card" style="display:flex;flex-direction:column">
+      <span class="kicker">Focus timer · 15 on, 5 off</span>
       <div class="timer" id="timerDisplay">15:00</div>
       <p class="small muted" style="text-align:center" id="timerLabel">Focus session</p>
-      <div class="row" style="justify-content:center">
+      <div class="row" style="justify-content:center;margin-top:auto">
         <button class="btn sm" id="timerStart">Start</button>
         <button class="btn sm ghost" id="timerReset">Reset</button>
         <button class="btn sm ghost" id="timerBreak">Break mode</button>
@@ -392,19 +601,18 @@ footer{text-align:center;padding:30px 16px;color:var(--muted);font-size:.85rem}
     </div>
   </div>
 
-  <div class="section card">
-    <div class="kicker">Game plan</div>
-    <h3>A 7-session study plan</h3>
+  <div class="section">
+    <div class="sh"><span class="sn">§ 03</span><h2>A seven-session plan</h2><p>Roughly half an hour each. Follow it in order.</p></div>
     <div class="scroll">
     <table class="tbl">
       <tr><th>Session</th><th>Do this</th><th>Time</th></tr>
-      <tr><td><b>1</b></td><td>Unit 1 + Unit 2: story scenes, group chats, flip all the cards, take the unit quizzes</td><td>30–40 min</td></tr>
-      <tr><td><b>2</b></td><td>Unit 3 (the Revolution &amp; Constitution, a big one): watch the Heimler video first, then cards, sources, quiz</td><td>30–40 min</td></tr>
-      <tr><td><b>3</b></td><td>Unit 4 (Jefferson → Jackson → reform): story, cards, quiz</td><td>30–40 min</td></tr>
-      <tr><td><b>4</b></td><td>Unit 5 (Road to Civil War → Reconstruction): story, cards, quiz</td><td>30–40 min</td></tr>
-      <tr><td><b>5</b></td><td>Read the MCQ Skills tab. Play “Which Came First?” until you hit a 10 streak</td><td>20 min</td></tr>
-      <tr><td><b>6</b></td><td>Quiz Arena: <i>all units mixed</i>, 20 questions. Then “Review my mistakes”</td><td>30 min</td></tr>
-      <tr><td><b>7 (night before)</b></td><td>Cheat Sheets + Flashcards (only the ones not mastered). Sleep early. Sleep is when memory locks in.</td><td>20 min</td></tr>
+      <tr><td class="mono">01</td><td>Unit 1 + Unit 2: story scenes, group chats, flip all the cards, take the unit quizzes</td><td class="mono small">30–40 min</td></tr>
+      <tr><td class="mono">02</td><td>Unit 3 (the Revolution &amp; Constitution, a big one): watch the Heimler video first, then cards, sources, quiz</td><td class="mono small">30–40 min</td></tr>
+      <tr><td class="mono">03</td><td>Unit 4 (Jefferson → Jackson → reform): story, cards, quiz</td><td class="mono small">30–40 min</td></tr>
+      <tr><td class="mono">04</td><td>Unit 5 (Road to Civil War → Reconstruction): story, cards, quiz</td><td class="mono small">30–40 min</td></tr>
+      <tr><td class="mono">05</td><td>Read MCQ Skills. Play “Which Came First?” until you hit a 10 streak</td><td class="mono small">20 min</td></tr>
+      <tr><td class="mono">06</td><td>Quiz: <i>all units mixed</i>, 20 questions. Then “Review my mistakes”</td><td class="mono small">30 min</td></tr>
+      <tr><td class="mono">07</td><td><b>Night before:</b> Cheat Sheets + Flashcards (only the ones not mastered). Sleep early. Sleep is when memory locks in.</td><td class="mono small">20 min</td></tr>
     </table>
     </div>
   </div>
@@ -415,14 +623,16 @@ footer{text-align:center;padding:30px 16px;color:var(--muted);font-size:.85rem}
 
 <!-- ============ FLASHCARDS ============ -->
 <section class="view" id="view-cards">
-  <div class="kicker">Active recall</div>
-  <h2>Flashcard Mode</h2>
-  <p class="muted">Read the term, say the answer <i>out loud</i> (seriously, it works better), then flip. Be honest: “Got it” moves the card out of your pile.</p>
-  <div class="row" style="margin:14px 0" id="cardFilters"></div>
-  <div class="row" style="margin-bottom:14px">
+  <div class="phead">
+    <span class="kicker">Practice · Active recall</span>
+    <h2>Flashcards</h2>
+    <p>Read the term, say the answer <i>out loud</i> (it works better), then flip. Be honest: “Got it” moves the card out of your pile.</p>
+  </div>
+  <div class="row" style="margin:0 0 10px" id="cardFilters"></div>
+  <div class="row" style="margin-bottom:24px">
     <label class="chk"><input type="checkbox" id="hideMastered" checked> Hide mastered</label>
-    <button class="btn sm ghost" id="shuffleCards">🔀 Shuffle</button>
-    <span class="muted small" id="cardCount"></span>
+    <button class="btn sm ghost" id="shuffleCards">Shuffle</button>
+    <span class="muted small mono" id="cardCount"></span>
   </div>
   <div id="bigCardArea"></div>
 </section>
@@ -434,14 +644,16 @@ footer{text-align:center;padding:30px 16px;color:var(--muted);font-size:.85rem}
 
 <!-- ============ ORDER GAME ============ -->
 <section class="view" id="view-order">
-  <div class="qwrap">
-    <div class="kicker">Chronology game</div>
-    <h2>Which Came First?</h2>
-    <p class="muted">Lots of MCQs secretly test order: “Which of the following happened <i>before</i>…”. Tap the event that happened <b>earlier</b>. Build a streak!</p>
-    <div class="row" style="margin:10px 0 18px">
-      <span class="pill streak">🔥 Streak: <span id="ordStreak">0</span></span>
-      <span class="pill">🏆 Best: <span id="ordBest">0</span></span>
-      <select id="ordUnit" class="pill" style="font:inherit">
+  <div class="qwrap" style="max-width:820px">
+    <div class="phead">
+      <span class="kicker">Practice · Chronology</span>
+      <h2>Which came first?</h2>
+      <p>Lots of questions secretly test order: “Which of the following happened <i>before</i>…”. Tap the event that happened <b>earlier</b>.</p>
+    </div>
+    <div class="row" style="margin:0 0 20px">
+      <span class="pill streak">Streak <b id="ordStreak">0</b></span>
+      <span class="pill">Best <span id="ordBest">0</span></span>
+      <select id="ordUnit" class="pill" style="font:inherit;font-family:var(--mono);font-size:.82rem">
         <option value="all">All units</option>
         <option value="1">Unit 1</option><option value="2">Unit 2</option><option value="3">Unit 3</option><option value="4">Unit 4</option><option value="5">Unit 5</option>
       </select>
@@ -453,50 +665,60 @@ footer{text-align:center;padding:30px 16px;color:var(--muted);font-size:.85rem}
 
 <!-- ============ WHO AM I ============ -->
 <section class="view" id="view-who">
-  <div class="kicker">Portrait game</div>
-  <h2>🕵️ Who Am I?</h2>
-  <p class="muted">Look at the face, read the clue, name the person. Faces + stories stick way better than names on a list.</p>
-  <div class="row" style="margin:10px 0 18px">
-    <span class="pill streak">🔥 Streak: <span id="whoStreak">0</span></span>
-    <span class="pill">✅ <span id="whoScore">0</span> correct</span>
+  <div class="phead">
+    <span class="kicker">Practice · Portraits</span>
+    <h2>Who am I?</h2>
+    <p>Look at the face, read the clue, name the person. Faces and stories stick far better than names on a list.</p>
+  </div>
+  <div class="row" style="margin:0 0 24px">
+    <span class="pill streak">Streak <b id="whoStreak">0</b></span>
+    <span class="pill"><span id="whoScore">0</span> correct</span>
   </div>
   <div id="whoArea"></div>
 </section>
 
 <!-- ============ VIDEOS ============ -->
 <section class="view" id="view-videos">
-  <div class="kicker">Lazy mode (it still counts)</div>
-  <h2>📺 Watch & Learn</h2>
-  <p class="muted">Tired of reading? Watch these. <b>Heimler's History</b> is the most popular APUSH review channel on YouTube, made exactly for this course. <b>Crash Course</b> is funnier and great for the big picture. Pro move: watch at 1.25×, pause when he says something you didn't know, and write it down.</p>
+  <div class="phead">
+    <span class="kicker">Reference · Watch</span>
+    <h2>Watch &amp; learn</h2>
+    <p>Tired of reading? <b>Heimler's History</b> is the most popular APUSH review channel, made for exactly this course. <b>Crash Course</b> is funnier and great for the big picture. Watch at 1.25×, pause when you hear something new, and write it down.</p>
+  </div>
   <div id="videoArea"></div>
-  <div class="section card">
-    <h3>🔗 More free resources</h3>
-    <div class="grid g2" style="margin-top:10px">
-      <a class="res" href="https://www.youtube.com/@heimlershistory" target="_blank" rel="noopener"><span class="ic">🎓</span><span><b>Heimler's History (YouTube)</b><br><span class="small muted">Short videos for every single APUSH topic</span></span></a>
-      <a class="res" href="https://www.youtube.com/results?search_query=crash+course+us+history" target="_blank" rel="noopener"><span class="ic">💥</span><span><b>Crash Course US History</b><br><span class="small muted">Fast, funny, about 12 minutes each</span></span></a>
-      <a class="res" href="https://www.khanacademy.org/humanities/us-history" target="_blank" rel="noopener"><span class="ic">📗</span><span><b>Khan Academy: US History</b><br><span class="small muted">Free articles, videos and practice questions</span></span></a>
-      <a class="res" href="https://apstudents.collegeboard.org/courses/ap-united-states-history" target="_blank" rel="noopener"><span class="ic">🏛️</span><span><b>College Board: AP US History</b><br><span class="small muted">The official course page, from the people who write the exam</span></span></a>
+  <div class="section">
+    <div class="sh"><span class="sn">+</span><h2>More free resources</h2></div>
+    <div class="grid g2" style="gap:0 32px">
+      <a class="res" href="https://www.youtube.com/@heimlershistory" target="_blank" rel="noopener"><span class="ic">YT</span><span><b>Heimler's History</b><br><span class="small muted">Short videos for every single APUSH topic</span></span></a>
+      <a class="res" href="https://www.youtube.com/results?search_query=crash+course+us+history" target="_blank" rel="noopener"><span class="ic">YT</span><span><b>Crash Course US History</b><br><span class="small muted">Fast, funny, about 12 minutes each</span></span></a>
+      <a class="res" href="https://www.khanacademy.org/humanities/us-history" target="_blank" rel="noopener"><span class="ic">KA</span><span><b>Khan Academy: US History</b><br><span class="small muted">Free articles, videos and practice questions</span></span></a>
+      <a class="res" href="https://apstudents.collegeboard.org/courses/ap-united-states-history" target="_blank" rel="noopener"><span class="ic">CB</span><span><b>College Board: AP US History</b><br><span class="small muted">The official course page, from the people who write the exam</span></span></a>
     </div>
   </div>
 </section>
 
 <!-- ============ CHEAT SHEETS ============ -->
 <section class="view" id="view-cheat">
-  <div class="kicker">Quick reference</div>
-  <h2>Cheat Sheets</h2>
-  <p class="muted">The stuff that shows up again and again. Search everything at once:</p>
-  <input class="search" id="cheatSearch" placeholder="Search a name, event, or year… (e.g. Jackson, 1820, tariff)">
+  <div class="phead">
+    <span class="kicker">Reference · Quick lookup</span>
+    <h2>Cheat sheets</h2>
+    <p>The stuff that shows up again and again. Search everything at once.</p>
+  </div>
+  <input class="search" id="cheatSearch" placeholder="Search a name, event, or year (Jackson, 1820, tariff…)">
   <div id="searchResults" style="margin-top:12px"></div>
   <div id="cheatContent"></div>
 </section>
 
 <!-- ============ SKILLS ============ -->
-<section class="view" id="view-skills">
-  <div class="kicker">Work smarter</div>
-  <h2>How to crush the multiple choice</h2>
-  <div class="grid g2 section">
+<section class="view skills" id="view-skills">
+  <div class="phead">
+    <span class="kicker">Reference · Test strategy</span>
+    <h2>How to crush the multiple choice</h2>
+    <p>Knowing the facts is half of it. These are the moves that turn facts into points.</p>
+  </div>
+  <div class="grid g2" style="gap:24px">
     <div class="card">
-      <h3>🎯 The 5-step MCQ attack</h3>
+      <span class="kicker">01</span>
+      <h3>The five-step attack</h3>
       <ol>
         <li><b>Read the source line first.</b> Who wrote it, and <i>when</i>? The date tells you the era, and the era kills half the answers.</li>
         <li><b>Read the question stem</b> before the full passage. Know what you're hunting for.</li>
@@ -506,7 +728,8 @@ footer{text-align:center;padding:30px 16px;color:var(--muted);font-size:.85rem}
       </ol>
     </div>
     <div class="card">
-      <h3>🚩 Trap answers to watch for</h3>
+      <span class="kicker">02</span>
+      <h3>Trap answers to watch for</h3>
       <ul>
         <li><b>True but irrelevant:</b> a correct fact that doesn't answer <i>this</i> question.</li>
         <li><b>Wrong era:</b> the right idea, the wrong decade.</li>
@@ -516,7 +739,8 @@ footer{text-align:center;padding:30px 16px;color:var(--muted);font-size:.85rem}
       </ul>
     </div>
     <div class="card">
-      <h3>🕵️ HIPP: decode any source</h3>
+      <span class="kicker">03</span>
+      <h3>HIPP: decode any source</h3>
       <p><b>H</b>istorical situation: what's going on at the time?<br>
       <b>I</b>ntended audience: who's it written for?<br>
       <b>P</b>urpose: why was it written? To persuade? Complain? Justify?<br>
@@ -524,7 +748,8 @@ footer{text-align:center;padding:30px 16px;color:var(--muted);font-size:.85rem}
       <p class="small muted">Example: a 1765 pamphlet by a Boston merchant about the Stamp Act → situation: post-war British taxes · purpose: rally boycotts · POV: a merchant who loses money.</p>
     </div>
     <div class="card">
-      <h3>🔗 The 4 “thinking moves” AP tests</h3>
+      <span class="kicker">04</span>
+      <h3>The four thinking moves AP tests</h3>
       <p><b>Causation:</b> what caused it, what did it cause? (Think in chains!)</p>
       <p><b>Comparison:</b> how were things similar or different? (Spanish vs. French vs. English colonies.)</p>
       <p><b>Continuity &amp; Change:</b> what stayed the same and what changed? (Slavery after 1865 → sharecropping.)</p>
@@ -532,9 +757,9 @@ footer{text-align:center;padding:30px 16px;color:var(--muted);font-size:.85rem}
     </div>
   </div>
 
-  <div class="card section">
-    <h3>🌎 The 8 AP themes (every question fits one)</h3>
-    <div class="grid g2" style="margin-top:10px">
+  <div class="section">
+    <div class="sh"><span class="sn">05</span><h2>The eight AP themes</h2><p>Every question fits one of these.</p></div>
+    <div class="grid g2" style="gap:0 32px">
       <div class="theme-chip"><span class="ab">NAT</span><div><b>American &amp; National Identity:</b> who counts as “American”? Citizenship, rights, sectionalism.</div></div>
       <div class="theme-chip"><span class="ab">WXT</span><div><b>Work, Exchange &amp; Technology:</b> economy, labor, inventions (cotton gin, Erie Canal).</div></div>
       <div class="theme-chip"><span class="ab">GEO</span><div><b>Geography &amp; Environment:</b> how land, climate and resources shaped lives.</div></div>
@@ -546,15 +771,15 @@ footer{text-align:center;padding:30px 16px;color:var(--muted);font-size:.85rem}
     </div>
   </div>
 
-  <div class="card section">
-    <h3>✍️ If there's a written part: the thesis formula</h3>
-    <p class="stim" style="font-style:normal;font-family:Inter,sans-serif">“Although <b>[counter-point]</b>, <b>[main claim]</b> because <b>[reason 1]</b> and <b>[reason 2]</b>.”</p>
+  <div class="section">
+    <div class="sh"><span class="sn">06</span><h2>If there's a written part: the thesis formula</h2></div>
+    <p class="formula">“Although <b>[counter-point]</b>, <b>[main claim]</b> because <b>[reason 1]</b> and <b>[reason 2]</b>.”</p>
     <p><b>Example:</b> “Although the Missouri Compromise temporarily calmed tensions, westward expansion was the main cause of the Civil War because new territories forced the nation to repeatedly fight over slavery, as seen in the Compromise of 1850 and the Kansas-Nebraska Act.”</p>
     <p class="small muted">Always use specific evidence (names, laws, dates) and explain <i>how</i> it proves your point. Evidence without explanation earns zero.</p>
   </div>
 
-  <div class="card section">
-    <h3>⏱️ Test-day game plan</h3>
+  <div class="section">
+    <div class="sh"><span class="sn">07</span><h2>Test-day game plan</h2></div>
     <ul>
       <li>Roughly <b>1 minute per question</b>. Stuck for more than 90 seconds? Mark it, guess, move on, come back.</li>
       <li><b>Never leave a blank.</b> There's no penalty for guessing.</li>
@@ -565,7 +790,8 @@ footer{text-align:center;padding:30px 16px;color:var(--muted);font-size:.85rem}
 </section>
 
 </main>
-<footer>Made for Santiago with ★ · Small steps, every day. · Progress saves in this browser.</footer>
+<footer><span>Made for Santiago · Small steps, every day.</span><span>Progress saves in this browser</span></footer>
+</div>
 <div class="toast" id="toast"></div>
 <div class="lb" id="lightbox"><button class="x" aria-label="Close">✕</button><img alt=""><p></p></div>
 
@@ -1121,10 +1347,10 @@ const pageURL = k => "https://commons.wikimedia.org/wiki/File:" + encodeURICompo
 function pic(k, opts={}){
   const meta = IMG[k] || [null, opts.cap || "", opts.emoji || "📜"];
   const cls = "ph" + (opts.zoom!==false && IMG[k] ? " zoom" : "") + (IMG[k] ? "" : " noimg") + (opts.cls ? " "+opts.cls : "");
-  return `<figure class="${cls}" data-emoji="${opts.emoji || meta[2]}" ${IMG[k]?`data-k="${k}"`:""} style="${opts.style||""}">`
+  return `<figure class="${cls}" data-emoji="${opts.emoji || meta[2]}" data-alt="${esc(opts.alt || meta[1] || "")}" ${IMG[k]?`data-k="${k}"`:""} style="${opts.style||""}">`
     + (IMG[k] ? `<img src="${imgURL(k, opts.w||800)}" alt="${esc(meta[1])}" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('noimg')">` : "")
     + (opts.cap!==false && meta[1] ? `<figcaption>${esc(opts.cap || meta[1])}</figcaption>` : "")
-    + (opts.zoom!==false && IMG[k] && opts.badge!==false ? `<span class="zbadge">🔍 tap</span>` : "")
+    + (opts.zoom!==false && IMG[k] && opts.badge!==false ? `<span class="zbadge">Enlarge</span>` : "")
     + `</figure>`;
 }
 
@@ -1366,25 +1592,28 @@ let state = {
   wrongs: store.get("wrongs",{}),   // qid -> true
   ordBest: store.get("ordBest",0)
 };
-function save(){ for(const k in state) store.set(k,state[k]); }
+function save(){ for(const k in state) store.set(k,state[k]); if(typeof renderXP==="function" && document.getElementById("xpPillM")) renderXP(); }
 
-const LEVELS = [[0,"Colonist 🌱"],[100,"Minuteman 🥁"],[250,"Patriot 🔔"],[500,"Founder 📜"],[850,"Statesman 🏛️"],[1300,"Justice ⚖️"],[2000,"APUSH Legend 🏆"]];
+const LEVELS = [[0,"Colonist"],[100,"Minuteman"],[250,"Patriot"],[500,"Founder"],[850,"Statesman"],[1300,"Justice"],[2000,"APUSH Legend"]];
 function levelInfo(xp){
   let i = 0; for(let j=0;j<LEVELS.length;j++) if(xp>=LEVELS[j][0]) i=j;
   const cur = LEVELS[i][0], next = LEVELS[i+1] ? LEVELS[i+1][0] : cur;
-  return {name:LEVELS[i][1], pct: next===cur ? 100 : Math.round((xp-cur)/(next-cur)*100), idx:i};
+  return {name:LEVELS[i][1], pct: next===cur ? 100 : Math.round((xp-cur)/(next-cur)*100), idx:i, next: LEVELS[i+1] ? LEVELS[i+1] : null};
 }
 function addXP(n){
   const before = levelInfo(state.xp).idx;
   state.xp += n; save(); renderXP();
   const after = levelInfo(state.xp);
-  if(after.idx > before){ toast("🎉 Level up! You're now a " + after.name); confetti(); }
+  if(after.idx > before){ toast("Rank up: you're now a " + after.name + "."); confetti(); }
 }
 function renderXP(){
   const L = levelInfo(state.xp);
   document.getElementById("xpPill").textContent = state.xp + " XP";
   document.getElementById("levelPill").textContent = L.name;
   document.getElementById("xpFill").style.width = L.pct + "%";
+  document.getElementById("xpPillM").textContent = state.xp + " XP";
+  document.getElementById("nextLvl").textContent = L.next ? `${L.next[0]-state.xp} XP to ${L.next[1]}` : "Top rank";
+  document.querySelectorAll('.tab[data-unit]').forEach(t=>{ t.querySelector(".meter i").style.width = unitMastery(+t.dataset.unit).pct + "%"; });
 }
 
 /* =========================================================
@@ -1396,10 +1625,10 @@ const shuffle = a => { a = a.slice(); for(let i=a.length-1;i>0;i--){ const j=Mat
 const unitColor = u => `var(${UNITS[u-1].color})`;
 function toast(msg){ const t=$("#toast"); t.textContent=msg; t.classList.add("show"); clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove("show"),2600); }
 function confetti(){
-  const em = ["⭐","🎉","🇺🇸","📜","✨","🔔"];
-  for(let i=0;i<28;i++){
+  const cs = ["--u1","--u2","--u3","--u4","--u5","--gold"];
+  for(let i=0;i<36;i++){
     const d=document.createElement("div"); d.className="confetti";
-    d.textContent=em[i%em.length]; d.style.left=Math.random()*100+"vw";
+    d.style.background=`var(${cs[i%cs.length]})`; d.style.left=Math.random()*100+"vw";
     d.style.animationDuration=(1.6+Math.random()*1.6)+"s"; d.style.animationDelay=(Math.random()*.4)+"s";
     document.body.appendChild(d); setTimeout(()=>d.remove(),3800);
   }
@@ -1420,8 +1649,9 @@ function go(view, unit){
   document.querySelectorAll(".tab").forEach(t=>{
     const on = t.dataset.view===view && (view!=="unit" || +t.dataset.unit===+unit);
     t.classList.toggle("active", on);
-    if(on) t.scrollIntoView({block:"nearest",inline:"center",behavior:"smooth"});
+    if(on) $("#whereLbl").textContent = view==="unit" ? `Unit ${unit} · ${UNITS[unit-1].title}` : t.querySelector(".lbl").textContent;
   });
+  document.body.classList.remove("nav-open");
   if(view==="unit"){ currentUnit = +unit; renderUnit(currentUnit); }
   if(view==="home") renderHome();
   if(view==="cards") renderCardsView();
@@ -1430,8 +1660,10 @@ function go(view, unit){
   if(view==="cheat") renderCheat();
   if(view==="who") nextWho();
   if(view==="videos") renderVideos();
-  window.scrollTo({top:0,behavior:"smooth"});
+  window.scrollTo({top:0,behavior:"instant"});
 }
+$("#menuBtn").addEventListener("click",()=>document.body.classList.add("nav-open"));
+$("#scrim").addEventListener("click",()=>document.body.classList.remove("nav-open"));
 document.getElementById("tabs").addEventListener("click",e=>{
   const b = e.target.closest(".tab"); if(!b) return;
   go(b.dataset.view, b.dataset.unit);
@@ -1449,20 +1681,24 @@ function renderHome(){
   wrap.innerHTML = UNITS.map(U=>{
     const m = unitMastery(U.id); const qs = state.qstats[U.id];
     const acc = qs && qs.t ? Math.round(qs.c/qs.t*100)+"%" : "–";
-    return `<div class="card unitcard" style="--uc:var(${U.color})" data-go="unit" data-unit="${U.id}">
-      <div class="row" style="justify-content:space-between"><span class="num">${U.id}</span><span class="weight">${U.weight} of exam</span></div>
-      <h3 style="margin-top:8px">${U.emoji} ${esc(U.title)}</h3>
-      <div class="small muted">${U.years}</div>
-      <div class="progress"><i style="width:${m.pct}%"></i></div>
-      <div class="small muted" style="margin-top:6px">${m.m}/${m.total} terms mastered · quiz accuracy ${acc}</div>
-    </div>`;
+    return `<button class="urow" style="--uc:var(${U.color})" data-go="unit" data-unit="${U.id}">
+      <span class="n">0${U.id}</span>
+      <span><h3>${esc(U.title)}</h3><span class="yrs">${U.years}</span></span>
+      <span class="w">${U.weight}<small>of exam</small></span>
+      <span class="prog">${m.m}/${m.total} terms · quiz ${acc}<span class="progress"><i style="width:${m.pct}%"></i></span></span>
+      <span class="go">→</span>
+    </button>`;
   }).join("");
+  const span = U => { const [a,b] = U.years.split("–").map(Number); return b-a; };
+  $("#ruler").innerHTML = `<div class="bar">${UNITS.map(U=>`<button class="seg" style="--uc:var(${U.color});--span:${span(U)};--pct:${unitMastery(U.id).pct}%" data-go="unit" data-unit="${U.id}" title="Unit ${U.id}: ${esc(U.title)} (${U.years})" aria-label="Unit ${U.id}"><i></i><span>0${U.id}</span></button>`).join("")}</div>
+    <div class="ticks" style="position:relative;height:1.2em">${(()=>{ const tot=UNITS.reduce((a,U)=>a+span(U),0); let acc=0; const out=[`<span style="position:absolute;left:0">1491</span>`]; UNITS.forEach((U,i)=>{ acc+=span(U); const end=U.years.split("–")[1]; if(i<UNITS.length-1 && i!==3) out.push(`<span class="${i===2?"mid":""}" style="position:absolute;left:${acc/tot*100}%;transform:translateX(-50%)">${end}</span>`); }); out.push(`<span style="position:absolute;right:0">1877</span>`); return out.join(""); })()}</div>`;
+  $("#todayDate").textContent = new Date().toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric"});
   let totalM = 0; UNITS.forEach(U=> totalM += unitMastery(U.id).m);
   let c=0,t=0; for(const k in state.qstats){ c+=state.qstats[k].c; t+=state.qstats[k].t; }
   $("#statMastered").textContent = totalM;
   $("#statAcc").textContent = t ? Math.round(c/t*100)+"%" : "–";
   $("#statWrong").textContent = Object.keys(state.wrongs).length;
-  $("#missionText").innerHTML = "<b>🎯 Today's mission:</b> " + mission().text;
+  $("#missionText").innerHTML = mission().text;
 }
 function mission(){
   // first unit that isn't well-mastered
@@ -1472,7 +1708,7 @@ function mission(){
     if(!qs || qs.t < 5) return {text:`You know your Unit ${U.id} terms. Now prove it! Take the <b>Unit ${U.id} quiz</b>.`, view:"quizU", unit:U.id};
   }
   if(Object.keys(state.wrongs).length) return {text:`Crush your <b>${Object.keys(state.wrongs).length} mistakes</b> in Review mode. Mistakes are where the points hide.`, view:"review"};
-  return {text:"You've covered everything. Take a <b>20-question mixed quiz</b> to keep it fresh. Legend behavior. 🏆", view:"mixed"};
+  return {text:"You've covered everything. Take a <b>20-question mixed quiz</b> to keep it fresh. Legend behavior.", view:"mixed"};
 }
 $("#startMission").addEventListener("click",()=>{
   const m = mission();
@@ -1488,120 +1724,102 @@ $("#startMission").addEventListener("click",()=>{
 function renderUnit(u){
   const U = UNITS[u-1]; const m = unitMastery(u);
   const v = $("#view-unit"); v.style.setProperty("--uc", `var(${U.color})`);
+  const sec = [["u-story","Story"],["u-watch","Watch"],["u-chat","Group chat"],["u-now","Then vs. now"],["u-concepts","Concepts"],["u-sources","Sources"],["u-terms","Terms"],["u-timeline","Timeline"],["u-hacks","Memory hacks"],["u-chains","Cause & effect"],["u-quiz","Quiz"]];
+  const n = id => String(sec.findIndex(x=>x[0]===id)+1).padStart(2,"0");
+  const sh = (id,title,sub) => `<div class="sh"><span class="sn">§ ${n(id)}</span><h2>${title}</h2>${sub?`<p>${sub}</p>`:""}</div>`;
   v.innerHTML = `
-  <div class="unit-hero" style="--bgimg:url('${imgURL(HERO_IMG[u],1400)}')">
-    <span class="credit">🖼️ ${esc(IMG[HERO_IMG[u]][1])}</span>
-    <div class="kicker" style="color:rgba(255,255,255,.85)">Unit ${U.id} · ${U.years} · ${U.weight} of the exam</div>
-    <h2>${U.emoji} ${esc(U.title)}</h2>
-    <p style="max-width:65ch;opacity:.95">${U.hook}</p>
-    <div class="progress" style="background:rgba(255,255,255,.25);max-width:360px"><i style="width:${m.pct}%;background:#fff"></i></div>
-    <div class="small" style="opacity:.9;margin-top:6px">${m.m}/${m.total} terms mastered</div>
-    <div class="unitnav">
-      <button data-jump="u-story">📖 Story</button><button data-jump="u-watch">📺 Watch</button><button data-jump="u-chat">💬 Group Chat</button>
-      <button data-jump="u-now">🔄 Then vs. Now</button><button data-jump="u-concepts">🧩 Key Concepts</button><button data-jump="u-sources">🖼️ Sources</button>
-      <button data-jump="u-terms">🃏 Terms</button><button data-jump="u-timeline">⏳ Timeline</button>
-      <button data-jump="u-hacks">💡 Memory Hacks</button><button data-jump="u-chains">🔗 Chain Reactions</button>
-      <button data-jump="u-quiz">🎯 Quiz</button>
+  <div class="unit-hero">
+    <div>
+      <span class="kicker">Unit ${String(U.id).padStart(2,"0")} · ${U.years} · ${U.weight} of the exam</span>
+      <h2>${esc(U.title)}</h2>
+      <p class="hook">${U.hook}</p>
+      <div class="mastery"><div class="progress"><i style="width:${m.pct}%"></i></div><span>${m.m} of ${m.total} terms mastered</span></div>
     </div>
+    ${pic(HERO_IMG[u],{w:1000,alt:IMG[HERO_IMG[u]]?IMG[HERO_IMG[u]][1]:""})}
   </div>
+  <nav class="unitnav" aria-label="Sections">${sec.map((x,i)=>`<button data-jump="${x[0]}"><span>${String(i+1).padStart(2,"0")}</span>${x[1]}</button>`).join("")}</nav>
 
   <div class="section story" id="u-story">
-    <div class="kicker">Step 1 · read it like a movie</div>
-    <h2 class="sec-title"><span class="em">🎬</span> The story in ${U.story.length} scenes</h2>
-    <p class="muted">Tap any picture to see it full size. These are real paintings, drawings and maps from history.</p>
-    <div>${U.story.map((p,i)=>{ const sc=(SCENES[u]||[])[i]||[null,"📜"]; return `<div class="scene">${pic(sc[0],{emoji:sc[1],cap:sc[0]?undefined:false})}<div><div class="num">Scene ${i+1}</div><p>${p}</p></div></div>`; }).join("")}</div>
-    <button class="btn sm dark" id="storyDone">✅ I read it (+10 XP)</button>
+    ${sh("u-story",`The story in ${U.story.length} scenes`,"Read it like a movie. Tap any picture to see it full size: these are real paintings, drawings and maps.")}
+    <div>${U.story.map((p,i)=>{ const sc=(SCENES[u]||[])[i]||[null,"📜"]; return `<div class="scene">${pic(sc[0],{emoji:sc[1],cap:sc[0]?undefined:false,alt:sc[0]?undefined:"Scene "+(i+1)})}<div><div class="num">Scene ${String(i+1).padStart(2,"0")}</div><p>${p}</p></div></div>`; }).join("")}</div>
+    <div style="margin-top:20px"><button class="btn sm ghost" id="storyDone">${store.get("story"+u,false)?"Story complete ✓":"I read it · +10 XP"}</button></div>
   </div>
 
   <div class="section" id="u-watch">
-    <div class="kicker">Step 2 · rather watch? same XP energy</div>
-    <h2 class="sec-title"><span class="em">📺</span> Watch it</h2>
+    ${sh("u-watch","Watch it","Rather watch than read? Same XP energy.")}
     <div class="vgrid">${(VIDEOS[u]||[]).map(videoCard).join("")}</div>
   </div>
 
   <div class="section" id="u-chat">
-    <div class="kicker">Step 3 · if history had group chats</div>
-    <h2 class="sec-title"><span class="em">💬</span> The group chat</h2>
-    <p class="muted small">A dramatized parody, but every event in it really happened. Tap <b>Next message</b>.</p>
+    ${sh("u-chat","The group chat","If history had group chats. A dramatized parody, but every event in it really happened.")}
     <div class="phone" id="phone">
-      <div class="bar"><div class="gav">${U.emoji}</div><div><b>${esc(CHATS[u].title)}</b><span>${esc(CHATS[u].sub)}</span></div></div>
+      <div class="bar"><div class="gav">U${U.id}</div><div><b>${esc(CHATS[u].title)}</b><span>${esc(CHATS[u].sub)}</span></div></div>
       <div class="msgs" id="msgs"></div>
-      <div class="ctrl"><button class="btn sm" id="chatNext">Next message ▶</button><button class="btn sm ghost" id="chatAll">Show all</button></div>
+      <div class="ctrl"><button class="btn sm ghost" id="chatAll">Show all</button><button class="btn sm" id="chatNext">Next message</button></div>
     </div>
   </div>
 
   <div class="section" id="u-now">
-    <div class="kicker">Step 4 · make it relatable</div>
-    <h2 class="sec-title"><span class="em">🔄</span> Then vs. Now</h2>
-    <div class="tvn">${THENNOW[u].map(t=>`<div class="c"><div class="then"><small>Then</small><b>${esc(t[0])}</b></div><div class="now"><small>In today's terms</small>${esc(t[1])}</div></div>`).join("")}</div>
+    ${sh("u-now","Then vs. now","The same idea, translated into today's terms.")}
+    <div class="tvn">${THENNOW[u].map(t=>`<div class="c"><div class="then"><small>Then</small><b>${esc(t[0])}</b></div><div class="now"><small>Today's terms</small>${esc(t[1])}</div></div>`).join("")}</div>
   </div>
 
   <div class="section" id="u-concepts">
-    <div class="kicker">Step 5 · the big ideas</div>
-    <h3>Key Concepts</h3>
-    <p class="muted small">Tap each one to open it. These are the “why” behind the facts, and MCQs love them.</p>
+    ${sh("u-concepts","Key concepts","The “why” behind the facts. Questions love these. Tap to open.")}
     ${U.concepts.map((c,i)=>`<details class="acc"${i===0?" open":""}><summary>${esc(c[0])}</summary><div class="body"><ul>${c[1].map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div></details>`).join("")}
   </div>
 
   <div class="section" id="u-sources">
-    <div class="kicker">Step 6 · read sources like a detective</div>
-    <h2 class="sec-title"><span class="em">🖼️</span> Primary sources</h2>
-    <p class="muted small">The real exam shows you images like these. Look first, guess what's going on, then hit <b>Analyze it</b>.</p>
+    ${sh("u-sources","Primary sources","The real exam shows images like these. Look first, guess what's going on, then analyze.")}
     ${SOURCES[u].map((s,i)=>`<div class="src" id="src-${u}-${i}">${pic(s[0],{cap:false,badge:true})}<div class="sb">
       <h3>${esc(s[1])}</h3><div class="meta">${esc(s[2])}</div>
-      <p class="small"><b>🤔 Before you click:</b> What do you notice? Who made it, and why?</p>
-      <button class="btn sm askbtn" data-src="src-${u}-${i}">🔍 Analyze it (+3 XP)</button>
-      <div class="reveal"><b>👀 What to notice</b><ul>${s[3].map(n=>`<li>${esc(n)}</li>`).join("")}</ul><div class="note small"><b>🎯 AP hook:</b> ${esc(s[4])}</div></div>
+      <p class="small"><b>Before you click:</b> What do you notice? Who made it, and why?</p>
+      <button class="btn sm askbtn" data-src="src-${u}-${i}">Analyze it · +3 XP</button>
+      <div class="reveal"><span class="kicker">What to notice</span><ul>${s[3].map(n=>`<li>${esc(n)}</li>`).join("")}</ul><div class="note small"><b>AP hook:</b> ${esc(s[4])}</div></div>
     </div></div>`).join("")}
   </div>
 
   <div class="section" id="u-terms">
-    <div class="kicker">Step 7 · active recall</div>
-    <h3>Must-Know Terms</h3>
-    <p class="muted small">Look at the term → try to explain it out loud → tap to flip. Mark ✅ when you truly know it.</p>
+    ${sh("u-terms","Must-know terms","Look at the term, explain it out loud, then tap to flip. Mark “Got it” only when you truly know it.")}
     <div class="flipgrid">${U.terms.map((t,i)=>flipCard(u,i,t)).join("")}</div>
   </div>
 
-  <div class="section card" id="u-timeline">
-    <div class="kicker">Step 8 · put it in order</div>
-    <h3>Timeline</h3>
-    <div class="tl">${U.timeline.map(x=>`<div class="tl-item"><span class="y">${x[0]}</span>${esc(x[1])}</div>`).join("")}</div>
+  <div class="section" id="u-timeline">
+    ${sh("u-timeline","Timeline","Put it in order. Chronology quietly decides a lot of answers.")}
+    <div class="tl">${U.timeline.map(x=>`<div class="tl-item"><span class="y">${x[0]}</span><span class="ev">${esc(x[1])}</span></div>`).join("")}</div>
   </div>
 
   <div class="section" id="u-hacks">
-    <div class="kicker">Step 9 · lock it in</div>
-    <h3>Memory Hacks</h3>
+    ${sh("u-hacks","Memory hacks","Silly is good. Silly sticks.")}
     <div class="grid g2">${U.hacks.map(h=>`<div class="hack"><h4>${esc(h[0])}</h4><div class="mn">${esc(h[1])}</div><div class="small">${esc(h[2])}</div></div>`).join("")}</div>
   </div>
 
   <div class="section" id="u-chains">
-    <div class="kicker">Step 10 · think like AP</div>
-    <h3>Chain Reactions (cause → effect)</h3>
-    <p class="muted small">Before you click, <b>guess</b> what happens next. That's exactly the causation skill the test checks.</p>
+    ${sh("u-chains","Cause &amp; effect","Before you click, <b>guess</b> what happens next. That's exactly the causation skill the test checks.")}
     <div class="grid g2">${U.chains.map((c,ci)=>`<div class="card"><div class="chain" data-chain="${ci}">
-      ${c.map((s,si)=>`${si>0?`<div class="arrow${si>1?" hidden":""}">↓</div>`:""}<div class="link${si>1?" hidden":""}">${esc(s)}</div>`).join("")}
-      </div><button class="btn sm ghost" style="margin-top:10px" data-next-link>What happened next? →</button></div>`).join("")}</div>
+      ${c.map((s,si)=>`${si>0?`<div class="arrow${si>1?" hidden":""}"></div>`:""}<div class="link${si>1?" hidden":""}">${esc(s)}</div>`).join("")}
+      </div><button class="btn sm ghost" style="margin-top:14px" data-next-link>What happened next? <span class="arr">→</span></button></div>`).join("")}</div>
   </div>
 
-  <div class="section card" id="u-quiz" style="text-align:center">
-    <div class="kicker">Step 11 · boss battle</div>
-    <h3>Unit ${U.id} Quiz</h3>
-    <p class="muted">${U.quiz.length} AP-style questions with explanations. Every correct answer = +10 XP.</p>
-    <button class="btn" id="unitQuizBtn">🎯 Start Unit ${U.id} Quiz</button>
-    ${u<5?`<button class="btn ghost" data-go="unit" data-unit="${u+1}">Next: Unit ${u+1} →</button>`:""}
+  <div class="section" id="u-quiz">
+    <div class="band">
+      <div><span class="kicker">§ ${n("u-quiz")} · Check yourself</span><h3>Unit ${U.id} quiz</h3><p>${U.quiz.length} AP-style questions with explanations. +10 XP for every correct answer.</p></div>
+      <div class="row"><button class="btn" id="unitQuizBtn">Start quiz <span class="arr">→</span></button>
+      ${u<5?`<button class="btn ghost" data-go="unit" data-unit="${u+1}">Unit ${u+1}</button>`:""}</div>
+    </div>
   </div>`;
   v.querySelectorAll("[data-jump]").forEach(b=>b.addEventListener("click",()=>document.getElementById(b.dataset.jump).scrollIntoView({behavior:"smooth",block:"start"})));
   $("#storyDone").addEventListener("click",e=>{
-    const key="story"+u; if(store.get(key,false)){ toast("Already counted. Nice re-read though! 📖"); return; }
-    store.set(key,true); addXP(10); toast("+10 XP: story complete!"); e.target.textContent="✅ Story complete";
+    const key="story"+u; if(store.get(key,false)){ toast("Already counted. Nice re-read though."); return; }
+    store.set(key,true); addXP(10); toast("+10 XP · story complete"); e.target.textContent="Story complete ✓";
   });
   $("#unitQuizBtn").addEventListener("click",()=>{ go("quiz"); startQuiz([u],999,false); });
   v.querySelectorAll("[data-next-link]").forEach(btn=>btn.addEventListener("click",()=>{
     const ch = btn.previousElementSibling;
     const hiddenLink = ch.querySelector(".link.hidden");
-    if(!hiddenLink){ ch.querySelectorAll(".link,.arrow").forEach((el,i)=>{ if(i>2) el.classList.add("hidden"); }); btn.textContent="What happened next? →"; return; }
+    if(!hiddenLink){ ch.querySelectorAll(".link,.arrow").forEach((el,i)=>{ if(i>2) el.classList.add("hidden"); }); btn.innerHTML='What happened next? <span class="arr">→</span>'; return; }
     hiddenLink.previousElementSibling.classList.remove("hidden"); hiddenLink.classList.remove("hidden");
-    if(!ch.querySelector(".link.hidden")){ btn.textContent="↺ Reset chain"; addXP(2); }
+    if(!ch.querySelector(".link.hidden")){ btn.textContent="Reset chain"; addXP(2); }
   }));
   bindFlips(v);
   initChat(u);
@@ -1622,10 +1840,10 @@ function initChat(u){
     if(m[0]==="fact") return `<div class="sys fact">${esc(m[1])}</div>`;
     return `<div class="msg${m[2]==="me"?" me":""}">${av(m[0])}<div class="bub"><div class="who">${esc(m[0])}</div>${esc(m[1])}</div></div>`;
   };
-  const done = () => { $("#chatNext").textContent = "↺ Replay"; const key="chat"+u; if(!store.get(key,false)){ store.set(key,true); addXP(5); toast("+5 XP: chat complete 💬"); } };
+  const done = () => { $("#chatNext").textContent = "Replay"; const key="chat"+u; if(!store.get(key,false)){ store.set(key,true); addXP(5); toast("+5 XP · chat complete"); } };
   const next = () => {
     if(busy) return;
-    if(i >= C.msgs.length){ i=0; box.innerHTML=""; $("#chatNext").textContent="Next message ▶"; return; }
+    if(i >= C.msgs.length){ i=0; box.innerHTML=""; $("#chatNext").textContent="Next message"; return; }
     busy = true; box.insertAdjacentHTML("beforeend",`<div class="typing"><i></i><i></i><i></i></div>`); box.scrollTop = box.scrollHeight;
     setTimeout(()=>{ const t=box.querySelector(".typing"); if(t) t.remove(); box.insertAdjacentHTML("beforeend",render(C.msgs[i++])); box.scrollTop=box.scrollHeight; busy=false; if(i>=C.msgs.length) done(); }, 450);
   };
@@ -1644,11 +1862,11 @@ function videoCard(v){
 }
 document.addEventListener("click",e=>{
   const a = e.target.closest("[data-vid]"); if(!a) return;
-  const key = "vid_"+a.dataset.vid; if(!store.get(key,false)){ store.set(key,true); addXP(15); toast("+15 XP for watching 📺"); }
+  const key = "vid_"+a.dataset.vid; if(!store.get(key,false)){ store.set(key,true); addXP(15); toast("+15 XP for watching"); }
   a.classList.add("done");
 });
 function renderVideos(){
-  $("#videoArea").innerHTML = UNITS.map(U=>`<div class="section" style="--uc:var(${U.color})"><h3>${U.emoji} Unit ${U.id}: ${esc(U.title)} <span class="muted small">${U.years}</span></h3><div class="vgrid">${VIDEOS[U.id].map(videoCard).join("")}</div></div>`).join("");
+  $("#videoArea").innerHTML = UNITS.map(U=>`<div class="section" style="--uc:var(${U.color});margin-top:32px"><div class="sh"><span class="sn">0${U.id}</span><h2>${esc(U.title)}</h2><p class="mono small">${U.years}</p></div><div class="vgrid">${VIDEOS[U.id].map(videoCard).join("")}</div></div>`).join("");
 }
 
 /* ---------- lightbox ---------- */
@@ -1672,17 +1890,17 @@ function nextWho(){
   const opts = shuffle([whoCur, ...others]);
   $("#whoStreak").textContent = whoStreak; $("#whoScore").textContent = whoScore;
   $("#whoArea").innerHTML = `<div class="who-wrap" style="--uc:${unitColor(whoCur[3])}">
-    ${pic(whoCur[0],{cap:false,badge:false,zoom:false,emoji:"🕵️",w:600})}
+    ${pic(whoCur[0],{cap:false,badge:false,zoom:false,emoji:"🕵️",w:600,alt:"Portrait hidden: name the person"})}
     <div><div class="quote-bub">“${esc(whoCur[2])}”</div>
-    <div class="small muted" style="margin-bottom:10px">Hint: Unit ${whoCur[3]}</div>
-    <div id="whoOpts">${opts.map(o=>`<button class="opt" data-n="${esc(o[1])}"><span class="l">?</span><span>${esc(o[1])}</span></button>`).join("")}</div>
+    <div style="margin-bottom:14px"><span class="tag u">Hint · Unit ${whoCur[3]}</span></div>
+    <div id="whoOpts">${opts.map(o=>`<button class="opt" data-n="${esc(o[1])}"><span class="l">${"ABCD"[opts.indexOf(o)]}</span><span>${esc(o[1])}</span></button>`).join("")}</div>
     <div id="whoFb"></div></div></div>`;
   document.querySelectorAll("#whoOpts .opt").forEach(b=>b.addEventListener("click",()=>{
     const ok = b.dataset.n === whoCur[1];
     document.querySelectorAll("#whoOpts .opt").forEach(x=>{ x.disabled=true; if(x.dataset.n===whoCur[1]) x.classList.add("right"); else if(x===b) x.classList.add("wrong"); });
     if(ok){ whoStreak++; whoScore++; store.set("whoScore",whoScore); addXP(5); if(whoStreak%5===0) confetti(); } else whoStreak=0;
     $("#whoStreak").textContent = whoStreak; $("#whoScore").textContent = whoScore;
-    $("#whoFb").innerHTML = `<div class="explain ${ok?"good":"badx"}"><b>${ok?"✅ Yes! That's "+esc(whoCur[1])+".":"❌ That was "+esc(whoCur[1])+"."}</b><div class="small" style="margin-top:4px">Unit ${whoCur[3]} · ${esc(IMG[whoCur[0]][1])}</div></div><button class="btn" id="whoNext">Next face →</button>`;
+    $("#whoFb").innerHTML = `<div class="explain ${ok?"good":"badx"}"><b>${ok?"Correct":"Not quite"}</b>${ok?"Yes, that's "+esc(whoCur[1])+".":"That was "+esc(whoCur[1])+"."}<div class="small muted" style="margin-top:4px">Unit ${whoCur[3]} · ${esc(IMG[whoCur[0]][1])}</div></div><button class="btn" id="whoNext">Next face <span class="arr">→</span></button>`;
     $("#whoNext").onclick = nextWho; $("#whoNext").focus({preventScroll:true});
   }));
 }
@@ -1691,13 +1909,13 @@ function flipCard(u,i,t,big){
   const id = u+"-"+i; const done = !!state.mastered[id]; const tk = TERM_IMG[t[0]];
   return `<div class="flip${big?" bigcard":""}" data-id="${id}" style="--uc:${unitColor(u)}">
     <div class="inner">
-      <div class="face front">${done?'<span class="mastered-badge">✅</span>':""}
+      <div class="face front" data-u="UNIT 0${u} · No. ${String(i+1).padStart(2,"0")}">${done?'<span class="mastered-badge">Mastered</span>':""}
         ${tk?`<div class="thumb ph"><img src="${imgURL(tk,200)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('noimg')"></div>`:""}
-        <b>${esc(t[0])}</b><div class="yr">${esc(t[1])}</div><div class="tap">tap to flip</div></div>
-      <div class="face back"><div>${esc(t[2])}</div><div class="why">⭐ Why it matters: ${esc(t[3])}</div>
-        <div class="row" style="margin-top:10px">
-          <button class="btn sm" data-master="${id}" style="background:var(--ok)">${done?"✅ Mastered":"✅ Got it"}</button>
-          <button class="btn sm ghost" data-unmaster="${id}">🔁 Still learning</button>
+        <b>${esc(t[0])}</b><div class="yr">${esc(t[1])}</div><div class="tap">Tap to flip</div></div>
+      <div class="face back"><div>${esc(t[2])}</div><div class="why">Why it matters: ${esc(t[3])}</div>
+        <div class="row" style="margin-top:12px;gap:8px">
+          <button class="btn sm ok" data-master="${id}">${done?"Mastered ✓":"Got it"}</button>
+          <button class="btn sm ghost" data-unmaster="${id}">Still learning</button>
         </div></div>
     </div></div>`;
 }
@@ -1705,13 +1923,13 @@ function bindFlips(root){
   root.querySelectorAll(".flip").forEach(f=>f.addEventListener("click",e=>{
     if(e.target.closest("[data-master]")){
       e.stopPropagation(); const id=e.target.closest("[data-master]").dataset.master;
-      if(!state.mastered[id]){ state.mastered[id]=true; save(); addXP(5); toast("+5 XP: card mastered!"); }
+      if(!state.mastered[id]){ state.mastered[id]=true; save(); addXP(5); toast("+5 XP · card mastered"); }
       markCard(f,true); if(root.id==="bigCardArea") setTimeout(()=>{ cardIdx++; drawBigCard(); },350);
       return;
     }
     if(e.target.closest("[data-unmaster]")){
       e.stopPropagation(); const id=e.target.closest("[data-unmaster]").dataset.unmaster;
-      delete state.mastered[id]; save(); markCard(f,false); toast("No problem, it'll come back around 🔁");
+      delete state.mastered[id]; save(); markCard(f,false); toast("No problem. It'll come back around.");
       if(root.id==="bigCardArea") setTimeout(()=>{ cardIdx++; drawBigCard(); },350);
       return;
     }
@@ -1720,9 +1938,9 @@ function bindFlips(root){
 }
 function markCard(f,done){
   const front = f.querySelector(".front"); let b = front.querySelector(".mastered-badge");
-  if(done && !b){ b=document.createElement("span"); b.className="mastered-badge"; b.textContent="✅"; front.prepend(b); }
+  if(done && !b){ b=document.createElement("span"); b.className="mastered-badge"; b.textContent="Mastered"; front.prepend(b); }
   if(!done && b) b.remove();
-  const mb = f.querySelector("[data-master]"); if(mb) mb.textContent = done ? "✅ Mastered" : "✅ Got it";
+  const mb = f.querySelector("[data-master]"); if(mb) mb.textContent = done ? "Mastered ✓" : "Got it";
   f.classList.remove("flipped");
 }
 
@@ -1731,7 +1949,7 @@ function markCard(f,done){
    ========================================================= */
 let cardUnits = new Set([1,2,3,4,5]), cardDeck = [], cardIdx = 0;
 function renderCardsView(){
-  $("#cardFilters").innerHTML = UNITS.map(U=>`<label class="chk" style="border-color:var(${U.color})"><input type="checkbox" data-cu="${U.id}" ${cardUnits.has(U.id)?"checked":""}> Unit ${U.id}</label>`).join("");
+  $("#cardFilters").innerHTML = UNITS.map(U=>`<label class="chk"><input type="checkbox" data-cu="${U.id}" ${cardUnits.has(U.id)?"checked":""}> Unit ${U.id}</label>`).join("");
   $("#cardFilters").querySelectorAll("input").forEach(i=>i.addEventListener("change",()=>{
     i.checked ? cardUnits.add(+i.dataset.cu) : cardUnits.delete(+i.dataset.cu); buildDeck();
   }));
@@ -1745,14 +1963,14 @@ function buildDeck(shuf){
 }
 function drawBigCard(){
   const area = $("#bigCardArea");
-  $("#cardCount").textContent = cardDeck.length ? `Card ${Math.min(cardIdx+1,cardDeck.length)} of ${cardDeck.length}` : "";
-  if(!cardDeck.length){ area.innerHTML = `<div class="card" style="text-align:center;max-width:600px;margin:0 auto"><div style="font-size:3rem">🏆</div><h3>Deck cleared!</h3><p class="muted">Every card here is mastered. Uncheck “Hide mastered” to review them, or pick other units.</p></div>`; return; }
-  if(cardIdx >= cardDeck.length){ area.innerHTML = `<div class="card" style="text-align:center;max-width:600px;margin:0 auto"><div style="font-size:3rem">🔁</div><h3>Round complete!</h3><p class="muted">Go again. Cards you marked ✅ will drop out.</p><button class="btn" id="againBtn">Next round</button></div>`; $("#againBtn").onclick=()=>buildDeck(true); confetti(); return; }
+  $("#cardCount").textContent = cardDeck.length ? `${Math.min(cardIdx+1,cardDeck.length)} / ${cardDeck.length}` : "";
+  if(!cardDeck.length){ area.innerHTML = `<div class="card" style="max-width:620px"><span class="kicker">Deck cleared</span><h3>Every card here is mastered.</h3><p class="muted">Uncheck “Hide mastered” to review them, or pick other units.</p></div>`; return; }
+  if(cardIdx >= cardDeck.length){ area.innerHTML = `<div class="card" style="max-width:620px"><span class="kicker">Round complete</span><h3>Nice. Go again.</h3><p class="muted">Cards you marked “Got it” drop out, so the pile keeps shrinking.</p><button class="btn" id="againBtn">Next round</button></div>`; $("#againBtn").onclick=()=>buildDeck(true); confetti(); return; }
   const [u,i] = cardDeck[cardIdx];
   area.innerHTML = flipCard(u,i,UNITS[u-1].terms[i],true) + `
-    <div class="row" style="justify-content:center;margin-top:16px">
+    <div class="row" style="max-width:620px;justify-content:space-between;margin-top:16px">
       <button class="btn sm ghost" id="prevCard">← Prev</button>
-      <span class="tag" style="background:color-mix(in srgb,${unitColor(u)} 18%,transparent)">Unit ${u}</span>
+      <span class="tag u" style="--uc:${unitColor(u)}">Unit ${u}</span>
       <button class="btn sm ghost" id="nextCard">Skip →</button>
     </div>`;
   bindFlips(area);
@@ -1770,21 +1988,21 @@ function renderQuizSetup(){
   if(Q && Q.active) return;
   const nWrong = Object.keys(state.wrongs).length;
   $("#quizArea").innerHTML = `
-    <div class="kicker">Practice like it's the real thing</div>
-    <h2>🎯 Quiz Arena</h2>
-    <p class="muted">AP-style multiple choice, some with primary sources just like the exam. Every answer comes with an explanation, so wrong answers are learning, not failing.</p>
-    <div class="card">
-      <h3>1. Pick your units</h3>
+    <div class="phead"><span class="kicker">Practice · Multiple choice</span>
+    <h2>Quiz</h2>
+    <p>AP-style questions, some with primary sources just like the exam. Every answer comes with an explanation, so wrong answers are learning, not failing.</p></div>
+    <div class="card setup">
+      <h3>01 · Units</h3>
       <div class="row" id="qUnits">${UNITS.map(U=>`<label class="chk"><input type="checkbox" value="${U.id}" checked> Unit ${U.id}</label>`).join("")}</div>
-      <h3 style="margin-top:18px">2. How many questions?</h3>
+      <h3 style="margin-top:22px">02 · Length</h3>
       <div class="row" id="qCount">
         <label class="chk"><input type="radio" name="qc" value="10" checked> 10 (quick)</label>
         <label class="chk"><input type="radio" name="qc" value="20"> 20</label>
         <label class="chk"><input type="radio" name="qc" value="999"> All of them</label>
       </div>
       <div class="row" style="margin-top:20px">
-        <button class="btn" id="qGo">Start quiz ▶</button>
-        <button class="btn ghost" id="qReview" ${nWrong?"":"disabled style='opacity:.5'"}>🔁 Review my mistakes (${nWrong})</button>
+        <button class="btn" id="qGo">Start quiz <span class="arr">→</span></button>
+        <button class="btn ghost" id="qReview" ${nWrong?"":"disabled"}>Review my mistakes (${nWrong})</button>
       </div>
     </div>`;
   $("#qGo").onclick=()=>{
@@ -1798,7 +2016,7 @@ function startQuiz(units, n, reviewOnly){
   let pool = [];
   units.forEach(u=>UNITS[u-1].quiz.forEach((q,i)=>{ const id=u+"-q"+i; if(reviewOnly && !state.wrongs[id]) return; pool.push({...q,u,id}); }));
   pool = shuffle(pool).slice(0,n);
-  if(!pool.length){ toast("Nothing to review. You're clean! ✨"); Q=null; renderQuizSetup(); return; }
+  if(!pool.length){ toast("Nothing to review. You're clean."); Q=null; renderQuizSetup(); return; }
   // shuffle options per question
   pool = pool.map(q=>{ const order = shuffle(q.o.map((_,i)=>i)); return {...q, o:order.map(i=>q.o[i]), a:order.indexOf(q.a)}; });
   Q = {pool, i:0, score:0, active:true, review:reviewOnly, streak:0};
@@ -1808,18 +2026,18 @@ function drawQ(){
   const q = Q.pool[Q.i]; const L = "ABCD";
   $("#quizArea").innerHTML = `
     <div class="qhead">
-      <span class="tag" style="background:color-mix(in srgb,${unitColor(q.u)} 20%,transparent)">Unit ${q.u}</span>
+      <span class="tag u" style="--uc:${unitColor(q.u)}">Unit ${q.u}</span>
       <div class="qbar"><i style="width:${Q.i/Q.pool.length*100}%"></i></div>
-      <span class="small"><b>${Q.i+1}</b>/${Q.pool.length} · ✅ ${Q.score}${Q.streak>=3?` · 🔥${Q.streak}`:""}</span>
+      <span class="qcount"><b>${String(Q.i+1).padStart(2,"0")}</b> / ${String(Q.pool.length).padStart(2,"0")} · ${Q.score} correct${Q.streak>=3?` · streak ${Q.streak}`:""}</span>
     </div>
-    <div class="card">
+    <div class="card" style="padding:26px">
       ${q.img?pic(q.img,{cls:"qimg",badge:true}):""}
       ${q.s?`<div class="stim">${esc(q.s)}<cite>— ${esc(q.c)}</cite></div>`:""}
       <div class="qtext">${esc(q.q)}</div>
       <div id="opts">${q.o.map((o,i)=>`<button class="opt" data-i="${i}"><span class="l">${L[i]}</span><span>${esc(o)}</span></button>`).join("")}</div>
       <div id="qFeedback"></div>
     </div>
-    <div class="row" style="margin-top:12px"><button class="btn sm ghost" id="qQuit">✕ Quit quiz</button></div>`;
+    <div class="row" style="margin-top:14px"><button class="btn sm ghost" id="qQuit">Quit quiz</button></div>`;
   document.querySelectorAll("#opts .opt").forEach(b=>b.addEventListener("click",()=>answer(+b.dataset.i)));
   $("#qQuit").onclick=()=>{ Q.active=false; renderQuizSetup(); };
 }
@@ -1830,26 +2048,26 @@ function answer(i){
   if(ok){ Q.score++; Q.streak++; delete state.wrongs[q.id]; addXP(Q.streak>=3?15:10); }
   else { Q.streak=0; state.wrongs[q.id]=true; }
   save();
-  const cheers = ["Nailed it!","Yes! That's AP thinking.","Correct, you're on fire!","Boom. 💥","Exactly right."];
-  $("#qFeedback").innerHTML = `<div class="explain ${ok?"good":"badx"}"><b>${ok?"✅ "+cheers[Math.floor(Math.random()*cheers.length)]:"❌ Not quite. Here's the key:"}</b><br>${esc(q.e)}${!ok?`<div class="small muted" style="margin-top:6px">Saved to your “Review my mistakes” pile.</div>`:""}</div>
-    <button class="btn" id="qNext">${Q.i+1<Q.pool.length?"Next question →":"See my results 🏁"}</button>`;
+  const cheers = ["Nailed it","That's AP thinking","Correct","Exactly right","Yes"];
+  $("#qFeedback").innerHTML = `<div class="explain ${ok?"good":"badx"}"><b>${ok?cheers[Math.floor(Math.random()*cheers.length)]:"Not quite · here's the key"}</b>${esc(q.e)}${!ok?`<div class="small muted" style="margin-top:6px">Saved to your “Review my mistakes” pile.</div>`:""}</div>
+    <button class="btn" id="qNext">${Q.i+1<Q.pool.length?'Next question <span class="arr">→</span>':'See my results <span class="arr">→</span>'}</button>`;
   $("#qNext").onclick=()=>{ Q.i++; Q.i<Q.pool.length ? drawQ() : finishQuiz(); };
   $("#qNext").focus({preventScroll:true});
 }
 function finishQuiz(){
   Q.active=false; const pct = Math.round(Q.score/Q.pool.length*100);
-  let msg = pct>=90 ? "A-level work. You're ready. 🏆" : pct>=75 ? "Strong! Review the misses and you're there. 💪" : pct>=50 ? "Solid start. Hit the flashcards for those units, then try again." : "That's okay, this is exactly how learning works. Read the stories again, then come back. You'll see the jump.";
+  let msg = pct>=90 ? "A-level work. You're ready." : pct>=75 ? "Strong. Review the misses and you're there." : pct>=50 ? "Solid start. Hit the flashcards for those units, then try again." : "That's okay, this is exactly how learning works. Read the stories again, then come back. You'll see the jump.";
   if(pct>=80) confetti();
   addXP(pct===100?30:0);
-  $("#quizArea").innerHTML = `<div class="card" style="text-align:center">
-    <div class="kicker">Results</div>
-    <div class="score-big">${pct}%</div>
-    <p style="font-size:1.1rem"><b>${Q.score}</b> of ${Q.pool.length} correct${pct===100?" · +30 XP perfect bonus!":""}</p>
-    <p>${msg}</p>
-    <div class="row" style="justify-content:center;margin-top:10px">
+  $("#quizArea").innerHTML = `<div class="card" style="padding:32px">
+    <span class="kicker">Results</span>
+    <div class="score-big">${pct}<span style="font-size:.45em;color:var(--muted)">%</span></div>
+    <p class="mono small muted" style="margin-top:8px">${Q.score} of ${Q.pool.length} correct${pct===100?" · +30 XP perfect bonus":""}</p>
+    <p style="font-family:var(--serif);font-size:1.25rem;max-width:44ch">${msg}</p>
+    <div class="row" style="margin-top:18px">
       <button class="btn" id="qAgain">Play again</button>
-      <button class="btn ghost" id="qRev">🔁 Review mistakes (${Object.keys(state.wrongs).length})</button>
-      <button class="btn ghost" data-go="cards">🃏 Flashcards</button>
+      <button class="btn ghost" id="qRev">Review mistakes (${Object.keys(state.wrongs).length})</button>
+      <button class="btn ghost" data-go="cards">Flashcards</button>
     </div></div>`;
   $("#qAgain").onclick=()=>renderQuizSetup();
   $("#qRev").onclick=()=>startQuiz([1,2,3,4,5],999,true);
@@ -1869,7 +2087,7 @@ function nextOrder(){
   const ev = allEvents(); let a,b,tries=0;
   do{ a=ev[Math.floor(Math.random()*ev.length)]; b=ev[Math.floor(Math.random()*ev.length)]; tries++; } while((a.y===b.y) && tries<200);
   ordPair=[a,b];
-  $("#ordArea").innerHTML = `<button class="evt" data-k="0">${esc(a.e)}<span class="yy">?</span></button><div class="or">OR</div><button class="evt" data-k="1">${esc(b.e)}<span class="yy">?</span></button>`;
+  $("#ordArea").innerHTML = `<button class="evt" data-k="0" style="--uc:${unitColor(a.u)}"><span>${esc(a.e)}</span><span class="yy">····</span></button><div class="or">or</div><button class="evt" data-k="1" style="--uc:${unitColor(b.u)}"><span>${esc(b.e)}</span><span class="yy">····</span></button>`;
   $("#ordFeedback").innerHTML = "";
   document.querySelectorAll(".evt").forEach(btn=>btn.addEventListener("click",()=>pickOrder(+btn.dataset.k)));
 }
@@ -1880,7 +2098,7 @@ function pickOrder(k){
   else ordStreak=0;
   $("#ordStreak").textContent=ordStreak; $("#ordBest").textContent=state.ordBest;
   const gap = Math.abs(a.y-b.y);
-  $("#ordFeedback").innerHTML = `<div class="explain ${ok?"good":"badx"}"><b>${ok?"✅ Correct!":"❌ Other way around!"}</b> “${esc(ordPair[earlier].e)}” came ${gap} year${gap===1?"":"s"} earlier.</div><button class="btn" id="ordNext">Next pair →</button>`;
+  $("#ordFeedback").innerHTML = `<div class="explain ${ok?"good":"badx"}"><b>${ok?"Correct":"Other way around"}</b>“${esc(ordPair[earlier].e)}” came ${gap} year${gap===1?"":"s"} earlier.</div><button class="btn" id="ordNext">Next pair <span class="arr">→</span></button>`;
   $("#ordNext").onclick=nextOrder; $("#ordNext").focus({preventScroll:true});
 }
 $("#ordUnit").addEventListener("change",()=>{ ordStreak=0; nextOrder(); });
@@ -1892,35 +2110,35 @@ function renderCheat(){
   if($("#cheatContent").dataset.done) return;
   $("#cheatContent").dataset.done = 1;
   $("#cheatContent").innerHTML = `
-  <div class="section card"><h3>🏛️ Presidents 1789–1877</h3><div class="scroll"><table class="tbl">
+  <div class="section"><div class="sh"><span class="sn">01</span><h2>Presidents, 1789–1877</h2></div><div class="scroll"><table class="tbl">
     <tr><th>#</th><th>President</th><th>Years</th><th>Party</th><th>Know them for</th></tr>
-    ${PRESIDENTS.map((p,i)=>`<tr><td>${i+1}</td><td><b>${esc(p[0])}</b></td><td>${p[1]}</td><td><span class="tag">${esc(p[2])}</span></td><td>${esc(p[3])}</td></tr>`).join("")}
+    ${PRESIDENTS.map((p,i)=>`<tr><td class="mono small">${String(i+1).padStart(2,"0")}</td><td><b>${esc(p[0])}</b></td><td class="mono small">${p[1]}</td><td><span class="tag">${esc(p[2])}</span></td><td>${esc(p[3])}</td></tr>`).join("")}
   </table></div><p class="small muted" style="margin-top:8px">Trick for the first 7: “<b>W</b>ashington <b>A</b>nd <b>J</b>efferson <b>M</b>ade <b>M</b>any <b>A</b>wesome <b>J</b>okes” (Washington, Adams, Jefferson, Madison, Monroe, Adams, Jackson).</p></div>
 
   <div class="section grid g2">
-    <div class="card"><h3>⚖️ Supreme Court cases</h3><div class="scroll"><table class="tbl">
+    <div class="card"><span class="kicker">02</span><h3>Supreme Court cases</h3><div class="scroll"><table class="tbl">
       <tr><th>Case</th><th>Year</th><th>Ruling</th></tr>
       ${CASES.map(c=>`<tr><td><b>${esc(c[0])}</b></td><td>${c[1]}</td><td>${esc(c[2])}<div class="small muted">${esc(c[3])}</div></td></tr>`).join("")}
     </table></div></div>
-    <div class="card"><h3>🤝 The great compromises</h3><div class="scroll"><table class="tbl">
+    <div class="card"><span class="kicker">03</span><h3>The great compromises</h3><div class="scroll"><table class="tbl">
       <tr><th>Compromise</th><th>Year</th><th>Deal</th></tr>
       ${COMPROMISES.map(c=>`<tr><td><b>${esc(c[0])}</b></td><td>${c[1]}</td><td>${esc(c[2])}</td></tr>`).join("")}
     </table></div><p class="small muted" style="margin-top:8px">Pattern: every compromise over slavery bought time, and each one lasted less long than the last.</p></div>
   </div>
 
-  <div class="section card"><h3>🎉 Political parties timeline</h3>
-    <div class="tl" style="--uc:var(--accent2)">${PARTIES.map(p=>`<div class="tl-item"><span class="y">${p[0]}</span>${esc(p[1])}</div>`).join("")}</div>
+  <div class="section"><div class="sh"><span class="sn">04</span><h2>Political parties</h2></div>
+    <div class="tl" style="--uc:var(--accent2)">${PARTIES.map(p=>`<div class="tl-item"><span class="y">${p[0]}</span><span class="ev">${esc(p[1])}</span></div>`).join("")}</div>
   </div>
 
   <div class="section grid g2">
-    <div class="card"><h3>🗺️ Colonial regions at a glance</h3><div class="scroll"><table class="tbl">
+    <div class="card"><span class="kicker">05</span><h3>Colonial regions at a glance</h3><div class="scroll"><table class="tbl">
       <tr><th>Region</th><th>Economy</th><th>Society</th></tr>
       <tr><td><b>New England</b></td><td>Fishing, shipbuilding, small farms, trade</td><td>Puritan, families, town meetings, literacy</td></tr>
       <tr><td><b>Middle</b></td><td>Wheat (“breadbasket”), ports</td><td>Most diverse, religious tolerance (Quakers)</td></tr>
       <tr><td><b>Chesapeake</b></td><td>Tobacco</td><td>Indentured servants → slaves, young men, high death rate</td></tr>
       <tr><td><b>Carolinas/Georgia</b></td><td>Rice, indigo</td><td>Enslaved majority, planter elite, strict slave codes</td></tr>
     </table></div></div>
-    <div class="card"><h3>⚔️ North vs. South in 1861</h3><div class="scroll"><table class="tbl">
+    <div class="card"><span class="kicker">06</span><h3>North vs. South in 1861</h3><div class="scroll"><table class="tbl">
       <tr><th>Union (North)</th><th>Confederacy (South)</th></tr>
       <tr><td>~22 million people</td><td>~9 million (3.5 million enslaved)</td></tr>
       <tr><td>~90% of factories</td><td>Cotton, little industry</td></tr>
@@ -1935,11 +2153,11 @@ $("#cheatSearch").addEventListener("input",e=>{
   if(q.length<2){ out.innerHTML=""; return; }
   const hits=[];
   UNITS.forEach(U=>{
-    U.terms.forEach(t=>{ if((t.join(" ")).toLowerCase().includes(q)) hits.push(`<div class="card" style="padding:12px 14px;margin-bottom:8px;border-left:5px solid var(${U.color})"><span class="tag">Unit ${U.id}</span> <b>${esc(t[0])}</b> <span class="muted small">(${esc(t[1])})</span><div class="small">${esc(t[2])} <i>${esc(t[3])}</i></div></div>`); });
-    U.timeline.forEach(t=>{ if((t[0]+" "+t[1]).toLowerCase().includes(q)) hits.push(`<div class="card" style="padding:10px 14px;margin-bottom:8px;border-left:5px solid var(${U.color})"><span class="tag">Unit ${U.id} · timeline</span> <b>${t[0]}</b>: ${esc(t[1])}</div>`); });
+    U.terms.forEach(t=>{ if((t.join(" ")).toLowerCase().includes(q)) hits.push(`<div class="hit" style="--uc:var(${U.color})"><span class="tag u">Unit ${U.id}</span> <b>${esc(t[0])}</b> <span class="muted small mono">${esc(t[1])}</span><div class="small">${esc(t[2])} <i>${esc(t[3])}</i></div></div>`); });
+    U.timeline.forEach(t=>{ if((t[0]+" "+t[1]).toLowerCase().includes(q)) hits.push(`<div class="hit" style="--uc:var(${U.color})"><span class="tag u">Unit ${U.id} · timeline</span> <b class="mono">${t[0]}</b> ${esc(t[1])}</div>`); });
   });
-  PRESIDENTS.forEach(p=>{ if(p.join(" ").toLowerCase().includes(q)) hits.push(`<div class="card" style="padding:10px 14px;margin-bottom:8px"><span class="tag">President</span> <b>${esc(p[0])}</b> (${p[1]}): ${esc(p[3])}</div>`); });
-  out.innerHTML = hits.length ? `<p class="small muted">${hits.length} result${hits.length>1?"s":""}</p>`+hits.slice(0,40).join("") : `<p class="muted">No matches. Try another word.</p>`;
+  PRESIDENTS.forEach(p=>{ if(p.join(" ").toLowerCase().includes(q)) hits.push(`<div class="hit"><span class="tag">President</span> <b>${esc(p[0])}</b> <span class="mono small muted">${p[1]}</span> ${esc(p[3])}</div>`); });
+  out.innerHTML = hits.length ? `<p class="small muted mono">${hits.length} result${hits.length>1?"s":""}</p>`+hits.slice(0,40).join("") : `<p class="muted">No matches. Try another word.</p>`;
 });
 
 /* =========================================================
@@ -1947,13 +2165,13 @@ $("#cheatSearch").addEventListener("input",e=>{
    ========================================================= */
 let tLeft = 15*60, tRunning = null, tMode = "focus";
 function drawTimer(){ const m=Math.floor(tLeft/60), s=tLeft%60; $("#timerDisplay").textContent=`${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`; }
-function setMode(mode){ tMode=mode; clearInterval(tRunning); tRunning=null; tLeft = mode==="focus"?15*60:5*60; $("#timerStart").textContent="Start"; $("#timerLabel").textContent = mode==="focus"?"Focus session":"Break: stretch, water, look away from the screen 🌿"; drawTimer(); }
+function setMode(mode){ tMode=mode; clearInterval(tRunning); tRunning=null; tLeft = mode==="focus"?15*60:5*60; $("#timerStart").textContent="Start"; $("#timerLabel").textContent = mode==="focus"?"Focus session":"Break: stretch, water, look away from the screen"; drawTimer(); }
 $("#timerStart").addEventListener("click",()=>{
   if(tRunning){ clearInterval(tRunning); tRunning=null; $("#timerStart").textContent="Resume"; return; }
   $("#timerStart").textContent="Pause";
   tRunning = setInterval(()=>{ tLeft--; drawTimer(); if(tLeft<=0){ clearInterval(tRunning); tRunning=null;
-    if(tMode==="focus"){ addXP(20); confetti(); toast("Focus session done! +20 XP. Take your 5-minute break. 🌿"); setMode("break"); }
-    else { toast("Break's over. Ready for another round? 💪"); setMode("focus"); } } },1000);
+    if(tMode==="focus"){ addXP(20); confetti(); toast("Focus session done · +20 XP. Take your 5-minute break."); setMode("break"); }
+    else { toast("Break's over. Ready for another round?"); setMode("focus"); } } },1000);
 });
 $("#timerReset").addEventListener("click",()=>setMode(tMode));
 $("#timerBreak").addEventListener("click",()=>setMode(tMode==="focus"?"break":"focus"));
@@ -1971,8 +2189,7 @@ $("#timerBreak").addEventListener("click",()=>setMode(tMode==="focus"?"break":"f
 
 /* INIT */
 /* home hero painting + cast */
-$("#homeHero").style.setProperty("--bgimg", `url('${imgURL("delaware",1400)}')`);
-$("#castStrip").innerHTML = WHO.slice().sort((a,b)=>a[3]-b[3]).map(w=>`<div class="p" data-go="who" style="--uc:${unitColor(w[3])}">${pic(w[0],{cap:false,zoom:false,badge:false,w:240})}<b>${esc(w[1])}</b><span>Unit ${w[3]}</span></div>`).join("");
+$("#castStrip").innerHTML = WHO.slice().sort((a,b)=>a[3]-b[3]).map(w=>`<div class="p" data-go="who" style="--uc:${unitColor(w[3])}">${pic(w[0],{cap:false,zoom:false,badge:false,w:240}).replace("<figure ",`<figure data-ini="${w[1].split(" ").filter(x=>/^[A-Z]/.test(x)).map(x=>x[0]).join("").slice(0,3)}" `)}<b>${esc(w[1])}</b><span>Unit 0${w[3]}</span></div>`).join("");
 renderXP(); renderHome(); drawTimer();
 </script>
 </body>
