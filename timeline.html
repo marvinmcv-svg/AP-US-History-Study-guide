@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Timeline · APUSH Field Notes</title>
+<meta name="description" content="Every event from Units 1–5 of AP U.S. History on one line, 1491 to 1877.">
+<meta name="theme-color" content="#0d0c0a">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='4' fill='%230d0c0a'/%3E%3Ctext x='16' y='22' font-family='Georgia' font-size='15' fill='%23f1eadb' text-anchor='middle'%3EUS%3C/text%3E%3Crect x='7' y='25' width='18' height='1.6' fill='%23e57a5f'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/core.css">
+<link rel="stylesheet" href="assets/css/landing.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+</head>
+<body class="tl-page">
+<header class="snav on-dark">
+  <div class="wrap in">
+    <a class="logo" href="index.html" data-label="Home"><span class="mk">US</span><span><b>Field Notes</b><small>APUSH · 1491–1877</small></span></a>
+    <nav aria-label="Site">
+      <a href="index.html" data-label="Home">Home</a>
+      <a href="study.html" data-label="Study">Study</a>
+      <a href="timeline.html" aria-current="page">Timeline</a>
+      <a href="people.html" data-label="The Cast">People</a>
+      <a href="study.html#quiz" data-label="Quiz">Quiz</a>
+    </nav>
+    <div class="tools">
+      <button class="roundbtn burger" aria-label="Menu"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M2 5.5h12M2 10.5h12"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="phero" data-dark>
+    <div class="bigyear" data-parallax=".25">1877</div>
+    <div class="wrap">
+      <span class="eyebrow" data-reveal>The whole course on one line</span>
+      <h1 data-split>1491 <em>→</em> 1877</h1>
+      <p class="lede" data-reveal style="--d:300">Every date from all five units, in order. Scroll slowly, say each year out loud, and guess what happened before you read it. Chronology quietly decides a lot of exam answers.</p>
+      <div class="chips" id="chips" data-stagger="60"></div>
+    </div>
+  </section>
+
+  <section class="wrap tlx" data-dark>
+    <aside class="tl-aside" aria-live="polite">
+      <span class="now" id="now">1050</span>
+      <span class="uname" id="uname">Unit 01</span>
+      <ol id="toc"></ol>
+    </aside>
+    <div class="tl-body" id="tlBody">
+      <div class="tl-line"><i id="tlFill"></i></div>
+    </div>
+  </section>
+</main>
+
+<footer class="sfoot" data-dark style="border-top:1px solid var(--night-line)">
+  <div class="wrap">
+    <p class="big"><a href="study.html#order" data-label="Which came first?"><span data-split>Test the <em>order.</em></span></a></p>
+    <div class="cols">
+      <div><h4>Field Notes</h4><p>Now that you've walked it, play “Which came first?” and chase a ten-answer streak.</p></div>
+      <div><h4>Explore</h4><a href="index.html" data-label="Home">Home</a><a href="study.html" data-label="Study">Study hub</a><a href="people.html" data-label="The Cast">People</a></div>
+      <div><h4>Practice</h4><a href="study.html#order" data-label="Which came first?">Which came first?</a><a href="study.html#quiz" data-label="Quiz">Quiz</a><a href="study.html#cards" data-label="Flashcards">Flashcards</a></div>
+    </div>
+    <div class="base"><span>Images: Wikimedia Commons, public domain</span><span>1491 → 1877</span></div>
+  </div>
+</footer>
+
+<script src="assets/js/data.js"></script>
+<script src="assets/js/fx.js"></script>
+<script>
+(function(){
+  const $ = s => document.querySelector(s);
+  const body = $("#tlBody");
+  /* find a picture for an event by matching its words against the flashcard picture list */
+  const keys = Object.keys(TERM_IMG).sort((a,b)=>b.length-a.length);
+  const used = new Set();
+  const picFor = t => {
+    const low = t.toLowerCase();
+    for(const k of keys){
+      const probe = k.toLowerCase().replace(/ \/.*$/,"").replace(/\(.*\)/,"").replace(/ & .*$/,"").trim();
+      if(low.includes(probe) && !used.has(TERM_IMG[k]) && IMG[TERM_IMG[k]]){ used.add(TERM_IMG[k]); return TERM_IMG[k]; }
+    }
+    return null;
+  };
+  const tag = (k,w) => IMG[k] ? `<img src="${imgURL(k,w)}" alt="${esc(IMG[k][1])}" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('noimg');this.remove()">` : "";
+
+  body.insertAdjacentHTML("beforeend", UNITS.map(U=>{
+    const k = HERO_IMG[U.id];
+    return `<section class="chap" id="unit-${U.id}" style="--uc:var(${U.color})" data-unit="${U.id}">
+      <div class="banner${IMG[k]?"":" noimg"}" data-reveal="mask">${IMG[k] ? `<img src="${imgURL(k,1400)}" alt="${esc(IMG[k][1])}" loading="lazy" referrerpolicy="no-referrer" data-parallax=".08" onerror="this.remove()">` : ""}
+        <div class="ov"><span class="n">UNIT 0${U.id} · ${U.weight} OF THE EXAM</span><h2>${esc(U.title)}</h2><p>${U.years}</p></div></div>
+      ${U.timeline.map(e=>{ const p = picFor(e[1]); return `<div class="tev" data-reveal="right" data-year="${esc(e[0])}"><span class="y">${esc(e[0])}</span><p>${p?`<span class="th">${tag(p,300)}</span>`:""}${esc(e[1])}</p></div>`; }).join("")}
+    </section>`;
+  }).join("") + `<div class="tl-end" data-reveal><h3>That's the whole story. Now test the order.</h3><a class="cta light" href="study.html#order" data-label="Which came first?">Which came first? <span class="ar">→</span></a></div>`);
+
+  $("#chips").innerHTML = UNITS.map(U=>`<button class="chipbtn" style="--uc:var(${U.color})" data-jump="${U.id}"><i></i>0${U.id} · ${esc(U.title)}</button>`).join("");
+  $("#toc").innerHTML = UNITS.map(U=>`<li><button style="--uc:var(${U.color})" data-jump="${U.id}"><span>0${U.id}</span>${esc(U.title)}</button></li>`).join("");
+  document.addEventListener("click", e=>{
+    const b = e.target.closest("[data-jump]"); if(!b) return;
+    document.getElementById("unit-"+b.dataset.jump).scrollIntoView({behavior: FX.RM ? "auto" : "smooth"});
+  });
+  if(location.hash){ const t = document.getElementById(location.hash.slice(1)); if(t) setTimeout(()=>t.scrollIntoView(), 80); }
+
+  /* the line fills, the big year follows you, and each unit's progress shows in the index */
+  const fill = $("#tlFill"), now = $("#now"), uname = $("#uname");
+  const evs = [...document.querySelectorAll(".tev")], chaps = [...document.querySelectorAll(".chap")], toc = [...document.querySelectorAll("#toc button")];
+  let shown = "";
+  FX.onScroll((y, vh)=>{
+    const r = body.getBoundingClientRect();
+    fill.style.setProperty("--p", Math.min(1, Math.max(0, (vh*.5 - r.top) / r.height)).toFixed(4));
+    let cur = null; evs.forEach(e=>{ if(e.getBoundingClientRect().top < vh*.55) cur = e; });
+    const yr = cur ? cur.dataset.year : UNITS[0].timeline[0][0];
+    if(yr !== shown){ shown = yr; now.textContent = yr; }
+    chaps.forEach((c,i)=>{
+      const cr = c.getBoundingClientRect();
+      const p = Math.min(1, Math.max(0, (vh*.55 - cr.top) / cr.height));
+      toc[i].style.setProperty("--fill", (p*100).toFixed(1) + "%");
+      const on = cr.top < vh*.55 && cr.bottom > vh*.55;
+      toc[i].classList.toggle("on", on);
+      if(on){ uname.textContent = `Unit 0${i+1} · ${UNITS[i].title}`; now.style.color = `var(${UNITS[i].color})`; }
+    });
+  });
+})();
+</script>
+</body>
+</html>
