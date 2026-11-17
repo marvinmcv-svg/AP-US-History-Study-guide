@@ -192,6 +192,108 @@ details.acc li{margin-bottom:6px}
 .theme-chip{display:flex;gap:10px;align-items:flex-start}
 .theme-chip .ab{flex:none;font-weight:800;font-size:.8rem;background:var(--accent2);color:#fff;border-radius:8px;padding:4px 7px}
 footer{text-align:center;padding:30px 16px;color:var(--muted);font-size:.85rem}
+
+/* ================= V2: IMAGES, MEDIA, CHAT ================= */
+.ph{position:relative;overflow:hidden;border-radius:14px;background:linear-gradient(135deg,color-mix(in srgb,var(--uc,var(--accent2)) 60%,#000),color-mix(in srgb,var(--uc,var(--accent2)) 25%,#111));margin:0}
+.ph img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .5s}
+.ph.zoom{cursor:zoom-in}
+.ph.zoom:hover img{transform:scale(1.04)}
+.ph.noimg img,.ph.noimg .zbadge{display:none}
+.ph.noimg::before{content:attr(data-emoji);position:absolute;inset:0;display:grid;place-items:center;font-size:3.4rem}
+.ph figcaption{position:absolute;left:0;right:0;bottom:0;padding:22px 12px 9px;font-size:.76rem;color:#fff;background:linear-gradient(transparent,rgba(0,0,0,.82));line-height:1.3}
+.ph .zbadge{position:absolute;top:8px;right:8px;background:rgba(0,0,0,.55);color:#fff;border-radius:99px;font-size:.7rem;padding:3px 8px;font-weight:700}
+/* hero with painting */
+.hero-main.painted{background:linear-gradient(100deg,rgba(8,16,40,.94) 30%,rgba(8,16,40,.55)),var(--bgimg) center/cover,linear-gradient(135deg,var(--accent2),#0d1f4d);min-height:360px}
+.unit-hero{background:linear-gradient(100deg,color-mix(in srgb,var(--uc) 92%,#000) 25%,color-mix(in srgb,var(--uc) 45%,transparent)),var(--bgimg,none) center/cover,var(--uc)!important;min-height:300px;position:relative}
+.unit-hero .credit{position:absolute;right:12px;bottom:8px;font-size:.66rem;opacity:.7}
+/* cast strip */
+.cast{display:flex;gap:12px;overflow-x:auto;padding:4px 2px 12px;scroll-snap-type:x mandatory}
+.cast .p{flex:none;width:110px;text-align:center;scroll-snap-align:start;cursor:pointer}
+.cast .ph{width:110px;height:130px;border-radius:16px;border:3px solid var(--card);box-shadow:var(--shadow)}
+.cast .p b{display:block;font-size:.82rem;margin-top:6px;line-height:1.2}
+.cast .p span{font-size:.72rem;color:var(--muted)}
+/* scenes */
+.scene{display:grid;grid-template-columns:300px 1fr;gap:20px;align-items:center;margin-bottom:22px}
+.scene:nth-child(even){grid-template-columns:1fr 300px}
+.scene:nth-child(even) .ph{order:2}
+.scene .ph{aspect-ratio:4/3;box-shadow:var(--shadow)}
+.scene .num{font-family:Fraunces,serif;font-weight:800;color:var(--uc);font-size:.85rem;letter-spacing:.1em;text-transform:uppercase}
+@media(max-width:720px){.scene,.scene:nth-child(even){grid-template-columns:1fr}.scene:nth-child(even) .ph{order:0}}
+/* video cards */
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.vcard{display:block;text-decoration:none;color:inherit;background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;box-shadow:var(--shadow);transition:transform .15s}
+.vcard:hover{transform:translateY(-3px)}
+.vcard .ph{aspect-ratio:16/9;border-radius:0}
+.vcard .play{position:absolute;inset:0;display:grid;place-items:center}
+.vcard .play i{width:58px;height:40px;border-radius:12px;background:#e62117;display:grid;place-items:center;color:#fff;font-style:normal;font-size:1.1rem;box-shadow:0 4px 14px rgba(0,0,0,.4)}
+.vcard .vb{padding:12px 14px}
+.vcard .vb b{display:block;line-height:1.3}
+.vcard .vb span{font-size:.8rem;color:var(--muted)}
+.vcard.done .vb b::after{content:" ✅"}
+/* group chat */
+.phone{max-width:430px;margin:0 auto;background:var(--bg2);border:8px solid #111;border-radius:34px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.25)}
+.phone .bar{background:var(--card);padding:12px 14px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--line)}
+.phone .bar .gav{width:38px;height:38px;border-radius:50%;background:var(--uc);display:grid;place-items:center;font-size:1.2rem}
+.phone .bar b{display:block;font-size:.95rem}
+.phone .bar span{font-size:.72rem;color:var(--muted)}
+.msgs{padding:14px 12px;min-height:280px;max-height:470px;overflow-y:auto;display:flex;flex-direction:column;gap:9px}
+.msg{display:flex;gap:8px;align-items:flex-end;max-width:88%;animation:pop .3s ease}
+.msg .av{flex:none;width:30px;height:30px;border-radius:50%;overflow:hidden;background:var(--uc);display:grid;place-items:center;font-size:.85rem;color:#fff;font-weight:700}
+.msg .av img{width:100%;height:100%;object-fit:cover}
+.msg .bub{background:var(--card);border-radius:18px 18px 18px 4px;padding:8px 12px;font-size:.92rem;box-shadow:0 1px 2px rgba(0,0,0,.08)}
+.msg .who{font-size:.7rem;font-weight:700;color:var(--uc);margin-bottom:2px}
+.msg.me{align-self:flex-end;flex-direction:row-reverse}
+.msg.me .bub{background:#1e7cf2;color:#fff;border-radius:18px 18px 4px 18px}
+.msg.me .who{color:#d6e6ff}
+.sys{align-self:center;font-size:.76rem;color:var(--muted);background:var(--card);border-radius:99px;padding:4px 12px;text-align:center;animation:pop .3s}
+.sys.fact{background:color-mix(in srgb,var(--gold) 22%,var(--card));color:var(--ink);border-radius:12px;max-width:95%}
+.typing{align-self:flex-start;background:var(--card);border-radius:18px;padding:10px 14px;display:flex;gap:4px}
+.typing i{width:7px;height:7px;border-radius:50%;background:var(--muted);animation:blink 1s infinite}
+.typing i:nth-child(2){animation-delay:.2s}.typing i:nth-child(3){animation-delay:.4s}
+@keyframes blink{0%,100%{opacity:.3}50%{opacity:1}}
+@keyframes pop{from{opacity:0;transform:translateY(6px) scale(.97)}to{opacity:1;transform:none}}
+.phone .ctrl{padding:10px;background:var(--card);border-top:1px solid var(--line);display:flex;gap:8px;justify-content:center}
+/* then vs now */
+.tvn{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
+.tvn .c{border-radius:16px;overflow:hidden;border:1px solid var(--line);background:var(--card);box-shadow:var(--shadow)}
+.tvn .then{padding:14px 16px;background:color-mix(in srgb,var(--uc) 14%,var(--card));border-bottom:2px dashed var(--line)}
+.tvn .now{padding:14px 16px}
+.tvn small{display:block;font-weight:800;letter-spacing:.1em;text-transform:uppercase;font-size:.68rem;margin-bottom:4px;color:var(--uc)}
+.tvn .now small{color:var(--accent2)}
+/* source analysis */
+.src{display:grid;grid-template-columns:1fr 1fr;gap:0;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:var(--card);box-shadow:var(--shadow);margin-bottom:16px}
+.src .ph{border-radius:0;min-height:260px}
+.src .sb{padding:18px}
+.src .meta{font-size:.8rem;color:var(--muted);margin-bottom:8px}
+.src .reveal{display:none;animation:fade .3s}
+.src.open .reveal{display:block}
+.src.open .askbtn{display:none}
+@media(max-width:720px){.src{grid-template-columns:1fr}.src .ph{aspect-ratio:4/3;min-height:0}}
+/* who am I */
+.who-wrap{display:grid;grid-template-columns:280px 1fr;gap:20px;align-items:start}
+.who-wrap .ph{aspect-ratio:3/4;box-shadow:var(--shadow)}
+@media(max-width:700px){.who-wrap{grid-template-columns:1fr}.who-wrap .ph{max-width:260px;margin:0 auto;width:100%}}
+.quote-bub{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:14px 16px;font-family:Fraunces,serif;font-size:1.1rem;margin-bottom:14px;position:relative}
+/* lightbox */
+.lb{position:fixed;inset:0;z-index:120;background:rgba(0,0,0,.9);display:none;flex-direction:column;align-items:center;justify-content:center;padding:16px}
+.lb.show{display:flex;animation:fade .25s}
+.lb img{max-width:100%;max-height:78vh;border-radius:10px;box-shadow:0 10px 40px rgba(0,0,0,.6)}
+.lb p{color:#eee;max-width:720px;text-align:center;font-size:.92rem;margin-top:12px}
+.lb a{color:#9ec1ff}
+.lb .x{position:absolute;top:14px;right:16px;background:#fff;color:#000;border:none;border-radius:99px;width:40px;height:40px;font-size:1.2rem;font-weight:800}
+/* quiz image */
+.qimg{max-width:420px;margin:0 auto 14px;aspect-ratio:4/3}
+.qimg img{object-fit:contain;background:#fff}
+/* image-card fronts */
+.flip .front .thumb{width:64px;height:64px;border-radius:50%;overflow:hidden;margin-bottom:8px;border:3px solid var(--uc)}
+.flip .front .thumb.ph{border-radius:50%}
+.flip .front .thumb.noimg{display:none}
+.bigcard .front .thumb{width:96px;height:96px}
+/* res cards */
+.res{display:flex;gap:12px;align-items:flex-start;text-decoration:none;color:inherit}
+.res .ic{flex:none;width:44px;height:44px;border-radius:12px;display:grid;place-items:center;font-size:1.4rem;background:var(--bg2)}
+.sec-title{display:flex;align-items:center;gap:10px}
+.sec-title .em{font-size:1.6rem}
 </style>
 </head>
 <body>
@@ -216,6 +318,8 @@ footer{text-align:center;padding:30px 16px;color:var(--muted);font-size:.85rem}
       <button class="tab" data-view="cards">🃏 Flashcards</button>
       <button class="tab" data-view="quiz">🎯 Quiz Arena</button>
       <button class="tab" data-view="order">⏳ Which Came First?</button>
+      <button class="tab" data-view="who">🕵️ Who Am I?</button>
+      <button class="tab" data-view="videos">📺 Videos</button>
       <button class="tab" data-view="cheat">📜 Cheat Sheets</button>
       <button class="tab" data-view="skills">🧠 MCQ Skills</button>
     </nav>
@@ -227,11 +331,10 @@ footer{text-align:center;padding:30px 16px;color:var(--muted);font-size:.85rem}
 <!-- ============ HOME ============ -->
 <section class="view active" id="view-home">
   <div class="hero">
-    <div class="hero-main">
-      <div class="stars">★</div>
+    <div class="hero-main painted" id="homeHero">
       <div class="kicker" style="color:#ffd27a">Units 1–5 · 1491 → 1877</div>
       <h1>Hey Santiago 👋<br>Let's make history stick.</h1>
-      <p>This isn't a wall of notes. It's a game: read the 60-second story, flip the cards, beat the quizzes, earn XP. Small sessions, real progress.</p>
+      <p>This isn't a wall of notes. It's a game: watch the story in real paintings, spy on history's group chats, guess who's who, flip cards, crush quizzes, and earn XP. Small sessions, real progress.</p>
       <div class="row" style="margin-top:16px">
         <button class="btn" id="startMission">▶ Start today's mission</button>
         <button class="btn ghost" style="color:#fff;border-color:rgba(255,255,255,.4)" data-go="quiz">Jump to a quiz</button>
@@ -252,6 +355,13 @@ footer{text-align:center;padding:30px 16px;color:var(--muted);font-size:.85rem}
     <div class="note">
       <b>A real talk first.</b> I know things have been a lot lately. You don't need 4-hour study marathons. <b>Fifteen focused minutes a day beats one panic night.</b> Use the focus timer below, take the break when it tells you to, and remember: every card you flip counts. You've got this. 💪
     </div>
+  </div>
+
+  <div class="section">
+    <div class="kicker">The cast</div>
+    <h2>Meet the main characters 🎬</h2>
+    <p class="muted">These are the people who show up again and again. Tap a face to play <b>Who Am I?</b></p>
+    <div class="cast" id="castStrip"></div>
   </div>
 
   <div class="section">
@@ -288,8 +398,8 @@ footer{text-align:center;padding:30px 16px;color:var(--muted);font-size:.85rem}
     <div class="scroll">
     <table class="tbl">
       <tr><th>Session</th><th>Do this</th><th>Time</th></tr>
-      <tr><td><b>1</b></td><td>Unit 1 + Unit 2: read the stories, flip all the cards, take the unit quizzes</td><td>30–40 min</td></tr>
-      <tr><td><b>2</b></td><td>Unit 3 (the Revolution &amp; Constitution, a big one): story, cards, chain reactions, quiz</td><td>30–40 min</td></tr>
+      <tr><td><b>1</b></td><td>Unit 1 + Unit 2: story scenes, group chats, flip all the cards, take the unit quizzes</td><td>30–40 min</td></tr>
+      <tr><td><b>2</b></td><td>Unit 3 (the Revolution &amp; Constitution, a big one): watch the Heimler video first, then cards, sources, quiz</td><td>30–40 min</td></tr>
       <tr><td><b>3</b></td><td>Unit 4 (Jefferson → Jackson → reform): story, cards, quiz</td><td>30–40 min</td></tr>
       <tr><td><b>4</b></td><td>Unit 5 (Road to Civil War → Reconstruction): story, cards, quiz</td><td>30–40 min</td></tr>
       <tr><td><b>5</b></td><td>Read the MCQ Skills tab. Play “Which Came First?” until you hit a 10 streak</td><td>20 min</td></tr>
@@ -338,6 +448,35 @@ footer{text-align:center;padding:30px 16px;color:var(--muted);font-size:.85rem}
     </div>
     <div class="vs" id="ordArea"></div>
     <div id="ordFeedback" style="margin-top:16px;min-height:60px"></div>
+  </div>
+</section>
+
+<!-- ============ WHO AM I ============ -->
+<section class="view" id="view-who">
+  <div class="kicker">Portrait game</div>
+  <h2>🕵️ Who Am I?</h2>
+  <p class="muted">Look at the face, read the clue, name the person. Faces + stories stick way better than names on a list.</p>
+  <div class="row" style="margin:10px 0 18px">
+    <span class="pill streak">🔥 Streak: <span id="whoStreak">0</span></span>
+    <span class="pill">✅ <span id="whoScore">0</span> correct</span>
+  </div>
+  <div id="whoArea"></div>
+</section>
+
+<!-- ============ VIDEOS ============ -->
+<section class="view" id="view-videos">
+  <div class="kicker">Lazy mode (it still counts)</div>
+  <h2>📺 Watch & Learn</h2>
+  <p class="muted">Tired of reading? Watch these. <b>Heimler's History</b> is the most popular APUSH review channel on YouTube, made exactly for this course. <b>Crash Course</b> is funnier and great for the big picture. Pro move: watch at 1.25×, pause when he says something you didn't know, and write it down.</p>
+  <div id="videoArea"></div>
+  <div class="section card">
+    <h3>🔗 More free resources</h3>
+    <div class="grid g2" style="margin-top:10px">
+      <a class="res" href="https://www.youtube.com/@heimlershistory" target="_blank" rel="noopener"><span class="ic">🎓</span><span><b>Heimler's History (YouTube)</b><br><span class="small muted">Short videos for every single APUSH topic</span></span></a>
+      <a class="res" href="https://www.youtube.com/results?search_query=crash+course+us+history" target="_blank" rel="noopener"><span class="ic">💥</span><span><b>Crash Course US History</b><br><span class="small muted">Fast, funny, about 12 minutes each</span></span></a>
+      <a class="res" href="https://www.khanacademy.org/humanities/us-history" target="_blank" rel="noopener"><span class="ic">📗</span><span><b>Khan Academy: US History</b><br><span class="small muted">Free articles, videos and practice questions</span></span></a>
+      <a class="res" href="https://apstudents.collegeboard.org/courses/ap-united-states-history" target="_blank" rel="noopener"><span class="ic">🏛️</span><span><b>College Board: AP US History</b><br><span class="small muted">The official course page, from the people who write the exam</span></span></a>
+    </div>
   </div>
 </section>
 
@@ -428,6 +567,7 @@ footer{text-align:center;padding:30px 16px;color:var(--muted);font-size:.85rem}
 </main>
 <footer>Made for Santiago with ★ · Small steps, every day. · Progress saves in this browser.</footer>
 <div class="toast" id="toast"></div>
+<div class="lb" id="lightbox"><button class="x" aria-label="Close">✕</button><img alt=""><p></p></div>
 
 <script>
 /* =========================================================
@@ -920,6 +1060,250 @@ const UNITS = [
 }
 ];
 
+/* =========================================================
+   MEDIA: public-domain images from Wikimedia Commons
+   ========================================================= */
+const IMG = {
+  taos:["Taos Pueblo2.jpg","Taos Pueblo, New Mexico: adobe homes people have lived in for about 1,000 years","🏜️"],
+  cahokia:["Monks Mound in July.JPG","Monks Mound at Cahokia (Illinois): the largest earthwork in North America","⛰️"],
+  columbus:["Landing of Columbus (2).jpg","Landing of Columbus, John Vanderlyn (1847)","⛵"],
+  smallpox:["FlorentineCodex BK12 F54 smallpox.jpg","Aztec drawing of smallpox victims, Florentine Codex (1500s)","🦠"],
+  cortes:["Retrato de Hernán Cortés.jpg","Hernán Cortés, conqueror of the Aztec Empire","⚔️"],
+  lascasas:["Bartolomé de las Casas.jpg","Bartolomé de Las Casas, defender of Native rights","✝️"],
+  mayflower:["Mayflower in Plymouth Harbor, by William Halsall.jpg","Mayflower in Plymouth Harbor, William Halsall (1882)","🚢"],
+  compact:["The Mayflower Compact 1620 cph.3g07155.jpg","The Mayflower Compact, 1620, painted by Jean Leon Gerome Ferris (1899)","✍️"],
+  penn:["Treaty of Penn with Indians by Benjamin West.jpg","Penn's Treaty with the Indians, Benjamin West (1771–72)","🤝"],
+  salem:["Martha Corey and Persecutors.JPG","Martha Corey and her accusers: Salem witch trials (1692), 19th-century illustration","🧙"],
+  whitefield:["George Whitefield preaching.jpg","George Whitefield preaching during the Great Awakening","⛪"],
+  slaveship:["Slaveshipposter.jpg","The slave ship Brookes, an abolitionist diagram (1788)","⛓️"],
+  joinordie:["Benjamin Franklin - Join or Die.jpg","“Join, or Die.” Benjamin Franklin's cartoon (1754)","🐍"],
+  massacre:["Boston Massacre high-res.jpg","The Bloody Massacre in King Street, Paul Revere's engraving (1770)","💥"],
+  teaparty:["Boston Tea Party w.jpg","The Destruction of Tea at Boston Harbor, Nathaniel Currier (1846)","🫖"],
+  commonsense:["Commonsense.jpg","Title page of Common Sense by Thomas Paine (1776)","📰"],
+  paine:["Thomas Paine rev1.jpg","Thomas Paine","✒️"],
+  writingdecl:["Writing the Declaration of Independence 1776 cph.3g09904.jpg","Franklin, Adams & Jefferson writing the Declaration, J.L.G. Ferris (1900)","📝"],
+  declaration:["Declaration of Independence (1819), by John Trumbull.jpg","Declaration of Independence, John Trumbull (1819)","📜"],
+  delaware:["Washington Crossing the Delaware by Emanuel Leutze, MMA-NYC, 1851.jpg","Washington Crossing the Delaware, Emanuel Leutze (1851)","🛶"],
+  cornwallis:["Surrender of Lord Cornwallis.jpg","Surrender of Lord Cornwallis at Yorktown, John Trumbull (1820)","🏳️"],
+  constitution:["Scene at the Signing of the Constitution of the United States.jpg","Signing of the Constitution, Howard Chandler Christy (1940)","🏛️"],
+  washington:["Gilbert Stuart Williamstown Portrait of George Washington.jpg","George Washington, Gilbert Stuart (1797)","🎖️"],
+  hamilton:["Alexander Hamilton portrait by John Trumbull 1806.jpg","Alexander Hamilton, John Trumbull (1806)","💵"],
+  jefferson:["Official Presidential portrait of Thomas Jefferson (by Rembrandt Peale, 1800).jpg","Thomas Jefferson, Rembrandt Peale (1800)","🌾"],
+  lewisclark:["Lewis and clark-expedition.jpg","Lewis and Clark on the Lower Columbia, Charles M. Russell (1905)","🧭"],
+  tecumseh:["Tecumseh02.jpg","Tecumseh, Shawnee leader","🪶"],
+  marshall:["John Marshall by Henry Inman, 1832.jpg","Chief Justice John Marshall, Henry Inman (1832)","⚖️"],
+  missouri:["Missouri Compromise Line.svg","Map: the Missouri Compromise line at 36°30' (1820)","🗺️"],
+  cottongin:["Cotton gin harpers.jpg","Enslaved people using a cotton gin, Harper's Weekly (1869)","⚙️"],
+  clay:["Henry Clay.JPG","Henry Clay, 'the Great Compromiser'","🤝"],
+  jackson:["Andrew Jackson.jpg","Andrew Jackson, 7th president","🎩"],
+  calhoun:["John C Calhoun by Mathew Brady, 1849.jpg","John C. Calhoun, photographed by Mathew Brady (1849)","✋"],
+  trailmap:["Trails of Tears en.png","Map: the routes of forced Native removal (the Trail of Tears)","🗺️"],
+  douglass:["Frederick Douglass (circa 1879).jpg","Frederick Douglass (c. 1879)","📣"],
+  stanton:["Elizabeth Cady Stanton.jpg","Elizabeth Cady Stanton, leader at Seneca Falls","♀️"],
+  tubman:["Harriet Tubman c1868-69.jpg","Harriet Tubman (c. 1868)","🌟"],
+  progress:["American Progress (John Gast painting).jpg","American Progress, John Gast (1872)","🌄"],
+  acquisitions:["U.S. Territorial Acquisitions.png","Map: how the U.S. grew, one land grab at a time","🗺️"],
+  cession:["Mexican Cession.png","Map: the Mexican Cession (1848)","🗺️"],
+  uncletom:["UncleTomsCabinCover.jpg","Uncle Tom's Cabin, first edition (1852)","📕"],
+  caning:["Southern Chivalry.jpg","“Southern Chivalry: Argument versus Club's,” John L. Magee (1856)","🦯"],
+  dredscott:["Dred Scott photograph (circa 1857).jpg","Dred Scott (c. 1857)","⚖️"],
+  election1860:["ElectoralCollege1860.svg","Map: the Election of 1860 by electoral votes","🗳️"],
+  lincoln:["Abraham Lincoln O-77 matte collodion print.jpg","Abraham Lincoln, photographed by Alexander Gardner (1863)","🎩"],
+  lee:["Robert Edward Lee.jpg","Confederate General Robert E. Lee","🎖️"],
+  grant:["Ulysses S. Grant 1870-1880.jpg","Ulysses S. Grant, Union general and 18th president","🎖️"],
+  gettysburg:["Thure de Thulstrup - L. Prang and Co. - Battle of Gettysburg - Restoration by Adam Cuerden.jpg","Battle of Gettysburg, Thure de Thulstrup (1887)","⚔️"],
+  emancipation:["Emancipation proclamation.jpg","The Emancipation Proclamation (1863)","⛓️‍💥"],
+  ajohnson:["Andrew Johnson photo portrait head and shoulders, c1870-1880-Edit1.jpg","Andrew Johnson, 17th president","🎩"],
+  firstcolored:["First Colored Senator and Representatives.jpg","The first Black senator and representatives in Congress, Currier & Ives (1872)","🏛️"]
+};
+const imgURL = (k,w=800) => IMG[k] ? "https://commons.wikimedia.org/wiki/Special:FilePath/" + encodeURIComponent(IMG[k][0].replace(/ /g,"_")) + "?width=" + w : "";
+const pageURL = k => "https://commons.wikimedia.org/wiki/File:" + encodeURIComponent(IMG[k][0].replace(/ /g,"_"));
+function pic(k, opts={}){
+  const meta = IMG[k] || [null, opts.cap || "", opts.emoji || "📜"];
+  const cls = "ph" + (opts.zoom!==false && IMG[k] ? " zoom" : "") + (IMG[k] ? "" : " noimg") + (opts.cls ? " "+opts.cls : "");
+  return `<figure class="${cls}" data-emoji="${opts.emoji || meta[2]}" ${IMG[k]?`data-k="${k}"`:""} style="${opts.style||""}">`
+    + (IMG[k] ? `<img src="${imgURL(k, opts.w||800)}" alt="${esc(meta[1])}" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('noimg')">` : "")
+    + (opts.cap!==false && meta[1] ? `<figcaption>${esc(opts.cap || meta[1])}</figcaption>` : "")
+    + (opts.zoom!==false && IMG[k] && opts.badge!==false ? `<span class="zbadge">🔍 tap</span>` : "")
+    + `</figure>`;
+}
+
+/* picture for each story scene (same order as the story paragraphs); null = emoji tile */
+const SCENES = {
+  1:[["taos","🏜️"],["columbus","⛵"],["smallpox","🦠"],["cortes","⚔️"]],
+  2:[[null,"🌿"],["mayflower","🚢"],["penn","🤝"],["slaveship","⛓️"],["whitefield","⛪"]],
+  3:[["joinordie","🐍"],["massacre","💥"],["declaration","📜"],[null,"🧩"],["constitution","🏛️"]],
+  4:[["lewisclark","🧭"],["tecumseh","🪶"],["missouri","🗺️"],["cottongin","⚙️"],["jackson","🎩"],["stanton","♀️"]],
+  5:[["progress","🌄"],["uncletom","📕"],["dredscott","⚖️"],["gettysburg","⚔️"],["firstcolored","🏛️"]]
+};
+const HERO_IMG = {1:"columbus",2:"mayflower",3:"declaration",4:"lewisclark",5:"gettysburg"};
+
+/* term → picture on the flash card */
+const TERM_IMG = {
+  "Cahokia":"cahokia","Pueblo":"taos","Christopher Columbus":"columbus","Hernán Cortés":"cortes","Bartolomé de Las Casas":"lascasas","Columbian Exchange":"smallpox",
+  "Mayflower Compact":"compact","William Penn / Pennsylvania":"penn","Middle Passage":"slaveship","Great Awakening":"whitefield",
+  "Albany Plan of Union":"joinordie","Boston Massacre":"massacre","Boston Tea Party":"teaparty","Common Sense":"commonsense","Declaration of Independence":"declaration","Yorktown":"cornwallis","Great Compromise":"constitution","Hamilton's Financial Plan":"hamilton","Washington's Farewell Address":"washington","Election of 1800":"jefferson",
+  "Lewis and Clark":"lewisclark","Tecumseh":"tecumseh","Marbury v. Madison":"marshall","McCulloch v. Maryland":"marshall","Missouri Compromise":"missouri","Cotton gin":"cottongin","American System":"clay","Jacksonian Democracy":"jackson","Trail of Tears":"trailmap","Nullification Crisis":"calhoun","Frederick Douglass":"douglass","Seneca Falls Convention":"stanton",
+  "Manifest Destiny":"progress","Treaty of Guadalupe Hidalgo":"cession","Uncle Tom's Cabin":"uncletom","Caning of Charles Sumner":"caning","Dred Scott v. Sandford":"dredscott","Election of 1860":"election1860","Gettysburg & Vicksburg":"gettysburg","Emancipation Proclamation":"emancipation","Johnson's impeachment":"ajohnson","15th Amendment":"firstcolored","Appomattox Court House":"grant"
+};
+
+/* Videos: [youtubeId, title, channel, note] */
+const VIDEOS = {
+  1:[["fTv4S1q7p_c","APUSH Unit 1 Review (1491–1607)","Heimler's History","The whole unit in one video"],
+     ["TTYOQ05oDOI","The Natives and the English","Crash Course US History #3","Funny & fast"]],
+  2:[["t0wIU4R0MhI","APUSH Unit 2 Review (1607–1754)","Heimler's History","The whole unit in one video"],
+     ["o69TvQqyGdg","When is Thanksgiving? Colonizing America","Crash Course US History #2","Jamestown & the Pilgrims"],
+     ["p47tZLJbdag","The Quakers, the Dutch, and the Ladies","Crash Course US History #4","Middle colonies & women"]],
+  3:[["1oNumKYNUaE","APUSH Unit 3 Review (1754–1800)","Heimler's History","The whole unit, about 36 min"],
+     ["1EMkWD0hr5E","The American Revolution (Topic 3.5)","Heimler's History","Short topic video"],
+     ["eCoFYgZ0Pf0","Shaping a New Republic","Heimler's History","Articles → Constitution"]],
+  4:[["kO5cfLxN44Y","APUSH Unit 4 Review (1800–1848)","Heimler's History","The whole unit, about 40 min"],
+     ["XwPFSMxoD68","The Market Revolution, Explained","Heimler's History","About 10 min"],
+     ["5ofOfZIZc5I","How Andrew Jackson Expanded Federal Power","Heimler's History","About 11 min"],
+     ["_wf6-Ir55TI","An Age of Reform","Heimler's History","Reform movements"],
+     ["beN4qE-e5O8","Age of Jackson","Crash Course US History #14","Funny & fast"]],
+  5:[["JVrwXC0AnIk","APUSH Unit 5 Review playlist","Heimler's History","10 short videos, plays in order","PLEHRHjICEfDWmb7bduiSCHYnUmYx6r36N"],
+     ["GzTrKccmj_I","The Civil War, Part 2","Crash Course US History #21","How the war was won"]]
+};
+
+/* Group chats: [speaker, text, side('me'|'') ] or ["sys", text] or ["fact", text]  */
+const CHATS = {
+  1:{title:"New World Debate 🌎",sub:"Las Casas, Sepúlveda, King Charles V",msgs:[
+    ["King Charles V","Okay team, status update on the Americas? 👑"],
+    ["Cortés","Aztec Empire: conquered ✅ Gold: shipped ✅ (smallpox did a lot of the work tbh 🦠)"],
+    ["Las Casas","I need to talk about the encomienda system. Native people are being worked to death. This is wrong. 😤","me"],
+    ["Sepúlveda","They're 'natural slaves.' Aristotle said some people are born to serve 📜"],
+    ["Las Casas","Aristotle never set foot in the Americas, Juan. They have souls, cities, laws. They are fully human.","me"],
+    ["King Charles V","Fine. Formal debate. Valladolid, 1550. Bring receipts."],
+    ["sys","📍 Valladolid Debate, 1550"],
+    ["fact","🧠 AP takeaway: Europeans debated how to treat Native peoples. Las Casas exposed the abuse, but tragically he also suggested using enslaved Africans instead, and the Atlantic slave trade grew."]]},
+  2:{title:"Virginia Planters Club 🌿",sub:"Gov. Berkeley, Nathaniel Bacon, rich planters",msgs:[
+    ["Planter","Tobacco prices are 🔥 but we need MORE workers"],
+    ["Gov. Berkeley","Keep importing indentured servants. 4–7 years of work, then they're free. Easy."],
+    ["Nathaniel Bacon","Yeah… about those 'free' ex-servants. They have no good land, no money, and they're furious. 😡","me"],
+    ["Nathaniel Bacon","We want the frontier land. Berkeley won't fight the Natives because he's protecting his fur-trade buddies.","me"],
+    ["sys","🔥 Bacon's Rebellion, 1676: Jamestown burned to the ground"],
+    ["Planter","Okay that was terrifying. Poor white AND Black workers teamed up against us 😬"],
+    ["Planter 2","What if our workers… never became free?"],
+    ["fact","🛑 The dark turning point: after 1676, planters switched to enslaved Africans. Slavery became lifelong, inherited and based on race. This is a classic AP cause-and-effect question."]]},
+  3:{title:"Sons of Liberty 🔔",sub:"Sam Adams, Ben Franklin, Parliament & 3 others",msgs:[
+    ["Parliament","Hey colonies 👋 That French & Indian War was expensive. New Stamp Act! Every newspaper, legal doc & deck of cards needs a stamp 📜💸"],
+    ["Sam Adams","we didn't vote for you 💀","me"],
+    ["Parliament","You're 'virtually represented' 🙂"],
+    ["John Dickinson","'virtually represented' = not represented."],
+    ["Ben Franklin","[sends 🐍 Join, or Die cartoon] told y'all in 1754 we need to stick together"],
+    ["Sam Adams","BOYCOTT. Nobody buys British goods. 🚫🇬🇧","me"],
+    ["Parliament","Fine. Stamp Act repealed. BUT we can make laws for you 'in all cases whatsoever' 😏 (Declaratory Act)"],
+    ["sys","📈 1767 Townshend Acts → 1770 Boston Massacre → 1773 Tea Party → 1774 Intolerable Acts"],
+    ["Thomas Jefferson","Drafting something. Working title: 'Declaration of Independence.' 📝"],
+    ["fact","🧠 AP takeaway: colonists didn't start out wanting independence. They wanted their rights as Englishmen. Each British crackdown pushed them further."]]},
+  4:{title:"Washington D.C. 🏛️ (1832 edition)",sub:"Andrew Jackson, Henry Clay, John C. Calhoun, John Marshall",msgs:[
+    ["Andrew Jackson","Just vetoed the Bank. It's a MONSTER 🐉 that helps the rich elites.","me"],
+    ["Henry Clay","You can't just veto things because you don't like them, Andrew"],
+    ["Andrew Jackson","watch me 😤","me"],
+    ["John C. Calhoun","Also, South Carolina is nullifying your tariff. It doesn't apply to us. ✋"],
+    ["Andrew Jackson","Try it and I'll send the army. Force Bill incoming. 🪖","me"],
+    ["Henry Clay","Okay okay, everybody relax. Compromise Tariff of 1833 🤝"],
+    ["John Marshall","Separate issue: Worcester v. Georgia. The Cherokee Nation is sovereign. Georgia's laws don't apply there. ⚖️"],
+    ["sys","Andrew Jackson left John Marshall on read 👀"],
+    ["fact","😔 Jackson ignored the Supreme Court. The Cherokee were forced west on the Trail of Tears (1838), and thousands died. AP loves asking how Jackson expanded presidential power."]]},
+  5:{title:"The 1850s Were Chaos 🔥",sub:"Stephen Douglas, Lincoln, Frederick Douglass, South Carolina",msgs:[
+    ["Stephen Douglas","New idea: let settlers in Kansas & Nebraska VOTE on slavery! Popular sovereignty 🗳️ Democracy!"],
+    ["Lincoln","Stephen, that just erased the Missouri Compromise line.","me"],
+    ["Kansas","🔥🔥 people are literally killing each other out here (Bleeding Kansas)"],
+    ["Chief Justice Taney","Dred Scott decision: Black Americans aren't citizens, and Congress can't ban slavery in territories. Case closed. 🔨"],
+    ["Frederick Douglass","This decision is outrageous. And it will only make the antislavery movement stronger."],
+    ["South Carolina","If Lincoln wins in 1860, we're leaving. 👋"],
+    ["Lincoln","Won. 🎉 (zero Southern electoral votes btw)","me"],
+    ["sys","South Carolina left the group"],
+    ["sys","10 more states left the group"],
+    ["fact","🧠 AP takeaway: every 'compromise' over slavery in new land failed faster than the one before it. Westward expansion → the slavery fight → Civil War."]]}
+};
+
+/* Then vs. Now: relatable translations */
+const THENNOW = {
+  1:[["Columbian Exchange","The world's first global 'group chat merge': plants, animals and germs crossing an ocean that had separated people for 10,000+ years."],
+     ["Smallpox in the Americas","Picture a pandemic where nobody has any immunity and there's no medicine. Some communities lost up to 90% of their people."],
+     ["Encomienda","An 'internship' where you work forever, never get paid, and can't quit, while your boss claims he's 'protecting' you."],
+     ["Native diversity","Like saying 'Europeans' are all the same. The Pueblo, Iroquois and Plains peoples were as different as Spain, Sweden and Russia."]],
+  2:[["Indentured servitude","A company pays for your plane ticket, but you owe them 4–7 years of work to pay it back."],
+     ["Salutary neglect","Parents who never check your screen time for 70 years, then suddenly lock your phone. Of course you're going to rebel."],
+     ["Mercantilism / Navigation Acts","An app store that forces you to buy ONLY from them and takes a cut of everything."],
+     ["Great Awakening","George Whitefield was basically a touring influencer, drawing crowds of thousands to emotional, viral revival 'shows.'"]],
+  3:[["Stamp Act","Imagine paying a tax every time you post, text or print anything, set by a government you can't vote for."],
+     ["Articles of Confederation","A group project with no leader where nobody can force anyone to do their part. Total chaos."],
+     ["Checks & balances","Three people sharing a Netflix account where each one can block the others' worst choices."],
+     ["Hamilton vs. Jefferson","Team 'Big City Bank' vs. Team 'Small Farm Freedom.' This is literally how the first political parties started."]],
+  4:[["Market Revolution","The 1800s internet: canals, railroads and the telegraph made shipping and messaging 10× faster."],
+     ["Spoils system","Winning class president, then giving every club position to your friends who voted for you."],
+     ["Nullification","A student saying, 'That school rule doesn't apply to me.' Jackson: 'Yes it does.'"],
+     ["Judicial review","A referee with instant replay who can overturn a play (law) that breaks the rulebook (Constitution)."]],
+  5:[["Popular sovereignty","Letting each new server vote on its own rules, so people from outside flood in to swing the vote. Hello, Bleeding Kansas."],
+     ["Fugitive Slave Act","Being legally forced to help with something you believe is deeply wrong. It turned neutral Northerners into abolitionists."],
+     ["Sharecropping","A 'buy now, pay later' trap: borrow for seeds and tools, pay with your crop, and somehow always end up in debt."],
+     ["Compromise of 1877","A backroom deal: 'You get the presidency, we get the troops out.' The people who paid were Black Southerners."]]
+};
+
+/* Primary sources to analyze (AP loves image stimulus questions) */
+const SOURCES = {
+  1:[["smallpox","Florentine Codex: smallpox","1570s, Aztec artists working with Spanish friar Bernardino de Sahagún",["Bodies covered in sores, people lying sick under blankets","Drawn by Native artists: this is THEIR point of view","Disease spread faster than the Spanish armies"],"Columbian Exchange questions: disease was the #1 cause of Native population collapse."],
+     ["columbus","Landing of Columbus","John Vanderlyn, 1847 (painted for the U.S. Capitol)",["Columbus looks heroic and holy, holding a flag and a sword","The Taíno people hide in the background, small and fearful","Painted 350 years AFTER the event"],"Sourcing! Ask when it was made and why. This shows how 1800s Americans glorified exploration, not what really happened in 1492."],
+     ["cahokia","Monks Mound, Cahokia","Built c. 900–1200 by Mississippian peoples",["A massive human-made earth platform","Cahokia may have had 10,000–20,000 people at its peak","Evidence of complex societies before Europeans"],"Debunks the myth that the Americas were 'empty wilderness' before 1492."]],
+  2:[["slaveship","Plan of the slave ship Brookes","1788, published by British abolitionists",["Hundreds of people packed side by side like cargo","No room to sit up; this is the Middle Passage","Made to shock the public into opposing the slave trade"],"Purpose = persuasion. This became one of the most famous abolitionist images ever."],
+     ["penn","Penn's Treaty with the Indians","Benjamin West, 1771–72",["William Penn trading fairly with the Lenape","Calm, peaceful, respectful mood","Painted about 90 years later, by a Pennsylvanian"],"Compare: Pennsylvania's peaceful Native relations vs. King Philip's War in New England."],
+     ["salem","Salem witch trials","19th-century illustration of 1692",["An accused woman faces a crowd of accusers","Shows Puritan fear and religious intensity","About 20 people were executed"],"Shows tension and anxiety in Puritan New England society."],
+     ["compact","The Mayflower Compact, 1620","Jean Leon Gerome Ferris, 1899",["Men signing an agreement on board the ship","A heroic, patriotic scene","Painted almost 300 years later"],"Mayflower Compact = early self-government. Remember to source the date of the painting!"]],
+  3:[["joinordie","“Join, or Die.”","Benjamin Franklin, Pennsylvania Gazette, 1754",["A snake cut into pieces, each one a colony","Message: divided, we die; united, we survive","Made for the Albany Plan of Union during the French & Indian War"],"One of the most-tested images in APUSH. It was later reused against Britain during the Revolution!"],
+     ["massacre","The Bloody Massacre in King Street","Paul Revere, 1770",["British soldiers shooting in a neat line on command","Colonists look innocent and unarmed","In reality it was a chaotic street brawl"],"PROPAGANDA. Revere's purpose was to make people angry at Britain. A classic 'purpose / point of view' question."],
+     ["delaware","Washington Crossing the Delaware","Emanuel Leutze, 1851",["Washington standing heroically at the front of the boat","Night crossing on Dec. 25, 1776 before the surprise attack at Trenton","Historically inaccurate: wrong flag, wrong boat, and standing up would tip it over!"],"Shows how Americans in the 1850s mythologized the Revolution."],
+     ["commonsense","Common Sense title page","Thomas Paine, January 1776",["'Written by an Englishman' (Paine had just arrived from England)","Plain language for ordinary readers","Sold over 100,000 copies in months"],"Shifted public opinion toward independence just months before July 1776."]],
+  4:[["missouri","Missouri Compromise map","1820",["The line at 36°30' splits the Louisiana Territory","Missouri (slave) is an exception north of the line","Maine (free) balances it out"],"Map questions: be ready to explain how the compromise kept the Senate balanced."],
+     ["trailmap","Routes of Indian Removal","1830s",["Five nations (Cherokee, Creek, Choctaw, Chickasaw, Seminole) forced west","Destination: 'Indian Territory' (modern Oklahoma)","Result of the Indian Removal Act (1830)"],"Connect it to Jackson, Worcester v. Georgia, and the Southern demand for cotton land."],
+     ["cottongin","The cotton gin","Harper's Weekly, 1869",["Enslaved workers feeding cotton into the machine","One gin could clean about 50× more cotton per day","Made short-staple cotton hugely profitable"],"Technology → MORE slavery, not less. A favorite AP cause-and-effect question."]],
+  5:[["progress","American Progress","John Gast, 1872",["A giant figure (Columbia) floats WEST, carrying a telegraph wire and a schoolbook","Railroads, farmers and settlers follow her; it's light behind her","Native Americans and buffalo flee into the darkness"],"THE Manifest Destiny image. It shows expansion as God-given 'progress' and ignores the cost to Native peoples."],
+     ["caning","“Southern Chivalry: Argument versus Club's”","John L. Magee, 1856",["Rep. Preston Brooks beating Sen. Charles Sumner with a cane in the Senate","Sumner holds a pen; Brooks holds a club","Other senators watch and laugh"],"Made by a Northerner to show Southern violence. Sectional hatred was boiling over, and even Congress wasn't safe."],
+     ["election1860","Election of 1860 map","Electoral votes by state",["Lincoln won every free state (North)","Not a single Southern state voted for him","4 candidates split the vote by region"],"Shows how sectional the country had become. The South saw Lincoln's win as a reason to secede."],
+     ["firstcolored","First Black members of Congress","Currier & Ives, 1872",["Hiram Revels (first Black U.S. senator, 1870) and six representatives","Made possible by the 14th & 15th Amendments","This progress was rolled back after 1877"],"Reconstruction's achievements, and how fragile they were."]]
+};
+
+/* Who Am I? */
+const WHO = [
+  ["washington","George Washington","I led the Continental Army, became the first president, and warned you about political parties and foreign alliances on my way out.",3],
+  ["hamilton","Alexander Hamilton","I wanted a national bank, wanted the government to take on state debts, and read the Constitution loosely.",3],
+  ["jefferson","Thomas Jefferson","I wrote the Declaration of Independence, believed in strict construction… then bought Louisiana anyway.",3],
+  ["paine","Thomas Paine","My pamphlet in plain English convinced ordinary colonists to want independence in 1776.",3],
+  ["marshall","John Marshall","As Chief Justice, I gave the Supreme Court the power of judicial review and strengthened the federal government.",4],
+  ["tecumseh","Tecumseh","I tried to unite Native nations against American expansion and allied with Britain in the War of 1812.",4],
+  ["jackson","Andrew Jackson","Hero of New Orleans, champion of the 'common man,' killer of the national bank, and signer of the Indian Removal Act.",4],
+  ["clay","Henry Clay","They call me 'the Great Compromiser.' I built the American System and helped with the Missouri Compromise and the Compromise of 1850.",4],
+  ["calhoun","John C. Calhoun","I argued states could nullify federal laws, and I defended slavery as a 'positive good.'",4],
+  ["douglass","Frederick Douglass","I escaped slavery, wrote a famous autobiography, and became the most powerful abolitionist speaker in America.",4],
+  ["stanton","Elizabeth Cady Stanton","I helped organize the Seneca Falls Convention in 1848 and wrote the Declaration of Sentiments.",4],
+  ["tubman","Harriet Tubman","I escaped slavery, then went back again and again on the Underground Railroad to lead others to freedom.",5],
+  ["dredscott","Dred Scott","I sued for my freedom, and the Supreme Court said I wasn't even a citizen. The decision pushed the nation toward war.",5],
+  ["lincoln","Abraham Lincoln","I opposed slavery's expansion, won in 1860, issued the Emancipation Proclamation, and was assassinated in 1865.",5],
+  ["lee","Robert E. Lee","I commanded the Confederate army, lost at Gettysburg, and surrendered at Appomattox in 1865.",5],
+  ["grant","Ulysses S. Grant","I won at Vicksburg, accepted the surrender at Appomattox, then became president during Reconstruction.",5],
+  ["ajohnson","Andrew Johnson","I took over after Lincoln died, went easy on the South, fought with the Radical Republicans, and was impeached.",5],
+  ["cortes","Hernán Cortés","I conquered the Aztec Empire between 1519 and 1521 with Native allies, and smallpox on my side.",1],
+  ["lascasas","Bartolomé de Las Casas","I was a Spanish priest who exposed the brutal treatment of Native peoples and argued they were fully human.",1]
+];
+
+/* Extra image-stimulus quiz questions */
+const IMG_QUIZ = {
+  1:[{img:"smallpox",q:"This image, drawn by Aztec artists in the 1500s, best illustrates which development?",o:["The spread of maize cultivation","The impact of European diseases as part of the Columbian Exchange","The Spanish casta system","Native resistance in the Pueblo Revolt"],a:1,e:"The figures are covered in smallpox sores. Disease killed far more Natives than Spanish weapons did."}],
+  2:[{img:"slaveship",q:"This 1788 diagram of the slave ship Brookes was most likely created to:",o:["Advertise the efficiency of the Atlantic trade","Persuade the public to oppose the slave trade","Help ship captains plan voyages","Celebrate British naval power"],a:1,e:"Abolitionists published it to shock people with the inhumanity of the Middle Passage."},
+     {img:"penn",q:"This painting of William Penn best reflects which feature of colonial Pennsylvania?",o:["Strict Puritan religious rules","Relatively peaceful relations with Native Americans and religious tolerance","A plantation economy based on rice","Spanish mission culture"],a:1,e:"Quaker Pennsylvania bought land and kept peace with the Lenape, a contrast to wars in New England and Virginia."}],
+  3:[{img:"joinordie",q:"Benjamin Franklin's 1754 cartoon was originally created to encourage:",o:["Colonial unity against France during the French and Indian War","Independence from Great Britain","Ratification of the Constitution","A boycott of British tea"],a:0,e:"It supported the Albany Plan of Union. It was REUSED later against Britain, but its original purpose was F&I War unity."},
+     {img:"massacre",q:"Paul Revere's engraving of the Boston Massacre is best understood as:",o:["An accurate news photo of the event","Propaganda meant to stir anger against British troops","A British government poster","A celebration of British authority"],a:1,e:"It shows soldiers calmly firing on innocent colonists. It was designed to make people angry, not to be accurate."}],
+  4:[{img:"missouri",q:"The line shown on this map (36°30') was created to:",o:["Divide Oregon with Britain","Separate free and slave territory in the Louisiana Purchase","Mark the border with Mexico","Show the route of the Erie Canal"],a:1,e:"The Missouri Compromise (1820): no slavery north of 36°30', except Missouri itself."},
+     {img:"cottongin",q:"The invention shown in this image most directly led to:",o:["The decline of slavery in the South","The expansion of slavery and cotton production","The rise of Northern textile unions","The end of the Atlantic slave trade"],a:1,e:"The cotton gin made cotton super profitable, so slavery spread west with 'King Cotton.'"}],
+  5:[{img:"progress",q:"John Gast's painting 'American Progress' (1872) best illustrates which idea?",o:["Popular sovereignty","Manifest Destiny","Nullification","Republican motherhood"],a:1,e:"Columbia leads settlers and technology west while Native Americans flee. That's Manifest Destiny."},
+     {img:"caning",q:"This 1856 cartoon of Sen. Charles Sumner being beaten in the Senate best reflects:",o:["Growing cooperation between North and South","Rising sectional tension and violence over slavery","Support for the Compromise of 1850","Debate over the national bank"],a:1,e:"After Sumner's anti-slavery speech, Rep. Brooks beat him with a cane. The North was outraged; parts of the South cheered."},
+     {img:"election1860",q:"The results shown on this 1860 election map most directly led to:",o:["The Compromise of 1850","The secession of Southern states","The Kansas-Nebraska Act","The Missouri Compromise"],a:1,e:"Lincoln won without a single Southern state, so South Carolina seceded in December 1860, followed by others."}]
+};
+UNITS.forEach(U=>{ (IMG_QUIZ[U.id]||[]).forEach(q=>U.quiz.push(q)); });
+
 const PRESIDENTS = [
   ["George Washington","1789–97","None (Federalist-leaning)","Hamilton's plan, Whiskey Rebellion, Neutrality Proclamation, Jay's Treaty, Farewell Address"],
   ["John Adams","1797–1801","Federalist","XYZ Affair, Quasi-War, Alien & Sedition Acts"],
@@ -1044,6 +1428,8 @@ function go(view, unit){
   if(view==="quiz") renderQuizSetup();
   if(view==="order") nextOrder();
   if(view==="cheat") renderCheat();
+  if(view==="who") nextWho();
+  if(view==="videos") renderVideos();
   window.scrollTo({top:0,behavior:"smooth"});
 }
 document.getElementById("tabs").addEventListener("click",e=>{
@@ -1082,7 +1468,7 @@ function mission(){
   // first unit that isn't well-mastered
   for(const U of UNITS){
     const m = unitMastery(U.id); const qs = state.qstats[U.id];
-    if(m.pct < 60) return {text:`Study <b>Unit ${U.id}: ${esc(U.title)}</b>. Read the 60-second story, then flip cards until you master at least 60%.`, view:"unit", unit:U.id};
+    if(m.pct < 60) return {text:`Study <b>Unit ${U.id}: ${esc(U.title)}</b>. Read the story scenes and the group chat, then flip cards until you master at least 60%.`, view:"unit", unit:U.id};
     if(!qs || qs.t < 5) return {text:`You know your Unit ${U.id} terms. Now prove it! Take the <b>Unit ${U.id} quiz</b>.`, view:"quizU", unit:U.id};
   }
   if(Object.keys(state.wrongs).length) return {text:`Crush your <b>${Object.keys(state.wrongs).length} mistakes</b> in Review mode. Mistakes are where the points hide.`, view:"review"};
@@ -1103,56 +1489,93 @@ function renderUnit(u){
   const U = UNITS[u-1]; const m = unitMastery(u);
   const v = $("#view-unit"); v.style.setProperty("--uc", `var(${U.color})`);
   v.innerHTML = `
-  <div class="unit-hero">
+  <div class="unit-hero" style="--bgimg:url('${imgURL(HERO_IMG[u],1400)}')">
+    <span class="credit">🖼️ ${esc(IMG[HERO_IMG[u]][1])}</span>
     <div class="kicker" style="color:rgba(255,255,255,.85)">Unit ${U.id} · ${U.years} · ${U.weight} of the exam</div>
     <h2>${U.emoji} ${esc(U.title)}</h2>
     <p style="max-width:65ch;opacity:.95">${U.hook}</p>
     <div class="progress" style="background:rgba(255,255,255,.25);max-width:360px"><i style="width:${m.pct}%;background:#fff"></i></div>
     <div class="small" style="opacity:.9;margin-top:6px">${m.m}/${m.total} terms mastered</div>
     <div class="unitnav">
-      <button data-jump="u-story">📖 Story</button><button data-jump="u-concepts">🧩 Key Concepts</button>
+      <button data-jump="u-story">📖 Story</button><button data-jump="u-watch">📺 Watch</button><button data-jump="u-chat">💬 Group Chat</button>
+      <button data-jump="u-now">🔄 Then vs. Now</button><button data-jump="u-concepts">🧩 Key Concepts</button><button data-jump="u-sources">🖼️ Sources</button>
       <button data-jump="u-terms">🃏 Terms</button><button data-jump="u-timeline">⏳ Timeline</button>
       <button data-jump="u-hacks">💡 Memory Hacks</button><button data-jump="u-chains">🔗 Chain Reactions</button>
       <button data-jump="u-quiz">🎯 Quiz</button>
     </div>
   </div>
 
-  <div class="section card story" id="u-story">
-    <div class="kicker">Step 1 · read it like a story</div>
-    <h3>The 60-second story</h3>
-    <p class="big">${U.hook}</p>
-    ${U.story.map(p=>`<p>${p}</p>`).join("")}
+  <div class="section story" id="u-story">
+    <div class="kicker">Step 1 · read it like a movie</div>
+    <h2 class="sec-title"><span class="em">🎬</span> The story in ${U.story.length} scenes</h2>
+    <p class="muted">Tap any picture to see it full size. These are real paintings, drawings and maps from history.</p>
+    <div>${U.story.map((p,i)=>{ const sc=(SCENES[u]||[])[i]||[null,"📜"]; return `<div class="scene">${pic(sc[0],{emoji:sc[1],cap:sc[0]?undefined:false})}<div><div class="num">Scene ${i+1}</div><p>${p}</p></div></div>`; }).join("")}</div>
     <button class="btn sm dark" id="storyDone">✅ I read it (+10 XP)</button>
   </div>
 
+  <div class="section" id="u-watch">
+    <div class="kicker">Step 2 · rather watch? same XP energy</div>
+    <h2 class="sec-title"><span class="em">📺</span> Watch it</h2>
+    <div class="vgrid">${(VIDEOS[u]||[]).map(videoCard).join("")}</div>
+  </div>
+
+  <div class="section" id="u-chat">
+    <div class="kicker">Step 3 · if history had group chats</div>
+    <h2 class="sec-title"><span class="em">💬</span> The group chat</h2>
+    <p class="muted small">A dramatized parody, but every event in it really happened. Tap <b>Next message</b>.</p>
+    <div class="phone" id="phone">
+      <div class="bar"><div class="gav">${U.emoji}</div><div><b>${esc(CHATS[u].title)}</b><span>${esc(CHATS[u].sub)}</span></div></div>
+      <div class="msgs" id="msgs"></div>
+      <div class="ctrl"><button class="btn sm" id="chatNext">Next message ▶</button><button class="btn sm ghost" id="chatAll">Show all</button></div>
+    </div>
+  </div>
+
+  <div class="section" id="u-now">
+    <div class="kicker">Step 4 · make it relatable</div>
+    <h2 class="sec-title"><span class="em">🔄</span> Then vs. Now</h2>
+    <div class="tvn">${THENNOW[u].map(t=>`<div class="c"><div class="then"><small>Then</small><b>${esc(t[0])}</b></div><div class="now"><small>In today's terms</small>${esc(t[1])}</div></div>`).join("")}</div>
+  </div>
+
   <div class="section" id="u-concepts">
-    <div class="kicker">Step 2 · the big ideas</div>
+    <div class="kicker">Step 5 · the big ideas</div>
     <h3>Key Concepts</h3>
     <p class="muted small">Tap each one to open it. These are the “why” behind the facts, and MCQs love them.</p>
     ${U.concepts.map((c,i)=>`<details class="acc"${i===0?" open":""}><summary>${esc(c[0])}</summary><div class="body"><ul>${c[1].map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div></details>`).join("")}
   </div>
 
+  <div class="section" id="u-sources">
+    <div class="kicker">Step 6 · read sources like a detective</div>
+    <h2 class="sec-title"><span class="em">🖼️</span> Primary sources</h2>
+    <p class="muted small">The real exam shows you images like these. Look first, guess what's going on, then hit <b>Analyze it</b>.</p>
+    ${SOURCES[u].map((s,i)=>`<div class="src" id="src-${u}-${i}">${pic(s[0],{cap:false,badge:true})}<div class="sb">
+      <h3>${esc(s[1])}</h3><div class="meta">${esc(s[2])}</div>
+      <p class="small"><b>🤔 Before you click:</b> What do you notice? Who made it, and why?</p>
+      <button class="btn sm askbtn" data-src="src-${u}-${i}">🔍 Analyze it (+3 XP)</button>
+      <div class="reveal"><b>👀 What to notice</b><ul>${s[3].map(n=>`<li>${esc(n)}</li>`).join("")}</ul><div class="note small"><b>🎯 AP hook:</b> ${esc(s[4])}</div></div>
+    </div></div>`).join("")}
+  </div>
+
   <div class="section" id="u-terms">
-    <div class="kicker">Step 3 · active recall</div>
+    <div class="kicker">Step 7 · active recall</div>
     <h3>Must-Know Terms</h3>
     <p class="muted small">Look at the term → try to explain it out loud → tap to flip. Mark ✅ when you truly know it.</p>
     <div class="flipgrid">${U.terms.map((t,i)=>flipCard(u,i,t)).join("")}</div>
   </div>
 
   <div class="section card" id="u-timeline">
-    <div class="kicker">Step 4 · put it in order</div>
+    <div class="kicker">Step 8 · put it in order</div>
     <h3>Timeline</h3>
     <div class="tl">${U.timeline.map(x=>`<div class="tl-item"><span class="y">${x[0]}</span>${esc(x[1])}</div>`).join("")}</div>
   </div>
 
   <div class="section" id="u-hacks">
-    <div class="kicker">Step 5 · lock it in</div>
+    <div class="kicker">Step 9 · lock it in</div>
     <h3>Memory Hacks</h3>
     <div class="grid g2">${U.hacks.map(h=>`<div class="hack"><h4>${esc(h[0])}</h4><div class="mn">${esc(h[1])}</div><div class="small">${esc(h[2])}</div></div>`).join("")}</div>
   </div>
 
   <div class="section" id="u-chains">
-    <div class="kicker">Step 6 · think like AP</div>
+    <div class="kicker">Step 10 · think like AP</div>
     <h3>Chain Reactions (cause → effect)</h3>
     <p class="muted small">Before you click, <b>guess</b> what happens next. That's exactly the causation skill the test checks.</p>
     <div class="grid g2">${U.chains.map((c,ci)=>`<div class="card"><div class="chain" data-chain="${ci}">
@@ -1161,7 +1584,7 @@ function renderUnit(u){
   </div>
 
   <div class="section card" id="u-quiz" style="text-align:center">
-    <div class="kicker">Step 7 · boss battle</div>
+    <div class="kicker">Step 11 · boss battle</div>
     <h3>Unit ${U.id} Quiz</h3>
     <p class="muted">${U.quiz.length} AP-style questions with explanations. Every correct answer = +10 XP.</p>
     <button class="btn" id="unitQuizBtn">🎯 Start Unit ${U.id} Quiz</button>
@@ -1181,12 +1604,95 @@ function renderUnit(u){
     if(!ch.querySelector(".link.hidden")){ btn.textContent="↺ Reset chain"; addXP(2); }
   }));
   bindFlips(v);
+  initChat(u);
+  v.querySelectorAll(".askbtn").forEach(b=>b.addEventListener("click",()=>{
+    document.getElementById(b.dataset.src).classList.add("open");
+    const key="src_"+b.dataset.src; if(!store.get(key,false)){ store.set(key,true); addXP(3); }
+  }));
 }
+
+/* ---------- group chat ---------- */
+const AVATAR = {"Las Casas":"lascasas","Cortés":"cortes","Thomas Jefferson":"jefferson","Andrew Jackson":"jackson","Henry Clay":"clay","John C. Calhoun":"calhoun","John Marshall":"marshall","Lincoln":"lincoln","Frederick Douglass":"douglass","Ben Franklin":null};
+function initChat(u){
+  const C = CHATS[u]; let i = 0; const box = $("#msgs"); let busy = false;
+  const av = name => { const k = AVATAR[name]; const ini = name.split(" ").map(w=>w[0]).join("").slice(0,2);
+    return `<div class="av">${k?`<img src="${imgURL(k,80)}" alt="" referrerpolicy="no-referrer" onerror="this.replaceWith(document.createTextNode('${ini}'))">`:ini}</div>`; };
+  const render = m => {
+    if(m[0]==="sys") return `<div class="sys">${esc(m[1])}</div>`;
+    if(m[0]==="fact") return `<div class="sys fact">${esc(m[1])}</div>`;
+    return `<div class="msg${m[2]==="me"?" me":""}">${av(m[0])}<div class="bub"><div class="who">${esc(m[0])}</div>${esc(m[1])}</div></div>`;
+  };
+  const done = () => { $("#chatNext").textContent = "↺ Replay"; const key="chat"+u; if(!store.get(key,false)){ store.set(key,true); addXP(5); toast("+5 XP: chat complete 💬"); } };
+  const next = () => {
+    if(busy) return;
+    if(i >= C.msgs.length){ i=0; box.innerHTML=""; $("#chatNext").textContent="Next message ▶"; return; }
+    busy = true; box.insertAdjacentHTML("beforeend",`<div class="typing"><i></i><i></i><i></i></div>`); box.scrollTop = box.scrollHeight;
+    setTimeout(()=>{ const t=box.querySelector(".typing"); if(t) t.remove(); box.insertAdjacentHTML("beforeend",render(C.msgs[i++])); box.scrollTop=box.scrollHeight; busy=false; if(i>=C.msgs.length) done(); }, 450);
+  };
+  $("#chatNext").onclick = next;
+  $("#chatAll").onclick = () => { box.innerHTML = C.msgs.map(render).join(""); i = C.msgs.length; busy=false; box.scrollTop=box.scrollHeight; done(); };
+  next();
+}
+
+/* ---------- video cards ---------- */
+function videoCard(v){
+  const url = v[4] ? `https://www.youtube.com/watch?v=${v[0]}&list=${v[4]}` : `https://www.youtube.com/watch?v=${v[0]}`;
+  const watched = store.get("vid_"+v[0], false);
+  return `<a class="vcard${watched?" done":""}" href="${url}" target="_blank" rel="noopener" data-vid="${v[0]}">
+    <figure class="ph" data-emoji="▶️" style="--uc:#c4302b"><img src="https://i.ytimg.com/vi/${v[0]}/hqdefault.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('noimg')"><div class="play"><i>▶</i></div></figure>
+    <div class="vb"><b>${esc(v[1])}</b><span>${esc(v[2])} · ${esc(v[3])}</span></div></a>`;
+}
+document.addEventListener("click",e=>{
+  const a = e.target.closest("[data-vid]"); if(!a) return;
+  const key = "vid_"+a.dataset.vid; if(!store.get(key,false)){ store.set(key,true); addXP(15); toast("+15 XP for watching 📺"); }
+  a.classList.add("done");
+});
+function renderVideos(){
+  $("#videoArea").innerHTML = UNITS.map(U=>`<div class="section" style="--uc:var(${U.color})"><h3>${U.emoji} Unit ${U.id}: ${esc(U.title)} <span class="muted small">${U.years}</span></h3><div class="vgrid">${VIDEOS[U.id].map(videoCard).join("")}</div></div>`).join("");
+}
+
+/* ---------- lightbox ---------- */
+document.addEventListener("click",e=>{
+  const f = e.target.closest(".ph.zoom[data-k]"); if(!f || f.classList.contains("noimg")) return;
+  if(f.closest(".flip")) return;
+  const k = f.dataset.k, lb = $("#lightbox");
+  lb.querySelector("img").src = imgURL(k,1600); lb.querySelector("img").alt = IMG[k][1];
+  lb.querySelector("p").innerHTML = `${esc(IMG[k][1])}<br><a href="${pageURL(k)}" target="_blank" rel="noopener">Source: Wikimedia Commons (public domain)</a>`;
+  lb.classList.add("show");
+});
+$("#lightbox").addEventListener("click",e=>{ if(e.target.tagName!=="A" && e.target.tagName!=="IMG") $("#lightbox").classList.remove("show"); });
+document.addEventListener("keydown",e=>{ if(e.key==="Escape") $("#lightbox").classList.remove("show"); });
+
+/* ---------- who am I ---------- */
+let whoStreak = 0, whoScore = store.get("whoScore",0), whoCur = null, whoDeck = [];
+function nextWho(){
+  if(!whoDeck.length) whoDeck = shuffle(WHO.map((_,i)=>i));
+  whoCur = WHO[whoDeck.pop()];
+  const others = shuffle(WHO.filter(w=>w!==whoCur)).slice(0,3);
+  const opts = shuffle([whoCur, ...others]);
+  $("#whoStreak").textContent = whoStreak; $("#whoScore").textContent = whoScore;
+  $("#whoArea").innerHTML = `<div class="who-wrap" style="--uc:${unitColor(whoCur[3])}">
+    ${pic(whoCur[0],{cap:false,badge:false,zoom:false,emoji:"🕵️",w:600})}
+    <div><div class="quote-bub">“${esc(whoCur[2])}”</div>
+    <div class="small muted" style="margin-bottom:10px">Hint: Unit ${whoCur[3]}</div>
+    <div id="whoOpts">${opts.map(o=>`<button class="opt" data-n="${esc(o[1])}"><span class="l">?</span><span>${esc(o[1])}</span></button>`).join("")}</div>
+    <div id="whoFb"></div></div></div>`;
+  document.querySelectorAll("#whoOpts .opt").forEach(b=>b.addEventListener("click",()=>{
+    const ok = b.dataset.n === whoCur[1];
+    document.querySelectorAll("#whoOpts .opt").forEach(x=>{ x.disabled=true; if(x.dataset.n===whoCur[1]) x.classList.add("right"); else if(x===b) x.classList.add("wrong"); });
+    if(ok){ whoStreak++; whoScore++; store.set("whoScore",whoScore); addXP(5); if(whoStreak%5===0) confetti(); } else whoStreak=0;
+    $("#whoStreak").textContent = whoStreak; $("#whoScore").textContent = whoScore;
+    $("#whoFb").innerHTML = `<div class="explain ${ok?"good":"badx"}"><b>${ok?"✅ Yes! That's "+esc(whoCur[1])+".":"❌ That was "+esc(whoCur[1])+"."}</b><div class="small" style="margin-top:4px">Unit ${whoCur[3]} · ${esc(IMG[whoCur[0]][1])}</div></div><button class="btn" id="whoNext">Next face →</button>`;
+    $("#whoNext").onclick = nextWho; $("#whoNext").focus({preventScroll:true});
+  }));
+}
+
 function flipCard(u,i,t,big){
-  const id = u+"-"+i; const done = !!state.mastered[id];
+  const id = u+"-"+i; const done = !!state.mastered[id]; const tk = TERM_IMG[t[0]];
   return `<div class="flip${big?" bigcard":""}" data-id="${id}" style="--uc:${unitColor(u)}">
     <div class="inner">
       <div class="face front">${done?'<span class="mastered-badge">✅</span>':""}
+        ${tk?`<div class="thumb ph"><img src="${imgURL(tk,200)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.parentNode.classList.add('noimg')"></div>`:""}
         <b>${esc(t[0])}</b><div class="yr">${esc(t[1])}</div><div class="tap">tap to flip</div></div>
       <div class="face back"><div>${esc(t[2])}</div><div class="why">⭐ Why it matters: ${esc(t[3])}</div>
         <div class="row" style="margin-top:10px">
@@ -1307,6 +1813,7 @@ function drawQ(){
       <span class="small"><b>${Q.i+1}</b>/${Q.pool.length} · ✅ ${Q.score}${Q.streak>=3?` · 🔥${Q.streak}`:""}</span>
     </div>
     <div class="card">
+      ${q.img?pic(q.img,{cls:"qimg",badge:true}):""}
       ${q.s?`<div class="stim">${esc(q.s)}<cite>— ${esc(q.c)}</cite></div>`:""}
       <div class="qtext">${esc(q.q)}</div>
       <div id="opts">${q.o.map((o,i)=>`<button class="opt" data-i="${i}"><span class="l">${L[i]}</span><span>${esc(o)}</span></button>`).join("")}</div>
@@ -1463,6 +1970,9 @@ $("#timerBreak").addEventListener("click",()=>setMode(tMode==="focus"?"break":"f
 })();
 
 /* INIT */
+/* home hero painting + cast */
+$("#homeHero").style.setProperty("--bgimg", `url('${imgURL("delaware",1400)}')`);
+$("#castStrip").innerHTML = WHO.slice().sort((a,b)=>a[3]-b[3]).map(w=>`<div class="p" data-go="who" style="--uc:${unitColor(w[3])}">${pic(w[0],{cap:false,zoom:false,badge:false,w:240})}<b>${esc(w[1])}</b><span>Unit ${w[3]}</span></div>`).join("");
 renderXP(); renderHome(); drawTimer();
 </script>
 </body>
