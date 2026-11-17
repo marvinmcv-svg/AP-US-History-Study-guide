@@ -1,0 +1,1469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>APUSH Quest</title>
+<meta name="description" content="Interactive AP U.S. History study guide, Units 1–5 (1491–1877): stories, flashcards, quizzes, timeline games and memory hacks.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f6f1e7; --bg2:#efe7d6; --card:#fffdf8; --ink:#1f2430; --muted:#5d6472; --line:#e0d6c2;
+  --accent:#c8102e; --accent2:#1d3f8f; --gold:#c99a2e; --ok:#1f8a4c; --bad:#c0392b;
+  --u1:#16857a; --u2:#5e7d1c; --u3:#b3261e; --u4:#1d4fa8; --u5:#6b3fa0;
+  --shadow:0 2px 0 rgba(0,0,0,.04),0 8px 24px rgba(60,40,10,.08);
+  --radius:16px;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#14161c; --bg2:#1b1e26; --card:#20242e; --ink:#eef0f4; --muted:#a3a9b6; --line:#323846;
+    --accent:#ff5a6e; --accent2:#7ea2ff; --gold:#f0c35a; --ok:#4cd187; --bad:#ff6b5b;
+    --u1:#3cc4b6; --u2:#9cc24a; --u3:#ff6b5f; --u4:#6f9bff; --u5:#b48cf2;
+    --shadow:0 8px 24px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#14161c; --bg2:#1b1e26; --card:#20242e; --ink:#eef0f4; --muted:#a3a9b6; --line:#323846;
+  --accent:#ff5a6e; --accent2:#7ea2ff; --gold:#f0c35a; --ok:#4cd187; --bad:#ff6b5b;
+  --u1:#3cc4b6; --u2:#9cc24a; --u3:#ff6b5f; --u4:#6f9bff; --u5:#b48cf2;
+  --shadow:0 8px 24px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;line-height:1.55;font-size:16px;overflow-x:hidden}
+h1,h2,h3,h4{font-family:Fraunces,Georgia,serif;line-height:1.15;margin:0 0 .5em}
+h2{font-size:clamp(1.5rem,3.5vw,2.1rem)}
+h3{font-size:1.25rem}
+p{margin:0 0 .8em}
+button{font:inherit;cursor:pointer;color:inherit}
+.wrap{max-width:1100px;margin:0 auto;padding:0 16px}
+/* header */
+header{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.topbar{display:flex;align-items:center;gap:12px;padding:10px 0}
+.brand{font-family:Fraunces,Georgia,serif;font-weight:800;font-size:1.3rem;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.brand .star{color:var(--accent)}
+.xpbox{margin-left:auto;display:flex;align-items:center;gap:8px;font-size:.85rem}
+.pill{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:4px 12px;font-weight:600;white-space:nowrap}
+.xpbar{width:90px;height:8px;background:var(--bg2);border-radius:99px;overflow:hidden}
+.xpbar i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--accent));width:0;transition:width .5s}
+@media(max-width:560px){.xpbar{display:none}.brand{font-size:1.1rem}.xpbox{gap:6px;font-size:.78rem}.pill{padding:4px 9px}}
+@media(max-width:400px){.brand .txt{display:none}}
+.iconbtn{background:var(--card);border:1px solid var(--line);border-radius:10px;width:36px;height:36px;display:grid;place-items:center}
+nav.tabs{display:flex;gap:6px;overflow-x:auto;padding:0 0 10px;scrollbar-width:none}
+nav.tabs::-webkit-scrollbar{display:none}
+.tab{border:1px solid var(--line);background:var(--card);padding:7px 14px;border-radius:999px;font-weight:600;font-size:.9rem;white-space:nowrap}
+.tab.active{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+main{padding:24px 0 80px}
+.view{display:none;animation:fade .35s ease}
+.view.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.g3{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.muted{color:var(--muted)}
+.small{font-size:.88rem}
+.section{margin:32px 0}
+.kicker{text-transform:uppercase;letter-spacing:.12em;font-size:.75rem;font-weight:700;color:var(--accent)}
+.btn{display:inline-flex;align-items:center;gap:8px;border:none;border-radius:12px;padding:11px 18px;font-weight:700;background:var(--accent);color:#fff;transition:transform .1s, filter .2s}
+.btn:hover{filter:brightness(1.08)}
+.btn:active{transform:scale(.97)}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.btn.dark{background:var(--ink);color:var(--bg)}
+.btn.sm{padding:7px 12px;font-size:.88rem;border-radius:10px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+/* hero */
+.hero{display:grid;grid-template-columns:1.4fr 1fr;gap:20px;align-items:stretch}
+@media(max-width:800px){.hero{grid-template-columns:1fr}}
+.hero-main{background:linear-gradient(135deg,var(--accent2),#0d1f4d);color:#fff;border-radius:22px;padding:28px;position:relative;overflow:hidden}
+.hero-main h1{font-size:clamp(1.9rem,5vw,2.8rem);margin-bottom:.3em}
+.hero-main p{opacity:.92;max-width:52ch}
+.hero-main .stars{position:absolute;right:-20px;top:-10px;font-size:9rem;opacity:.08;transform:rotate(12deg)}
+.hero-main .btn:not(.ghost){background:#fff;color:#0d1f4d}
+.stat{display:flex;flex-direction:column;gap:2px}
+.stat b{font-size:1.8rem;font-family:Fraunces,serif}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:6px}
+.note{border-left:4px solid var(--gold);background:color-mix(in srgb,var(--gold) 10%,var(--card));padding:14px 16px;border-radius:10px}
+/* unit cards */
+.unitcard{cursor:pointer;border-top:6px solid var(--uc);transition:transform .15s}
+.unitcard:hover{transform:translateY(-3px)}
+.unitcard .num{font-family:Fraunces,serif;font-size:2.4rem;font-weight:800;color:var(--uc);line-height:1}
+.progress{height:8px;background:var(--bg2);border-radius:99px;overflow:hidden;margin-top:10px}
+.progress i{display:block;height:100%;background:var(--uc,var(--accent));transition:width .5s}
+.weight{font-size:.78rem;font-weight:700;background:color-mix(in srgb,var(--uc) 14%,transparent);color:var(--uc);padding:2px 8px;border-radius:99px}
+/* unit view */
+.unit-hero{border-radius:22px;padding:26px;color:#fff;background:linear-gradient(135deg,var(--uc),color-mix(in srgb,var(--uc) 55%,#000))}
+.unit-hero h2{font-size:clamp(1.7rem,4.5vw,2.5rem)}
+.unitnav{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0 0}
+.unitnav button{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:999px;padding:5px 12px;font-size:.85rem;font-weight:600}
+.unitnav button.on{background:#fff;color:#111}
+.story p{font-size:1.05rem}
+.story .big{font-family:Fraunces,serif;font-size:1.3rem;line-height:1.35;border-left:5px solid var(--uc);padding-left:14px;margin-bottom:14px}
+details.acc{border:1px solid var(--line);border-radius:12px;background:var(--card);margin-bottom:10px;overflow:hidden}
+details.acc summary{padding:14px 16px;font-weight:700;cursor:pointer;list-style:none;display:flex;gap:10px;align-items:center}
+details.acc summary::-webkit-details-marker{display:none}
+details.acc summary::before{content:"▸";color:var(--uc,var(--accent));transition:transform .2s}
+details.acc[open] summary::before{transform:rotate(90deg)}
+details.acc .body{padding:0 16px 14px 36px}
+details.acc ul{margin:0;padding-left:18px}
+details.acc li{margin-bottom:6px}
+/* flip cards */
+.flipgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px}
+.flip{perspective:1000px;height:200px;cursor:pointer}
+.flip .inner{position:relative;width:100%;height:100%;transition:transform .55s;transform-style:preserve-3d}
+.flip.flipped .inner{transform:rotateY(180deg)}
+.flip .face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:14px;padding:16px;display:flex;flex-direction:column;border:1px solid var(--line);background:var(--card);box-shadow:var(--shadow);overflow:auto}
+.flip .front{justify-content:center;align-items:center;text-align:center;border-bottom:5px solid var(--uc)}
+.flip .front b{font-family:Fraunces,serif;font-size:1.2rem}
+.flip .front .yr{font-size:.85rem;color:var(--uc);font-weight:700;margin-top:6px}
+.flip .back{transform:rotateY(180deg);font-size:.88rem}
+.flip .back .why{margin-top:auto;padding-top:8px;border-top:1px dashed var(--line);color:var(--uc);font-weight:600}
+.tap{font-size:.72rem;color:var(--muted);margin-top:10px}
+.mastered-badge{position:absolute;top:8px;right:10px;font-size:.9rem}
+/* timeline */
+.tl{position:relative;padding-left:28px}
+.tl::before{content:"";position:absolute;left:9px;top:4px;bottom:4px;width:3px;background:linear-gradient(var(--uc),color-mix(in srgb,var(--uc) 20%,transparent));border-radius:3px}
+.tl-item{position:relative;margin-bottom:14px}
+.tl-item::before{content:"";position:absolute;left:-25px;top:6px;width:13px;height:13px;border-radius:50%;background:var(--card);border:3px solid var(--uc)}
+.tl-item .y{font-weight:800;color:var(--uc);font-family:Fraunces,serif;margin-right:8px}
+/* hacks & chains */
+.hack{border:2px dashed var(--uc);border-radius:14px;padding:16px;background:color-mix(in srgb,var(--uc) 6%,var(--card))}
+.hack h4{font-family:Inter,sans-serif;font-size:1rem;margin-bottom:6px}
+.hack .mn{font-family:Fraunces,serif;font-size:1.15rem;font-weight:800;color:var(--uc);margin-bottom:6px}
+.chain{display:flex;flex-direction:column;gap:8px}
+.link{padding:10px 14px;border-radius:10px;background:var(--bg2);border-left:4px solid var(--uc);animation:fade .35s}
+.link.hidden{display:none}
+.arrow{text-align:center;color:var(--uc);font-weight:800;line-height:.6}
+.arrow.hidden{display:none}
+/* quiz */
+.qwrap{max-width:760px;margin:0 auto}
+.qhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:10px;flex-wrap:wrap}
+.qbar{flex:1;min-width:120px;height:10px;background:var(--bg2);border-radius:99px;overflow:hidden}
+.qbar i{display:block;height:100%;background:var(--accent);transition:width .4s}
+.stim{background:var(--bg2);border-radius:12px;padding:14px 16px;font-family:Fraunces,Georgia,serif;font-style:italic;margin-bottom:14px;border-left:4px solid var(--gold)}
+.stim cite{display:block;font-style:normal;font-family:Inter,sans-serif;font-size:.82rem;color:var(--muted);margin-top:6px}
+.qtext{font-weight:700;font-size:1.1rem;margin-bottom:14px}
+.opt{display:flex;gap:12px;align-items:flex-start;text-align:left;width:100%;padding:13px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--card);margin-bottom:10px;transition:border-color .15s,background .15s}
+.opt:hover:not([disabled]){border-color:var(--accent2)}
+.opt .l{flex:none;width:28px;height:28px;border-radius:8px;display:grid;place-items:center;font-weight:800;background:var(--bg2)}
+.opt.right{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 12%,var(--card))}
+.opt.right .l{background:var(--ok);color:#fff}
+.opt.wrong{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 12%,var(--card))}
+.opt.wrong .l{background:var(--bad);color:#fff}
+.opt[disabled]{cursor:default}
+.explain{border-radius:12px;padding:14px 16px;margin:6px 0 14px;animation:fade .3s}
+.explain.good{background:color-mix(in srgb,var(--ok) 12%,var(--card));border:1px solid var(--ok)}
+.explain.badx{background:color-mix(in srgb,var(--bad) 10%,var(--card));border:1px solid var(--bad)}
+.chk{display:inline-flex;align-items:center;gap:6px;padding:7px 12px;border:1.5px solid var(--line);border-radius:999px;font-weight:600;font-size:.9rem;cursor:pointer;user-select:none}
+.chk input{accent-color:var(--accent)}
+.score-big{font-family:Fraunces,serif;font-size:4rem;font-weight:800;line-height:1;color:var(--accent)}
+/* order game */
+.vs{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:stretch}
+@media(max-width:640px){.vs{grid-template-columns:1fr}.vs .or{padding:0}}
+.evt{padding:22px 18px;border-radius:16px;border:2px solid var(--line);background:var(--card);font-weight:700;font-size:1.05rem;min-height:120px;display:flex;flex-direction:column;justify-content:center;text-align:center;transition:transform .12s,border-color .2s;box-shadow:var(--shadow)}
+.evt:hover:not([disabled]){transform:translateY(-2px);border-color:var(--accent2)}
+.evt .yy{font-family:Fraunces,serif;font-size:1.6rem;margin-top:8px;color:var(--muted);min-height:1.6em}
+.evt.right{border-color:var(--ok)} .evt.right .yy{color:var(--ok)}
+.evt.wrong{border-color:var(--bad)} .evt.wrong .yy{color:var(--bad)}
+.or{display:grid;place-items:center;font-family:Fraunces,serif;font-weight:800;color:var(--muted);padding:0 4px}
+.streak{font-size:1.1rem;font-weight:800}
+/* tables */
+.tbl{width:100%;border-collapse:collapse;font-size:.92rem}
+.tbl th,.tbl td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+.tbl th{font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.tbl tr:hover td{background:var(--bg2)}
+.scroll{overflow-x:auto}
+.tag{display:inline-block;font-size:.72rem;font-weight:700;padding:2px 8px;border-radius:99px;background:var(--bg2);white-space:nowrap}
+/* flashcard mode */
+.bigcard{max-width:600px;margin:0 auto;height:320px}
+.bigcard .face{padding:28px}
+.bigcard .front b{font-size:1.8rem}
+.bigcard .back{font-size:1rem}
+/* timer */
+.timer{font-family:Fraunces,serif;font-size:3rem;font-weight:800;text-align:center;letter-spacing:.02em}
+/* toast + confetti */
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(120px);background:var(--ink);color:var(--bg);padding:12px 20px;border-radius:999px;font-weight:700;z-index:100;transition:transform .35s;max-width:calc(100% - 32px);text-align:center}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.confetti{position:fixed;top:-20px;z-index:99;pointer-events:none;font-size:22px;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(110vh) rotate(720deg);opacity:.7}}
+.search{width:100%;padding:12px 14px;border-radius:12px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);font:inherit}
+.theme-chip{display:flex;gap:10px;align-items:flex-start}
+.theme-chip .ab{flex:none;font-weight:800;font-size:.8rem;background:var(--accent2);color:#fff;border-radius:8px;padding:4px 7px}
+footer{text-align:center;padding:30px 16px;color:var(--muted);font-size:.85rem}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand"><span class="star">★</span><span class="txt"> APUSH Quest</span></div>
+      <div class="xpbox">
+        <span class="pill" id="levelPill">Colonist</span>
+        <div class="xpbar" title="Progress to next level"><i id="xpFill"></i></div>
+        <span class="pill" id="xpPill">0 XP</span>
+        <button class="iconbtn" id="themeBtn" title="Toggle dark mode" aria-label="Toggle dark mode">🌓</button>
+      </div>
+    </div>
+    <nav class="tabs" id="tabs">
+      <button class="tab active" data-view="home">🏠 Home</button>
+      <button class="tab" data-view="unit" data-unit="1">Unit 1</button>
+      <button class="tab" data-view="unit" data-unit="2">Unit 2</button>
+      <button class="tab" data-view="unit" data-unit="3">Unit 3</button>
+      <button class="tab" data-view="unit" data-unit="4">Unit 4</button>
+      <button class="tab" data-view="unit" data-unit="5">Unit 5</button>
+      <button class="tab" data-view="cards">🃏 Flashcards</button>
+      <button class="tab" data-view="quiz">🎯 Quiz Arena</button>
+      <button class="tab" data-view="order">⏳ Which Came First?</button>
+      <button class="tab" data-view="cheat">📜 Cheat Sheets</button>
+      <button class="tab" data-view="skills">🧠 MCQ Skills</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- ============ HOME ============ -->
+<section class="view active" id="view-home">
+  <div class="hero">
+    <div class="hero-main">
+      <div class="stars">★</div>
+      <div class="kicker" style="color:#ffd27a">Units 1–5 · 1491 → 1877</div>
+      <h1>Hey Santiago 👋<br>Let's make history stick.</h1>
+      <p>This isn't a wall of notes. It's a game: read the 60-second story, flip the cards, beat the quizzes, earn XP. Small sessions, real progress.</p>
+      <div class="row" style="margin-top:16px">
+        <button class="btn" id="startMission">▶ Start today's mission</button>
+        <button class="btn ghost" style="color:#fff;border-color:rgba(255,255,255,.4)" data-go="quiz">Jump to a quiz</button>
+      </div>
+    </div>
+    <div class="card">
+      <h3>Your progress</h3>
+      <div class="stats">
+        <div class="stat"><b id="statMastered">0</b><span class="small muted">terms mastered</span></div>
+        <div class="stat"><b id="statAcc">–</b><span class="small muted">quiz accuracy</span></div>
+        <div class="stat"><b id="statWrong">0</b><span class="small muted">mistakes to review</span></div>
+      </div>
+      <div class="note small" style="margin-top:14px" id="missionText">Loading your mission…</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="note">
+      <b>A real talk first.</b> I know things have been a lot lately. You don't need 4-hour study marathons. <b>Fifteen focused minutes a day beats one panic night.</b> Use the focus timer below, take the break when it tells you to, and remember: every card you flip counts. You've got this. 💪
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="kicker">The map</div>
+    <h2>Five units, one story</h2>
+    <p class="muted">Tap a unit to study it. The % badge shows roughly how much of the AP exam each unit covers, so put extra energy into Units 3–5.</p>
+    <div class="grid g3" id="unitCards"></div>
+  </div>
+
+  <div class="section grid g2">
+    <div class="card">
+      <div class="kicker">How to use this</div>
+      <h3>The 3 tricks top students use</h3>
+      <p><b>1. Active recall:</b> don't just re-read. Cover the answer and <i>force</i> your brain to pull it out. That's what the flip cards and quizzes do.</p>
+      <p><b>2. Spaced practice:</b> a little every day. Cards you mark “Got it” step aside so you spend time on what you don't know yet.</p>
+      <p><b>3. Mix it up:</b> once you've done a few units, quiz across <i>all</i> of them. The real test jumps between eras, so practice should too.</p>
+    </div>
+    <div class="card">
+      <div class="kicker">Focus timer</div>
+      <h3>15 on, 5 off</h3>
+      <div class="timer" id="timerDisplay">15:00</div>
+      <p class="small muted" style="text-align:center" id="timerLabel">Focus session</p>
+      <div class="row" style="justify-content:center">
+        <button class="btn sm" id="timerStart">Start</button>
+        <button class="btn sm ghost" id="timerReset">Reset</button>
+        <button class="btn sm ghost" id="timerBreak">Break mode</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="section card">
+    <div class="kicker">Game plan</div>
+    <h3>A 7-session study plan</h3>
+    <div class="scroll">
+    <table class="tbl">
+      <tr><th>Session</th><th>Do this</th><th>Time</th></tr>
+      <tr><td><b>1</b></td><td>Unit 1 + Unit 2: read the stories, flip all the cards, take the unit quizzes</td><td>30–40 min</td></tr>
+      <tr><td><b>2</b></td><td>Unit 3 (the Revolution &amp; Constitution, a big one): story, cards, chain reactions, quiz</td><td>30–40 min</td></tr>
+      <tr><td><b>3</b></td><td>Unit 4 (Jefferson → Jackson → reform): story, cards, quiz</td><td>30–40 min</td></tr>
+      <tr><td><b>4</b></td><td>Unit 5 (Road to Civil War → Reconstruction): story, cards, quiz</td><td>30–40 min</td></tr>
+      <tr><td><b>5</b></td><td>Read the MCQ Skills tab. Play “Which Came First?” until you hit a 10 streak</td><td>20 min</td></tr>
+      <tr><td><b>6</b></td><td>Quiz Arena: <i>all units mixed</i>, 20 questions. Then “Review my mistakes”</td><td>30 min</td></tr>
+      <tr><td><b>7 (night before)</b></td><td>Cheat Sheets + Flashcards (only the ones not mastered). Sleep early. Sleep is when memory locks in.</td><td>20 min</td></tr>
+    </table>
+    </div>
+  </div>
+</section>
+
+<!-- ============ UNIT ============ -->
+<section class="view" id="view-unit"></section>
+
+<!-- ============ FLASHCARDS ============ -->
+<section class="view" id="view-cards">
+  <div class="kicker">Active recall</div>
+  <h2>Flashcard Mode</h2>
+  <p class="muted">Read the term, say the answer <i>out loud</i> (seriously, it works better), then flip. Be honest: “Got it” moves the card out of your pile.</p>
+  <div class="row" style="margin:14px 0" id="cardFilters"></div>
+  <div class="row" style="margin-bottom:14px">
+    <label class="chk"><input type="checkbox" id="hideMastered" checked> Hide mastered</label>
+    <button class="btn sm ghost" id="shuffleCards">🔀 Shuffle</button>
+    <span class="muted small" id="cardCount"></span>
+  </div>
+  <div id="bigCardArea"></div>
+</section>
+
+<!-- ============ QUIZ ============ -->
+<section class="view" id="view-quiz">
+  <div class="qwrap" id="quizArea"></div>
+</section>
+
+<!-- ============ ORDER GAME ============ -->
+<section class="view" id="view-order">
+  <div class="qwrap">
+    <div class="kicker">Chronology game</div>
+    <h2>Which Came First?</h2>
+    <p class="muted">Lots of MCQs secretly test order: “Which of the following happened <i>before</i>…”. Tap the event that happened <b>earlier</b>. Build a streak!</p>
+    <div class="row" style="margin:10px 0 18px">
+      <span class="pill streak">🔥 Streak: <span id="ordStreak">0</span></span>
+      <span class="pill">🏆 Best: <span id="ordBest">0</span></span>
+      <select id="ordUnit" class="pill" style="font:inherit">
+        <option value="all">All units</option>
+        <option value="1">Unit 1</option><option value="2">Unit 2</option><option value="3">Unit 3</option><option value="4">Unit 4</option><option value="5">Unit 5</option>
+      </select>
+    </div>
+    <div class="vs" id="ordArea"></div>
+    <div id="ordFeedback" style="margin-top:16px;min-height:60px"></div>
+  </div>
+</section>
+
+<!-- ============ CHEAT SHEETS ============ -->
+<section class="view" id="view-cheat">
+  <div class="kicker">Quick reference</div>
+  <h2>Cheat Sheets</h2>
+  <p class="muted">The stuff that shows up again and again. Search everything at once:</p>
+  <input class="search" id="cheatSearch" placeholder="Search a name, event, or year… (e.g. Jackson, 1820, tariff)">
+  <div id="searchResults" style="margin-top:12px"></div>
+  <div id="cheatContent"></div>
+</section>
+
+<!-- ============ SKILLS ============ -->
+<section class="view" id="view-skills">
+  <div class="kicker">Work smarter</div>
+  <h2>How to crush the multiple choice</h2>
+  <div class="grid g2 section">
+    <div class="card">
+      <h3>🎯 The 5-step MCQ attack</h3>
+      <ol>
+        <li><b>Read the source line first.</b> Who wrote it, and <i>when</i>? The date tells you the era, and the era kills half the answers.</li>
+        <li><b>Read the question stem</b> before the full passage. Know what you're hunting for.</li>
+        <li><b>Predict</b> an answer in your head before you look at the choices.</li>
+        <li><b>Eliminate</b> answers from the wrong time period. This is the #1 trick. An answer about the Civil War can't explain something from 1765.</li>
+        <li><b>Pick the “big trend” answer.</b> AP answers are usually broad, historically accurate ideas, not weird specific details.</li>
+      </ol>
+    </div>
+    <div class="card">
+      <h3>🚩 Trap answers to watch for</h3>
+      <ul>
+        <li><b>True but irrelevant:</b> a correct fact that doesn't answer <i>this</i> question.</li>
+        <li><b>Wrong era:</b> the right idea, the wrong decade.</li>
+        <li><b>Extreme words:</b> “always,” “never,” “completely,” “all.” History is messy, and these are usually wrong.</li>
+        <li><b>Reversed cause/effect:</b> e.g. “Shays' Rebellion was caused by the Constitution.” Nope, it was the other way around.</li>
+        <li><b>Out of the source's mind:</b> the answer must match what that author would actually believe.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>🕵️ HIPP: decode any source</h3>
+      <p><b>H</b>istorical situation: what's going on at the time?<br>
+      <b>I</b>ntended audience: who's it written for?<br>
+      <b>P</b>urpose: why was it written? To persuade? Complain? Justify?<br>
+      <b>P</b>oint of view: who is the author, and how does that shape it?</p>
+      <p class="small muted">Example: a 1765 pamphlet by a Boston merchant about the Stamp Act → situation: post-war British taxes · purpose: rally boycotts · POV: a merchant who loses money.</p>
+    </div>
+    <div class="card">
+      <h3>🔗 The 4 “thinking moves” AP tests</h3>
+      <p><b>Causation:</b> what caused it, what did it cause? (Think in chains!)</p>
+      <p><b>Comparison:</b> how were things similar or different? (Spanish vs. French vs. English colonies.)</p>
+      <p><b>Continuity &amp; Change:</b> what stayed the same and what changed? (Slavery after 1865 → sharecropping.)</p>
+      <p><b>Contextualization:</b> what bigger picture was this part of? (Seneca Falls ← Second Great Awakening reform wave.)</p>
+    </div>
+  </div>
+
+  <div class="card section">
+    <h3>🌎 The 8 AP themes (every question fits one)</h3>
+    <div class="grid g2" style="margin-top:10px">
+      <div class="theme-chip"><span class="ab">NAT</span><div><b>American &amp; National Identity:</b> who counts as “American”? Citizenship, rights, sectionalism.</div></div>
+      <div class="theme-chip"><span class="ab">WXT</span><div><b>Work, Exchange &amp; Technology:</b> economy, labor, inventions (cotton gin, Erie Canal).</div></div>
+      <div class="theme-chip"><span class="ab">GEO</span><div><b>Geography &amp; Environment:</b> how land, climate and resources shaped lives.</div></div>
+      <div class="theme-chip"><span class="ab">MIG</span><div><b>Migration &amp; Settlement:</b> who moved, why, and what happened.</div></div>
+      <div class="theme-chip"><span class="ab">PCE</span><div><b>Politics &amp; Power:</b> government, parties, laws, the struggle over power.</div></div>
+      <div class="theme-chip"><span class="ab">WOR</span><div><b>America in the World:</b> wars, treaties, foreign policy.</div></div>
+      <div class="theme-chip"><span class="ab">ARC</span><div><b>American &amp; Regional Culture:</b> religion, art, ideas (Great Awakening, Transcendentalism).</div></div>
+      <div class="theme-chip"><span class="ab">SOC</span><div><b>Social Structures:</b> class, race, gender, family.</div></div>
+    </div>
+  </div>
+
+  <div class="card section">
+    <h3>✍️ If there's a written part: the thesis formula</h3>
+    <p class="stim" style="font-style:normal;font-family:Inter,sans-serif">“Although <b>[counter-point]</b>, <b>[main claim]</b> because <b>[reason 1]</b> and <b>[reason 2]</b>.”</p>
+    <p><b>Example:</b> “Although the Missouri Compromise temporarily calmed tensions, westward expansion was the main cause of the Civil War because new territories forced the nation to repeatedly fight over slavery, as seen in the Compromise of 1850 and the Kansas-Nebraska Act.”</p>
+    <p class="small muted">Always use specific evidence (names, laws, dates) and explain <i>how</i> it proves your point. Evidence without explanation earns zero.</p>
+  </div>
+
+  <div class="card section">
+    <h3>⏱️ Test-day game plan</h3>
+    <ul>
+      <li>Roughly <b>1 minute per question</b>. Stuck for more than 90 seconds? Mark it, guess, move on, come back.</li>
+      <li><b>Never leave a blank.</b> There's no penalty for guessing.</li>
+      <li>Eat breakfast, drink water, sleep the night before. Your brain is a muscle; feed it.</li>
+      <li>If you blank out: breathe in for 4, hold 4, out 4. Then go back to the source date and eliminate by era.</li>
+    </ul>
+  </div>
+</section>
+
+</main>
+<footer>Made for Santiago with ★ · Small steps, every day. · Progress saves in this browser.</footer>
+<div class="toast" id="toast"></div>
+
+<script>
+/* =========================================================
+   DATA
+   ========================================================= */
+const UNITS = [
+{
+  id:1, title:"Native Societies & Contact", years:"1491–1607", weight:"4–6%", color:"--u1", emoji:"🌽",
+  hook:"Before 1492, the Americas were full of millions of people living very different lives. Then Columbus showed up, and two worlds that had been apart for 10,000+ years crashed together.",
+  story:[
+    "<b>Before Europeans arrived</b>, Native American societies were incredibly diverse because they adapted to their <i>environments</i>. In the dry Southwest, the <b>Pueblo</b> grew <b>maize</b> (corn) using irrigation and built adobe homes. On the Great Plains, people moved with the seasons and hunted buffalo. In the Northeast, groups like the <b>Iroquois</b> mixed farming with hunting and lived in longhouses. On the Northwest coast, fishing was so rich that people could build permanent villages without farming. The <b>Mississippian</b> culture built huge mound cities like <b>Cahokia</b>.",
+    "<b>Why did Europe go exploring?</b> Remember the 3 G's: <b>God</b> (spread Christianity), <b>Gold</b> (get rich and find trade routes to Asia), <b>Glory</b> (national power). New tech like the <b>caravel</b> ship, compass and astrolabe made it possible. Spain and Portugal led the way, and in <b>1492</b> Columbus landed in the Caribbean.",
+    "<b>The Columbian Exchange</b> changed the whole planet. Europe sent horses, pigs, cattle, wheat, sugar, and, worst of all, <b>diseases like smallpox</b> that killed up to 90% of some Native populations. The Americas sent <b>corn, potatoes, tomatoes, tobacco</b>, which caused Europe's population to boom.",
+    "<b>The Spanish built an empire</b> fast: <b>Cortés</b> conquered the Aztecs (1519–21) and <b>Pizarro</b> the Inca (1532). They used the <b>encomienda system</b> (forced Native labor), and when Native populations collapsed, they turned to <b>enslaved Africans</b>, starting the Atlantic slave trade. A racial ladder called the <b>casta system</b> ranked people by ancestry. Priest <b>Bartolomé de Las Casas</b> protested the cruelty, sparking the famous <b>Valladolid Debate</b> (1550) about whether Natives were fully human."
+  ],
+  concepts:[
+    ["Native diversity = environment", ["Southwest (Pueblo): maize, irrigation, adobe, permanent villages","Great Plains: mobile, hunting buffalo (and later the horse transformed them)","Northeast (Iroquois): mixed farming + hunting, longhouses, Iroquois Confederacy","Northwest: fishing & whaling, permanent villages, rich trade","Key idea: maize spread north from Mexico → allowed settled societies"]],
+    ["Why Europeans explored", ["God, Gold, Glory","Desire for a sea route to Asian trade (avoid Ottoman control)","New technology: caravel, compass, astrolabe, better maps","Reconquista (1492): Spain drove out the Muslims → unified, Catholic, ambitious"]],
+    ["Columbian Exchange", ["Old → New: horses, cattle, pigs, wheat, sugar, smallpox & measles","New → Old: maize, potatoes, tomatoes, tobacco, cacao","Silver from the Americas made Spain rich → shift from feudalism to capitalism in Europe","Disease = the #1 reason Native populations collapsed"]],
+    ["Spanish colonial system", ["Encomienda: Spanish colonists got the right to Native labor & tribute","Casta system: racial hierarchy (peninsulares → criollos → mestizos → Natives & Africans)","Missions to convert Natives to Catholicism","Spanish mixed with Natives more than the English did, and built a large, controlled empire"]],
+    ["Native responses", ["Resistance (war, revolts)","Adaptation (adopting horses, guns, some Christianity while keeping traditions)","Negotiation and alliances with Europeans","Pattern for the whole course: Natives were not passive victims!"]]
+  ],
+  terms:[
+    ["Pueblo","c. 1000s","Southwest Native people who farmed maize with irrigation and lived in multi-story adobe buildings.","Shows how environment shaped Native societies."],
+    ["Maize cultivation","c. 1200s spread","Corn farming that spread from Mexico into North America.","Allowed settled, complex societies to develop."],
+    ["Iroquois Confederacy","c. 1400s","Alliance of five (later six) Northeastern nations; lived in longhouses, mixed farming & hunting.","A powerful Native political alliance that later played Europeans against each other."],
+    ["Cahokia","c. 1050–1350","Huge Mississippian mound city near modern St. Louis.","Proves complex urban societies existed before Europeans."],
+    ["Christopher Columbus","1492","Sailed for Spain looking for Asia and landed in the Caribbean.","Started permanent contact between Europe and the Americas."],
+    ["Columbian Exchange","1492 →","Transfer of plants, animals, people, and diseases between the hemispheres.","Changed diets, populations and economies worldwide; devastated Natives."],
+    ["Treaty of Tordesillas","1494","Pope-backed line splitting new lands between Spain and Portugal.","Why Brazil speaks Portuguese and most of Latin America speaks Spanish."],
+    ["Encomienda system","1500s","Spanish crown gave colonists the right to demand labor & tribute from Natives.","Brutal forced labor → led to the shift to African slavery."],
+    ["Hernán Cortés","1519–1521","Conquistador who conquered the Aztec Empire.","Spain gains Mexico's wealth; disease & Native allies helped him."],
+    ["Francisco Pizarro","1532","Conquistador who conquered the Inca Empire.","Huge silver wealth flows to Spain."],
+    ["Bartolomé de Las Casas","1540s","Spanish priest who exposed the abuse of Natives.","Argued Natives were fully human; led to reform debates."],
+    ["Valladolid Debate","1550","Las Casas vs. Sepúlveda over whether Natives were 'natural slaves.'","Shows European debate over how to treat Native peoples."],
+    ["Casta system","1500s","Spanish racial hierarchy based on ancestry/mixing.","Created a rigid colonial social order based on race."],
+    ["Atlantic slave trade","1500s →","Forced transport of millions of Africans to the Americas.","Replaced dying Native labor; shaped the economy of the Americas."],
+    ["Mercantilism","1500s–1700s","Idea that colonies exist to enrich the mother country; export more than import.","Explains why Europe wanted colonies and later trade laws."]
+  ],
+  timeline:[
+    [1050,"Cahokia rises as a major Mississippian city"],
+    [1492,"Columbus lands in the Caribbean; Spain completes the Reconquista"],
+    [1494,"Treaty of Tordesillas divides the New World"],
+    [1519,"Cortés begins conquest of the Aztec Empire"],
+    [1532,"Pizarro conquers the Inca"],
+    [1550,"Valladolid Debate (Las Casas vs. Sepúlveda)"],
+    [1565,"Spanish found St. Augustine, Florida"],
+    [1598,"Juan de Oñate's brutal expedition into New Mexico"],
+    [1607,"Jamestown founded: the end of Unit 1"]
+  ],
+  hacks:[
+    ["The 3 G's","God · Gold · Glory","Why Europeans explored. If a question asks about motives, one of these is the answer."],
+    ["What Europe sent over","H-P-S: Horses, Pigs, Smallpox","Old World → New World. Smallpox did the most damage."],
+    ["What the Americas sent back","C-P-T: Corn, Potatoes, Tomatoes (+ Tobacco)","New World → Old World. Led to population growth in Europe."],
+    ["Cortés vs. Pizarro","Cortés = Central Mexico (Aztec) · Pizarro = Peru (Inca)","C goes with C, P goes with P."]
+  ],
+  chains:[
+    ["Spanish arrive in the Americas","Smallpox & forced labor (encomienda) kill millions of Natives","Spain needs a new labor force","Spain imports enslaved Africans → Atlantic slave trade grows","Racial hierarchy (casta system) develops"],
+    ["Spanish bring horses","Plains Natives adopt the horse","Plains societies become highly mobile buffalo hunters","Horse-riding nations (e.g. Comanche, Lakota) become powerful"]
+  ],
+  quiz:[
+    {q:"Which factor best explains why Native societies in North America before 1492 were so different from one another?", o:["They had no contact with each other","They adapted to very different environments and resources","Each had been influenced by different European nations","They all relied on the same crops"], a:1, e:"Environment drove everything. Desert Pueblo farmed with irrigation; Plains peoples hunted; Northwest peoples fished. No Europeans yet!"},
+    {q:"The spread of maize cultivation from present-day Mexico northward most directly led to:", o:["The rise of nomadic hunting cultures","Economic development and settled, complex societies","The decline of the Iroquois","The end of trade between Native groups"], a:1, e:"Maize = food surplus = people can settle down, grow, and build complex societies (like the Pueblo)."},
+    {q:"What was the most devastating effect of the Columbian Exchange on Native Americans?", o:["The introduction of wheat","Loss of land to Portuguese settlers","Epidemic diseases such as smallpox","Conversion to Protestantism"], a:2, e:"Natives had no immunity to Old World diseases. Smallpox and measles killed up to 90% of some populations."},
+    {q:"The encomienda system is best described as:", o:["A Spanish system granting colonists rights to Native labor and tribute","A French alliance system with Native trading partners","An English system of indentured servitude","A Native American trade network"], a:0, e:"Encomienda = Spanish colonists got Native labor in exchange for 'protecting' and Christianizing them. In practice, it was close to slavery."},
+    {s:"“Compare these qualities of prudence, ability, magnanimity, temperance, humanity, and religion [of the Spanish] with those of those little men [the Natives]… in whom you will scarcely find even vestiges of humanity.”", c:"Juan Ginés de Sepúlveda, 1547", q:"Sepúlveda's argument was most likely used to:", o:["Support ending the encomienda system","Justify Spanish conquest and forced labor of Natives","Argue for Native self-government","Promote trade alliances with Natives"], a:1, e:"Sepúlveda argued Natives were inferior 'natural slaves' to justify conquest. His opponent in the Valladolid Debate was Las Casas."},
+    {q:"Bartolomé de Las Casas is best known for:", o:["Conquering the Inca","Leading the Pueblo Revolt","Criticizing Spanish mistreatment of Native peoples","Negotiating the Treaty of Tordesillas"], a:2, e:"Las Casas was a priest who exposed Spanish abuses and argued Natives had souls and rights."},
+    {q:"The introduction of the horse to the Great Plains most directly caused:", o:["Plains peoples to abandon hunting","Plains peoples to become more mobile, buffalo-hunting societies","The spread of maize farming","The decline of the Spanish empire"], a:1, e:"Horses transformed Plains life: faster travel, better buffalo hunting, more powerful nomadic nations."},
+    {q:"The Spanish casta system was primarily a:", o:["Religious order","System for distributing land","Social hierarchy based on racial ancestry","Military alliance"], a:2, e:"Casta = a racial ladder with Spanish-born at the top, and Natives and Africans at the bottom."},
+    {q:"Which was a primary motive for European exploration in the 1400s and 1500s?", o:["Escaping the Industrial Revolution","Finding sea routes to Asian trade and gaining wealth","Spreading democracy","Finding land to grow cotton"], a:1, e:"Gold, God and Glory. Europeans wanted direct access to Asian spices and silks."}
+  ]
+},
+{
+  id:2, title:"Colonial America", years:"1607–1754", weight:"6–8%", color:"--u2", emoji:"🚢",
+  hook:"England arrives late but stays. Different colonies grow up like different siblings: one obsessed with religion, one with tobacco money, one with diversity. Slavery takes root, and colonists start to feel 'American.'",
+  story:[
+    "<b>Jamestown (1607)</b>, Virginia, was England's first permanent colony, funded by the <b>Virginia Company</b> (a joint-stock company). It almost failed until <b>John Rolfe</b> planted <b>tobacco</b>, which became the Chesapeake's cash crop. They needed workers, so they used <b>indentured servants</b> (people who worked 4–7 years in exchange for passage) and the <b>headright system</b> (land for bringing people over). In 1619, the <b>House of Burgesses</b> became the first representative assembly, and the first Africans arrived.",
+    "<b>New England</b> was different: families came for <i>religion</i>. The Pilgrims signed the <b>Mayflower Compact</b> (1620), and the Puritans under <b>John Winthrop</b> built a <b>“City upon a Hill”</b> in Massachusetts Bay (1630). They had town meetings, schools, small farms, fishing and shipbuilding. People who disagreed, like <b>Roger Williams</b> (founded Rhode Island) and <b>Anne Hutchinson</b>, got kicked out.",
+    "<b>The Middle Colonies</b> (NY, PA, NJ, DE) were the most <b>diverse</b>: Quakers, Dutch, Germans, Scots-Irish. <b>William Penn</b> founded Pennsylvania (1681) with religious tolerance and fair dealing with Natives. They grew wheat, making them the “breadbasket.” <b>The Southern Colonies</b> (Carolinas, Georgia) grew rice and indigo with huge numbers of enslaved Africans.",
+    "<b>Turning point: Bacon's Rebellion (1676).</b> Poor former servants in Virginia rebelled against the governor. Scared rich planters then switched from indentured servants to <b>enslaved Africans</b>, a permanent, race-based labor system. Slave codes made slavery hereditary. Enslaved people resisted (e.g. the <b>Stono Rebellion</b>, 1739).",
+    "<b>Native conflicts:</b> <b>King Philip's War</b> (1675) in New England and the <b>Pueblo Revolt</b> (1680) against the Spanish in New Mexico. <b>The British Empire</b> tried to control trade with the <b>Navigation Acts</b> (mercantilism) but mostly practiced <b>salutary neglect</b>, letting colonies govern themselves. Meanwhile, the <b>Great Awakening</b> (religious revival) and the <b>Enlightenment</b> (reason, natural rights: John Locke) shaped a new colonial identity."
+  ],
+  concepts:[
+    ["Regions compared", ["New England: religion (Puritans), family groups, town meetings, small farms, fishing, shipbuilding, literacy","Middle: diverse, tolerant, wheat ('breadbasket'), ports like Philadelphia & New York","Chesapeake (VA, MD): tobacco, indentured servants → slaves, young single men, high death rates","Southern / Carolina: rice & indigo, majority enslaved population, strict slave codes (from Barbados)"]],
+    ["Spain vs. France vs. England vs. Netherlands", ["Spain: conquest, missions, encomienda, lots of mixing (casta)","France: fur trade, few settlers, alliances & intermarriage with Natives","Netherlands: trade-focused (New Amsterdam → New York 1664)","England: lots of settlers (families), took land, little mixing, colonies had self-government"]],
+    ["Labor & slavery", ["Indentured servitude dominated the early Chesapeake","Bacon's Rebellion (1676) → shift to African slavery","Triangular trade & Middle Passage","Slave codes made slavery permanent, hereditary, and race-based","Resistance: Stono Rebellion (1739), running away, slowdowns, keeping culture"]],
+    ["British control & trade", ["Mercantilism: colonies serve the mother country","Navigation Acts: colonial trade must go through England on English ships","Dominion of New England (1686): James II merged colonies; collapsed after the Glorious Revolution (1688)","Salutary neglect: Britain loosely enforced laws → colonies got used to self-rule"]],
+    ["Ideas & identity", ["Great Awakening (1730s–40s): Jonathan Edwards, George Whitefield; emotional religion, questioned authority, shared colonial experience","Enlightenment: reason, natural rights (John Locke), social contract","Anglicization: colonists copied British culture & were proud Britons... for now","Zenger trial (1735): early win for freedom of the press"]]
+  ],
+  terms:[
+    ["Jamestown","1607","First permanent English colony (Virginia), run by the Virginia Company.","Start of English America; tobacco economy."],
+    ["John Rolfe & tobacco","1612","Rolfe introduced a sellable tobacco strain.","Saved Jamestown; created demand for labor → servants, then slaves."],
+    ["Headright system","1618","50 acres of land for each person whose passage you paid.","Encouraged indentured servitude; made rich planters richer."],
+    ["Indentured servants","1600s","Worked 4–7 years in exchange for passage to America.","Main Chesapeake labor until Bacon's Rebellion."],
+    ["House of Burgesses","1619","Virginia's elected assembly; first representative government in America.","Start of colonial self-government."],
+    ["Mayflower Compact","1620","Pilgrims' agreement to form a government and follow its laws.","Early example of self-government by consent."],
+    ["John Winthrop / 'City upon a Hill'","1630","Puritan leader of Massachusetts Bay who wanted a model Christian community.","Idea of America as an example to the world."],
+    ["Roger Williams","1636","Banished from Massachusetts; founded Rhode Island with religious freedom and separation of church & state.","Religious tolerance; dissent in Puritan society."],
+    ["Anne Hutchinson","1638","Challenged Puritan ministers; banished.","Religious dissent + challenge to women's roles."],
+    ["Maryland Toleration Act","1649","Protected religious freedom for all Christians in Maryland (Catholic haven).","Early step toward religious toleration."],
+    ["King Philip's War","1675–76","Metacom (King Philip) led Natives against New England settlers.","Devastated both sides; broke Native power in New England."],
+    ["Bacon's Rebellion","1676","Poor Virginia farmers (incl. ex-servants) rebelled against Gov. Berkeley.","Planters switched to African slavery: a HUGE turning point."],
+    ["Pueblo Revolt","1680","Popé led Pueblo uprising that drove the Spanish out of New Mexico for 12 years.","Spain later became more tolerant of Native culture."],
+    ["William Penn / Pennsylvania","1681","Quaker colony with religious tolerance and fair Native relations.","Model of diversity in the Middle Colonies."],
+    ["Navigation Acts","1650s–1660s","Colonial trade must use English ships and go through England.","Mercantilism in action; later resented."],
+    ["Dominion of New England","1686–89","James II merged northern colonies under Gov. Andros, ending assemblies.","Colonists overthrew it; showed they valued self-rule."],
+    ["Salutary neglect","c. 1690–1763","Britain loosely enforced trade laws on colonies.","Colonies got used to self-government → tension when it ended."],
+    ["Middle Passage","1600s–1800s","The brutal ocean voyage of enslaved Africans to the Americas.","Part of the triangular trade."],
+    ["Stono Rebellion","1739","Slave revolt in South Carolina.","Led to stricter slave codes; shows resistance."],
+    ["Great Awakening","1730s–40s","Religious revival: Jonathan Edwards & George Whitefield.","Questioned authority; united colonists; foreshadows revolution."],
+    ["Enlightenment / John Locke","late 1600s–1700s","Reason, natural rights (life, liberty, property), social contract.","Ideas behind the Declaration of Independence."],
+    ["Zenger Trial","1735","Printer acquitted of libel because what he printed was true.","Early step toward freedom of the press."]
+  ],
+  timeline:[
+    [1607,"Jamestown founded"],
+    [1608,"French found Quebec"],
+    [1619,"House of Burgesses; first Africans arrive in Virginia"],
+    [1620,"Pilgrims sign the Mayflower Compact"],
+    [1630,"Massachusetts Bay Colony (Winthrop)"],
+    [1636,"Roger Williams founds Rhode Island"],
+    [1649,"Maryland Toleration Act"],
+    [1651,"First Navigation Act"],
+    [1664,"English take New Amsterdam → New York"],
+    [1675,"King Philip's War begins"],
+    [1676,"Bacon's Rebellion"],
+    [1680,"Pueblo Revolt"],
+    [1681,"Pennsylvania founded"],
+    [1686,"Dominion of New England"],
+    [1692,"Salem Witch Trials"],
+    [1735,"Zenger trial"],
+    [1739,"Stono Rebellion; Great Awakening peaks"]
+  ],
+  hacks:[
+    ["Regions in 3 words","NE = God · Middle = Grain + Variety · South = Crops + Slaves","New England is about religion, the Middle about diversity and wheat, the South about cash crops."],
+    ["Bacon's → Slaves","B for Bacon, B for 'Black labor'","After Bacon's Rebellion (1676), planters shifted from indentured servants to enslaved Africans."],
+    ["Puritan rebels","Roger & Anne got kicked out","Williams → Rhode Island (religious freedom). Hutchinson → banished. Puritans weren't tolerant!"],
+    ["French vs. English","French = Furs & Friends · English = Farms & Families","French traded with and married into Native nations; English took land for farms."]
+  ],
+  chains:[
+    ["Tobacco becomes profitable","Planters need lots of workers","Indentured servants flood in","Freed servants can't get good land → anger","Bacon's Rebellion (1676)","Planters switch to enslaved Africans → race-based slavery"],
+    ["Britain practices salutary neglect","Colonial assemblies run their own affairs","Colonists expect self-government","After 1763, Britain tightens control","Conflict → Revolution (Unit 3!)"]
+  ],
+  quiz:[
+    {q:"Bacon's Rebellion (1676) most directly led to:", o:["The end of the Navigation Acts","An increased reliance on enslaved African labor in the Chesapeake","The founding of Pennsylvania","Greater rights for Native Americans"], a:1, e:"Planters feared poor white servants, so they turned to enslaved Africans, a permanent labor force."},
+    {q:"Which crop was the economic foundation of the Chesapeake colonies?", o:["Rice","Wheat","Tobacco","Cotton"], a:2, e:"Tobacco (thanks, John Rolfe). Rice & indigo = Carolinas. Wheat = Middle colonies. Cotton = later (1800s)."},
+    {q:"Compared to English colonists, French colonists in North America were more likely to:", o:["Build large plantations","Establish trading alliances and intermarry with Native peoples","Bring large numbers of families","Use the encomienda system"], a:1, e:"The French had few settlers and relied on the fur trade, so partnerships with Natives were essential."},
+    {s:"“For we must consider that we shall be as a city upon a hill. The eyes of all people are upon us.”", c:"John Winthrop, 1630", q:"Winthrop's statement best reflects which goal?", o:["Gaining wealth through tobacco","Creating a model religious community","Separating church and state","Promoting religious diversity"], a:1, e:"The Puritans wanted Massachusetts Bay to be a perfect Christian example to the world."},
+    {q:"The Great Awakening of the 1730s–1740s:", o:["Strengthened the authority of established churches","Encouraged questioning of traditional authority and created shared colonial experiences","Led directly to the Pueblo Revolt","Was led by John Locke"], a:1, e:"Preachers like Whitefield traveled through many colonies; people learned they could challenge authority (churches → later, kings!)."},
+    {q:"The Navigation Acts were an example of:", o:["Salutary neglect","Mercantilism","Republicanism","Popular sovereignty"], a:1, e:"Mercantilism = colonies exist to benefit the mother country. The Navigation Acts forced trade through England."},
+    {q:"The policy of salutary neglect resulted in:", o:["Colonists developing a strong tradition of self-government","Britain tightly controlling colonial trade","The end of colonial legislatures","Increased taxes on the colonies"], a:0, e:"Britain looked the other way, so colonial assemblies got used to governing themselves."},
+    {q:"Which colony was founded on principles of religious tolerance and was most ethnically diverse?", o:["Massachusetts Bay","Virginia","Pennsylvania","South Carolina"], a:2, e:"William Penn's Quaker colony welcomed many religions and nationalities."},
+    {q:"The Pueblo Revolt of 1680 resulted in:", o:["Permanent Pueblo independence","Spanish colonizers later showing more tolerance of Native culture and religion","The English taking over New Mexico","The founding of St. Augustine"], a:1, e:"The Spanish came back about 12 years later, but they became more accommodating of Pueblo customs."},
+    {q:"The headright system encouraged:", o:["Religious freedom","The importation of indentured servants","Native American land rights","The growth of cities"], a:1, e:"You got 50 acres per person you brought over, so planters imported lots of servants."},
+    {q:"The Mayflower Compact is significant because it:", o:["Ended the slave trade","Was an early example of self-government","Created the Iroquois Confederacy","Established the Church of England"], a:1, e:"The Pilgrims agreed to govern themselves by majority rule, an early seed of democracy."}
+  ]
+},
+{
+  id:3, title:"Revolution & a New Nation", years:"1754–1800", weight:"10–17%", color:"--u3", emoji:"🔔",
+  hook:"Britain wins a huge war, goes broke, and tries to make the colonies pay. The colonies say 'no taxation without representation,' fight a revolution, try a weak government, then write the Constitution. Big unit. Big points.",
+  story:[
+    "<b>The French and Indian War (1754–1763)</b> was Britain vs. France for control of North America (Natives mostly sided with France). Ben Franklin's <b>Albany Plan of Union</b> (“Join, or Die”) failed, but it was an early idea of unity. Britain won (<b>Treaty of Paris 1763</b>) and took Canada and everything east of the Mississippi... but was left with <b>massive war debt</b>.",
+    "<b>Britain's new rules:</b> The <b>Proclamation of 1763</b> banned settling west of the Appalachians (after <b>Pontiac's Rebellion</b>). Then came the taxes: <b>Sugar Act</b> (1764), <b>Stamp Act</b> (1765), and <b>Townshend Acts</b> (1767). Colonists protested with boycotts, the <b>Sons of Liberty</b>, and the slogan <b>“No taxation without representation.”</b> Tensions exploded with the <b>Boston Massacre</b> (1770), the <b>Boston Tea Party</b> (1773), and Britain's punishment, the <b>Intolerable (Coercive) Acts</b> (1774).",
+    "<b>Revolution!</b> Fighting started at <b>Lexington & Concord</b> (1775). Thomas Paine's <b>Common Sense</b> (1776) convinced regular people to want independence, and Jefferson wrote the <b>Declaration of Independence</b> (July 4, 1776), using Locke's ideas of natural rights. The victory at <b>Saratoga</b> (1777) convinced <b>France</b> to join (1778), and the British surrendered at <b>Yorktown</b> (1781). The <b>Treaty of Paris of 1783</b> recognized independence, with the Mississippi River as the western border.",
+    "<b>First try at government: the Articles of Confederation</b> (1781) were WAY too weak: no power to tax, no national army, no executive, needed 9/13 states to pass laws and all 13 to amend. One big success: the <b>Northwest Ordinance</b> (1787), which created a process for new states and banned slavery north of the Ohio River. Then <b>Shays' Rebellion</b> (1786–87), where indebted farmers rebelled, scared leaders into fixing things.",
+    "<b>The Constitution (1787):</b> The <b>Great Compromise</b> (Senate equal, House by population), the <b>Three-Fifths Compromise</b>, and a 20-year protection of the slave trade. Federalists (Hamilton, Madison, Jay: <b>The Federalist Papers</b>) battled Anti-Federalists, who demanded a <b>Bill of Rights</b> (added 1791). Under <b>Washington</b>, <b>Hamilton's financial plan</b> (national bank, assume state debts, tariffs) split the country into the first political parties: <b>Federalists vs. Democratic-Republicans</b>. Then came the Whiskey Rebellion, Jay's Treaty, Washington's <b>Farewell Address</b>, and John Adams' <b>Alien & Sedition Acts</b>, answered by the Virginia & Kentucky Resolutions. In the <b>“Revolution of 1800”</b>, power passed peacefully to Jefferson."
+  ],
+  concepts:[
+    ["Why the Revolution happened (causes)", ["War debt from the French & Indian War → Britain ends salutary neglect and taxes colonies","Colonists believe only their own assemblies can tax them (no virtual representation)","Enlightenment ideas (Locke) + Great Awakening (question authority)","Proclamation of 1763 blocks westward land","Escalation: acts → protests → violence → war"]],
+    ["Why the Patriots won", ["French alliance after Saratoga (money, navy, troops)","Fighting on home turf; Britain far away","George Washington's leadership & persistence","Britain fighting a global war"]],
+    ["Articles of Confederation: weak by design", ["No power to tax (asked states for money)","No national army, no president, no national courts","Couldn't regulate trade between states","Laws needed 9/13; amendments needed 13/13","Successes: won the war, Land Ordinance of 1785, Northwest Ordinance 1787"]],
+    ["The Constitution's compromises", ["Great (Connecticut) Compromise: bicameral Congress (Virginia Plan + New Jersey Plan)","Three-Fifths Compromise: enslaved people count as 3/5 for representation & taxes","Slave trade could not be banned until 1808","Separation of powers + checks and balances + federalism","Electoral College"]],
+    ["Federalists vs. Democratic-Republicans", ["Federalists (Hamilton, Adams): strong national gov, loose construction, national bank, merchants & manufacturing, pro-Britain","Democratic-Republicans (Jefferson, Madison): states' rights, strict construction, farmers, anti-bank, pro-France","Big fight: is a national bank constitutional? (Elastic / necessary & proper clause)"]],
+    ["Early foreign policy", ["Neutrality Proclamation (1793): stay out of the France-Britain war","Jay's Treaty (1794): avoided war with Britain, but unpopular","Pinckney's Treaty (1795): Spain gives use of the Mississippi & New Orleans","Washington's Farewell (1796): avoid permanent alliances & political parties","XYZ Affair (1797) → Quasi-War with France"]]
+  ],
+  terms:[
+    ["French and Indian War","1754–1763","Britain vs. France (and Native allies) for control of North America.","Britain wins but has huge debt → taxes colonies."],
+    ["Albany Plan of Union","1754","Franklin's plan to unite the colonies for defense ('Join, or Die').","Rejected, but an early idea of colonial unity."],
+    ["Treaty of Paris 1763","1763","Ended the F&I War; France lost its North American empire.","Britain dominates; Natives lose their French ally."],
+    ["Pontiac's Rebellion","1763","Native uprising against British in the Ohio Valley.","Led to the Proclamation of 1763."],
+    ["Proclamation of 1763","1763","Banned colonial settlement west of the Appalachians.","Angered colonists who fought for that land."],
+    ["Stamp Act","1765","Direct tax on paper goods (newspapers, legal documents).","Huge protests: Stamp Act Congress, Sons of Liberty, boycotts. Repealed 1766."],
+    ["Declaratory Act","1766","Parliament says it can make laws for the colonies 'in all cases whatsoever.'","Britain insists on its authority even while repealing the Stamp Act."],
+    ["Townshend Acts","1767","Taxes on imported glass, paint, paper, tea.","Boycotts; John Dickinson's 'Letters from a Farmer.'"],
+    ["Boston Massacre","1770","British soldiers killed 5 colonists in Boston.","Patriot propaganda (Paul Revere's engraving)."],
+    ["Boston Tea Party","1773","Sons of Liberty dumped British tea in protest of the Tea Act.","Britain responds with the Intolerable Acts."],
+    ["Intolerable (Coercive) Acts","1774","Closed Boston Harbor, limited MA government.","Led to the First Continental Congress."],
+    ["Lexington & Concord","1775","First battles of the Revolution ('shot heard round the world').","War begins."],
+    ["Olive Branch Petition","1775","Second Continental Congress's last peace offer to King George III.","He rejected it → independence more likely."],
+    ["Common Sense","1776","Thomas Paine's pamphlet arguing for independence in plain language.","Turned public opinion toward independence."],
+    ["Declaration of Independence","July 4, 1776","Jefferson's document: natural rights, consent of the governed, grievances vs. the King.","Based on Locke; a standard later groups used to demand equality."],
+    ["Battle of Saratoga","1777","Major American victory in New York.","TURNING POINT: convinced France to ally with the U.S. (1778)."],
+    ["Yorktown","1781","British General Cornwallis surrendered to Washington (+ French).","Effectively ends the war."],
+    ["Treaty of Paris 1783","1783","Britain recognizes U.S. independence; border at the Mississippi.","Official end of the Revolution."],
+    ["Republican Motherhood","1780s–90s","Idea that women should raise virtuous citizens for the republic.","Expanded women's education but kept them in the home."],
+    ["Articles of Confederation","1781–1789","First U.S. government: weak central power.","Its failures led to the Constitution."],
+    ["Northwest Ordinance","1787","Process for territories to become states; banned slavery in the Northwest Territory.","Biggest success of the Articles; Ohio River = free/slave line."],
+    ["Shays' Rebellion","1786–87","Massachusetts farmers rebelled over debts & taxes.","Showed the Articles were too weak → Constitutional Convention."],
+    ["Great Compromise","1787","Bicameral Congress: Senate equal (2 per state), House by population.","Solved big state vs. small state conflict."],
+    ["Three-Fifths Compromise","1787","Enslaved people counted as 3/5 of a person for representation.","Gave the South extra power in Congress."],
+    ["Federalist Papers","1787–88","Essays by Hamilton, Madison & Jay supporting ratification. #10: a large republic controls factions.","Helped ratify the Constitution."],
+    ["Anti-Federalists","1787–88","Opposed the Constitution; feared strong central gov; demanded a Bill of Rights.","Led to the Bill of Rights."],
+    ["Bill of Rights","1791","First 10 amendments protecting individual rights.","The Anti-Federalists' big win."],
+    ["Hamilton's Financial Plan","1790–91","Assume state debts, national bank, tariffs, excise taxes.","Built U.S. credit; created the first party split."],
+    ["Whiskey Rebellion","1794","Farmers revolted against the whiskey tax; Washington sent troops.","Showed the new government's strength (vs. Shays')."],
+    ["Jay's Treaty","1794","Treaty with Britain; avoided war but few gains.","Unpopular; deepened party divisions."],
+    ["Pinckney's Treaty","1795","Spain grants U.S. use of the Mississippi River and New Orleans.","Big win for western farmers."],
+    ["Washington's Farewell Address","1796","Warned against permanent foreign alliances and political parties.","Guided U.S. foreign policy (isolationism) for over a century."],
+    ["XYZ Affair","1797","French officials demanded bribes from U.S. diplomats.","Led to the Quasi-War with France."],
+    ["Alien and Sedition Acts","1798","Federalist laws limiting immigrants and criticism of the government.","Seen as violating free speech."],
+    ["Virginia & Kentucky Resolutions","1798","Jefferson & Madison argued states could nullify unconstitutional laws.","Root of states' rights / nullification theory (→ Unit 4–5)."],
+    ["Election of 1800","1800","Jefferson defeats Adams: 'Revolution of 1800.'","First peaceful transfer of power between parties."]
+  ],
+  timeline:[
+    [1754,"French and Indian War begins; Albany Plan"],
+    [1763,"Treaty of Paris; Pontiac's Rebellion; Proclamation of 1763"],
+    [1764,"Sugar Act"],
+    [1765,"Stamp Act & Stamp Act Congress"],
+    [1766,"Declaratory Act"],
+    [1767,"Townshend Acts"],
+    [1770,"Boston Massacre"],
+    [1773,"Tea Act & Boston Tea Party"],
+    [1774,"Intolerable Acts; First Continental Congress"],
+    [1775,"Lexington & Concord; Second Continental Congress"],
+    [1776,"Common Sense; Declaration of Independence"],
+    [1777,"Battle of Saratoga"],
+    [1778,"French alliance"],
+    [1781,"Yorktown; Articles of Confederation ratified"],
+    [1783,"Treaty of Paris: independence"],
+    [1786,"Shays' Rebellion begins"],
+    [1787,"Constitutional Convention; Northwest Ordinance"],
+    [1789,"Washington becomes president"],
+    [1791,"Bill of Rights ratified; First Bank of the U.S."],
+    [1794,"Whiskey Rebellion; Jay's Treaty"],
+    [1796,"Washington's Farewell Address"],
+    [1798,"Alien & Sedition Acts; VA & KY Resolutions"],
+    [1800,"Jefferson elected"]
+  ],
+  hacks:[
+    ["British acts in order (1764–1774)","Some Silly Dogs Took My Tasty Ice cream","Sugar (1764) → Stamp (1765) → Declaratory (1766) → Townshend (1767) → Massacre (1770) → Tea Party (1773) → Intolerable (1774)."],
+    ["Saratoga = turning point","SARAtoga brought FRAnce","The win at Saratoga convinced France to join, and France's help won the war."],
+    ["Articles' weaknesses","'No TAX, No MAX'","No power to TAX, no MAXimum authority (no president, no army, no courts). Basically all bark, no bite."],
+    ["Hamilton vs. Jefferson","Hamilton = Hat & factory · Jefferson = farmer & Field","Hamilton: banks, cities, strong gov, loose reading. Jefferson: farmers, states' rights, strict reading."],
+    ["Shays vs. Whiskey","Shays = Shows weakness · Whiskey = Wins with strength","Under the Articles, the gov couldn't stop Shays. Under the Constitution, Washington crushed the Whiskey Rebellion."]
+  ],
+  chains:[
+    ["French & Indian War","Britain wins but has massive debt","Britain ends salutary neglect & taxes colonies (Stamp Act, etc.)","Colonists protest: 'No taxation without representation'","Violence: Boston Massacre, Tea Party → Intolerable Acts","Lexington & Concord → Revolution"],
+    ["Articles of Confederation are weak","Government can't tax or pay debts; states fight over trade","Shays' Rebellion (1786–87) and the gov can't stop it","Leaders call the Constitutional Convention (1787)","Stronger federal government created"],
+    ["Hamilton proposes a national bank","Jefferson says it's unconstitutional (strict construction)","Hamilton says it's 'necessary and proper' (loose construction)","First political parties form: Federalists vs. Democratic-Republicans"]
+  ],
+  quiz:[
+    {q:"The main reason Britain changed its colonial policy after 1763 was:", o:["To punish the colonies for the Boston Tea Party","To pay off debt from the French and Indian War","To support the French","To end slavery in the colonies"], a:1, e:"War debt! The war was expensive, and Britain thought the colonists should help pay for their own defense."},
+    {q:"The Proclamation of 1763 angered colonists because it:", o:["Taxed paper goods","Prohibited settlement west of the Appalachian Mountains","Closed Boston Harbor","Required colonists to house soldiers"], a:1, e:"Colonists fought the war partly for western land, then Britain banned settling it (to avoid more Native wars)."},
+    {s:"“It is inseparably essential to the freedom of a people… that no taxes be imposed on them but with their own consent, given personally or by their representatives.”", c:"Stamp Act Congress, Declaration of Rights and Grievances, 1765", q:"This statement most directly reflects the colonists' belief that:", o:["Parliament should have no authority over the colonies at all","Only colonial assemblies had the right to tax the colonists","The colonies should immediately declare independence","Virtual representation was acceptable"], a:1, e:"'No taxation without representation.' In 1765, they still saw themselves as British but rejected Parliament's right to TAX them. Independence came later."},
+    {q:"The American victory at Saratoga (1777) was significant because it:", o:["Ended the Revolutionary War","Convinced France to form an alliance with the United States","Led to the writing of the Declaration of Independence","Forced Britain to repeal the Stamp Act"], a:1, e:"Saratoga proved the Americans could win, and France joined in 1778. Yorktown ended the war in 1781."},
+    {q:"Thomas Paine's Common Sense (1776) was influential mainly because it:", o:["Proposed the Articles of Confederation","Used plain language to persuade ordinary colonists to support independence","Called for reconciliation with Britain","Argued for a strong national bank"], a:1, e:"Written for regular people, it sold hundreds of thousands of copies and attacked the idea of kings."},
+    {q:"Which was the most significant weakness of the Articles of Confederation?", o:["The president had too much power","Congress could not levy taxes","It created too many federal courts","It allowed slavery in the Northwest Territory"], a:1, e:"No power to tax = no money to pay debts or soldiers. (Also: there was no president at all!)"},
+    {q:"Shays' Rebellion (1786–87) most directly contributed to:", o:["The French alliance","The calling of the Constitutional Convention","The Whiskey Rebellion","The Declaration of Independence"], a:1, e:"It scared elites: the weak national government couldn't stop it. So they met in Philadelphia in 1787."},
+    {q:"The Northwest Ordinance of 1787:", o:["Allowed slavery in all new territories","Banned slavery in the Northwest Territory and set up a process for statehood","Gave the land back to Native Americans","Created the national bank"], a:1, e:"Its biggest legacy: no slavery north of the Ohio River, plus a model for adding new states as equals."},
+    {q:"The Great Compromise resolved a dispute over:", o:["Slavery in the territories","Representation in Congress between large and small states","Whether to have a national bank","Taxes on imports"], a:1, e:"Big states (Virginia Plan) wanted population-based seats; small states (NJ Plan) wanted equal. Result: both, with a House and a Senate."},
+    {s:"“The smaller the society, the fewer probably will be the distinct parties and interests… Extend the sphere, and you take in a greater variety of parties and interests.”", c:"James Madison, Federalist No. 10, 1787", q:"Madison's argument supported which idea?", o:["A small republic is the safest form of government","A large republic would prevent any one faction from dominating","States should have more power than the national government","The Articles of Confederation should be kept"], a:1, e:"Federalist #10: in a big country, so many factions compete that none can take over."},
+    {q:"Thomas Jefferson opposed Hamilton's national bank mainly because he believed:", o:["The Constitution did not specifically give Congress that power","Banks would help farmers too much","It would weaken ties with Britain","It would end the Whiskey Tax"], a:0, e:"Strict construction: if the Constitution doesn't say it, the government can't do it. Hamilton used the 'necessary and proper' clause (loose construction)."},
+    {q:"In his Farewell Address, Washington warned Americans to:", o:["Form a permanent alliance with France","Avoid permanent foreign alliances and the dangers of political parties","Expand west of the Mississippi","Abolish slavery"], a:1, e:"Stay neutral and avoid factions. This shaped U.S. isolationism for a long time."},
+    {q:"The Virginia and Kentucky Resolutions were a response to:", o:["The Stamp Act","The Alien and Sedition Acts","Jay's Treaty","The Whiskey Rebellion"], a:1, e:"Jefferson & Madison argued states could declare federal laws unconstitutional, the root of later nullification."},
+    {q:"The Election of 1800 is called a 'revolution' because:", o:["It involved armed conflict","Power transferred peacefully from one political party to another","Women gained the right to vote","It ended the Federalist Papers"], a:1, e:"Federalist Adams handed power to Democratic-Republican Jefferson without violence, which was rare in the world at the time."}
+  ]
+},
+{
+  id:4, title:"The Early Republic & Jacksonian Era", years:"1800–1848", weight:"10–17%", color:"--u4", emoji:"🚂",
+  hook:"The country doubles in size, the Supreme Court gets powerful, the economy is rewired by canals and factories, the 'common man' gets the vote, and reformers try to fix everything, while slavery spreads with cotton.",
+  story:[
+    "<b>Jefferson</b> wanted a small government but bought the <b>Louisiana Purchase</b> (1803) from Napoleon, doubling the country, even though the Constitution didn't clearly allow it. Lewis & Clark explored it. Meanwhile, Chief Justice <b>John Marshall</b> made the Supreme Court powerful: <b>Marbury v. Madison</b> (1803) created <b>judicial review</b>; <b>McCulloch v. Maryland</b> (1819) said the national bank was constitutional and states couldn't tax it; <b>Gibbons v. Ogden</b> (1824) said Congress controls interstate commerce.",
+    "<b>The War of 1812</b> (Madison) was fought over British <b>impressment</b> of U.S. sailors and British support for Natives (like <b>Tecumseh</b>), pushed by the “War Hawks.” It ended in a tie (<b>Treaty of Ghent</b>), but Jackson's win at <b>New Orleans</b> made Americans proud. Federalists who opposed the war (<b>Hartford Convention</b>) looked like traitors and their party died.",
+    "<b>The Era of Good Feelings</b> (Monroe): one party, nationalism, Henry Clay's <b>American System</b> (bank + tariff + roads/canals). But cracks appeared: the <b>Panic of 1819</b> and the fight over Missouri, solved by the <b>Missouri Compromise</b> (1820): Missouri slave, Maine free, no slavery north of <b>36°30'</b>. The <b>Monroe Doctrine</b> (1823) told Europe: no new colonies in the Americas.",
+    "<b>The Market Revolution</b> rewired the economy: the <b>Erie Canal</b> (1825), steamboats, railroads, the telegraph. The North built factories (<b>Lowell mill girls</b>, interchangeable parts), the West grew food (John Deere's plow, McCormick's reaper), and the South grew cotton thanks to Eli Whitney's <b>cotton gin</b> (1793), which <i>expanded</i> slavery massively. Irish and German immigrants poured in, sparking <b>nativism</b>.",
+    "<b>Jacksonian Democracy:</b> After the 1824 “<b>corrupt bargain</b>,” Andrew Jackson won in 1828 as the champion of the common man: voting expanded to <b>all white men</b> (property requirements dropped), along with the <b>spoils system</b>. He signed the <b>Indian Removal Act</b> (1830) and ignored <b>Worcester v. Georgia</b>, leading to the <b>Trail of Tears</b> (1838). He crushed South Carolina in the <b>Nullification Crisis</b> (over the Tariff of Abominations) and killed the <b>Second Bank</b> (Bank War), which helped cause the <b>Panic of 1837</b>. Opponents formed the <b>Whig Party</b> → the Second Party System.",
+    "<b>The Second Great Awakening</b> (Charles Finney) inspired a wave of <b>reform</b>: temperance, <b>abolition</b> (William Lloyd Garrison's <i>Liberator</i>, Frederick Douglass), <b>women's rights</b> (<b>Seneca Falls</b>, 1848), asylums (Dorothea Dix), public schools (Horace Mann), utopian communities, and <b>Transcendentalism</b> (Emerson, Thoreau). In the South, Nat Turner's Rebellion (1831) made slave codes even harsher."
+  ],
+  concepts:[
+    ["The Marshall Court (federal power ↑)", ["Marbury v. Madison (1803): judicial review","Fletcher v. Peck (1810): courts can strike down state laws; contracts protected","McCulloch v. Maryland (1819): implied powers; national bank OK; states can't tax it","Gibbons v. Ogden (1824): Congress regulates interstate commerce","Worcester v. Georgia (1832): Cherokee are a sovereign nation, Georgia's laws don't apply (Jackson ignored it)"]],
+    ["Nationalism after 1812", ["Era of Good Feelings (Monroe, one party)","American System (Clay): Second Bank, protective tariff (1816), internal improvements","Adams-Onís Treaty (1819): Spain gives Florida","Monroe Doctrine (1823): no new European colonies in the Western Hemisphere"]],
+    ["Market Revolution", ["Transportation: National Road, Erie Canal (1825), steamboats, railroads","Communication: telegraph (Morse, 1844)","North: factories, wage labor, Lowell system, interchangeable parts","West: commercial farming (Deere plow, McCormick reaper)","South: cotton gin → 'King Cotton' → slavery expands west","Regions become economically linked but socially different"]],
+    ["Jacksonian Democracy", ["Universal white male suffrage; party conventions; spoils system","Indian Removal Act (1830) → Trail of Tears (1838)","Nullification Crisis (1832–33): SC vs. Tariff; Force Bill + Compromise Tariff","Bank War: vetoed recharter (1832), moved funds to 'pet banks'","Second Party System: Democrats (Jackson) vs. Whigs (Clay, Webster)"]],
+    ["Reform era (from the Second Great Awakening)", ["Temperance (anti-alcohol)","Abolition: gradual (American Colonization Society) → immediate (Garrison, Douglass, the Grimké sisters)","Women's rights: Seneca Falls 1848, Declaration of Sentiments (Stanton, Mott)","Asylums & prisons: Dorothea Dix · Public schools: Horace Mann","Utopias (Brook Farm, Oneida, Shakers) & Mormons","Transcendentalism: Emerson, Thoreau ('Civil Disobedience')"]],
+    ["The South & slavery", ["Cotton = top U.S. export","Most white Southerners didn't own slaves, but the planter elite dominated politics","Domestic slave trade moved enslaved people west, breaking families","Resistance: Denmark Vesey (1822), Nat Turner (1831)","Defense of slavery shifted from 'necessary evil' to 'positive good' (Calhoun)","Gag rule (1836) blocked anti-slavery petitions in Congress"]]
+  ],
+  terms:[
+    ["Marbury v. Madison","1803","Supreme Court case establishing judicial review.","Courts can strike down unconstitutional laws: huge power."],
+    ["Louisiana Purchase","1803","Jefferson bought the Louisiana Territory from France for $15 million.","Doubled the U.S.; contradicted Jefferson's strict construction."],
+    ["Lewis and Clark","1804–06","Expedition to explore the Louisiana Territory (with Sacagawea).","Mapped the West; boosted claims to Oregon."],
+    ["Embargo Act","1807","Jefferson banned all trade with foreign nations.","Backfired: hurt the U.S. economy, especially New England."],
+    ["Tecumseh","1811","Shawnee leader who tried to unite Natives against U.S. expansion.","Defeated; British support for Natives helped cause the War of 1812."],
+    ["War of 1812","1812–1815","U.S. vs. Britain over impressment, trade, and Native conflicts.","Boosted nationalism & manufacturing; killed the Federalists."],
+    ["Hartford Convention","1814","New England Federalists met to oppose the war.","Seen as unpatriotic → Federalist Party collapsed."],
+    ["Treaty of Ghent","1814","Ended the War of 1812, with no territory changes.","'Status quo' peace."],
+    ["Era of Good Feelings","1817–1825","Monroe's presidency; one party, strong nationalism.","Hid growing sectional tensions."],
+    ["American System","1810s–20s","Henry Clay's plan: national bank, protective tariff, internal improvements.","Tied the regions together economically."],
+    ["McCulloch v. Maryland","1819","States can't tax the national bank; Congress has implied powers.","Federal gov is supreme over the states."],
+    ["Panic of 1819","1819","First major U.S. financial crisis.","Hurt farmers; anger at the national bank."],
+    ["Missouri Compromise","1820","Missouri = slave, Maine = free; no slavery north of 36°30' in the Louisiana Territory.","Temporarily kept the Senate balance; showed sectional danger."],
+    ["Monroe Doctrine","1823","Europe must not colonize or interfere in the Western Hemisphere.","Foundation of U.S. foreign policy in Latin America."],
+    ["Gibbons v. Ogden","1824","Congress controls interstate commerce.","Boosted national economic power."],
+    ["Corrupt Bargain","1824","House picked J.Q. Adams; Clay became Secretary of State.","Jackson fans furious → Jackson wins 1828."],
+    ["Erie Canal","1825","Canal linking the Great Lakes to New York City.","Made NYC the top port; boosted the Market Revolution."],
+    ["Cotton gin","1793","Eli Whitney's machine to separate cotton seeds.","Made cotton super profitable → slavery EXPANDED."],
+    ["Lowell System","1820s–40s","Textile mills employing young New England women.","Early factory system; women in the workforce."],
+    ["Jacksonian Democracy","1828–1840","Expanded voting to all white men; the 'common man' in politics.","Democracy expanded, but not for women, Black people or Natives."],
+    ["Spoils system","1829","Giving government jobs to party supporters.","Rewarded loyalty; later led to corruption."],
+    ["Indian Removal Act","1830","Authorized forced relocation of Native nations west of the Mississippi.","Led to the Trail of Tears."],
+    ["Worcester v. Georgia","1832","Cherokee nation is sovereign; Georgia law doesn't apply.","Jackson ignored the ruling."],
+    ["Trail of Tears","1838","Forced march of the Cherokee to Indian Territory; ~4,000 died.","Symbol of the cruelty of Indian removal."],
+    ["Nullification Crisis","1832–33","South Carolina (Calhoun) declared the tariff void; Jackson threatened force.","States' rights vs. federal power; resolved by the Compromise Tariff of 1833."],
+    ["Tariff of Abominations","1828","High protective tariff that hurt the South.","Triggered the Nullification Crisis."],
+    ["Bank War","1832","Jackson vetoed the Second Bank's recharter.","Led to the Panic of 1837 and the Whig Party."],
+    ["Whig Party","1834","Party opposing 'King Andrew' Jackson; Clay & Webster.","Created the Second Party System."],
+    ["Panic of 1837","1837","Economic depression after the bank fight & land speculation.","Hurt Van Buren; Whigs win in 1840."],
+    ["Second Great Awakening","1800–1840s","Religious revival: Charles Finney; individuals can save themselves and society.","Fueled ALL the reform movements."],
+    ["William Lloyd Garrison","1831","Radical abolitionist; published The Liberator.","Pushed for immediate abolition."],
+    ["Frederick Douglass","1845","Escaped slave, abolitionist, author of his Narrative.","Powerful voice proving slavery's brutality."],
+    ["Nat Turner's Rebellion","1831","Violent slave revolt in Virginia.","South passed harsher slave codes."],
+    ["Seneca Falls Convention","1848","First women's rights convention; Declaration of Sentiments (Stanton, Mott).","Start of the organized women's suffrage movement."],
+    ["Dorothea Dix","1840s","Reformer for better treatment of the mentally ill.","Asylum reform."],
+    ["Horace Mann","1830s–40s","Pushed for free public education in Massachusetts.","Common school movement."],
+    ["Transcendentalism","1830s–40s","Emerson & Thoreau: truth through nature and the individual.","Thoreau's 'Civil Disobedience' later inspired Gandhi & MLK."],
+    ["Nativism / Know-Nothings","1840s–50s","Anti-immigrant (especially anti-Irish Catholic) movement.","Reaction to mass Irish & German immigration."]
+  ],
+  timeline:[
+    [1793,"Eli Whitney invents the cotton gin"],
+    [1803,"Louisiana Purchase; Marbury v. Madison"],
+    [1804,"Lewis & Clark expedition begins"],
+    [1807,"Embargo Act"],
+    [1812,"War of 1812 begins"],
+    [1814,"Hartford Convention; Treaty of Ghent"],
+    [1815,"Battle of New Orleans"],
+    [1816,"Second Bank of the U.S.; Tariff of 1816"],
+    [1819,"McCulloch v. Maryland; Panic of 1819; Adams-Onís Treaty"],
+    [1820,"Missouri Compromise"],
+    [1823,"Monroe Doctrine"],
+    [1824,"'Corrupt Bargain' election; Gibbons v. Ogden"],
+    [1825,"Erie Canal completed"],
+    [1828,"Jackson elected; Tariff of Abominations"],
+    [1830,"Indian Removal Act"],
+    [1831,"Nat Turner's Rebellion; The Liberator begins"],
+    [1832,"Bank veto; Nullification Crisis; Worcester v. Georgia"],
+    [1837,"Panic of 1837"],
+    [1838,"Trail of Tears"],
+    [1844,"Telegraph (Morse)"],
+    [1848,"Seneca Falls Convention"]
+  ],
+  hacks:[
+    ["Marshall's power moves","'MMG': Marbury Makes judges Mighty · McCulloch Means feds win · Gibbons Governs commerce","All three cases made the national government (and the Court) stronger."],
+    ["Clay's American System","B-T-I: Bank, Tariff, Improvements","Henry Clay wanted the regions linked: Northern factories, Western food, roads and canals to connect them."],
+    ["Missouri Compromise math","M + M + 36°30'","Missouri (slave) + Maine (free) + a line at 36°30'. Keeps the Senate even: 12 free vs. 12 slave."],
+    ["Jackson's 'B-I-N' fights","Bank · Indians · Nullification","Jackson's three biggest battles: killed the Bank, forced Indian Removal, and crushed Nullification."],
+    ["Reform = 'TAWE'","Temperance · Abolition · Women · Education (+ asylums)","All sparked by the Second Great Awakening: 'if you can perfect yourself, you can perfect society.'"]
+  ],
+  chains:[
+    ["Eli Whitney's cotton gin (1793)","Cleaning cotton becomes fast & cheap","Cotton becomes hugely profitable","Planters expand west and buy more enslaved people","Slavery grows instead of dying out → sectional conflict"],
+    ["Second Great Awakening","Belief that people can perfect themselves & society","Reform movements: temperance, education, asylums","Abolition movement grows","Women in abolition realize they lack rights too → Seneca Falls (1848)"],
+    ["Tariff of Abominations (1828)","South pays more for goods; feels exploited by the North","Calhoun's theory: states can nullify federal laws","South Carolina nullifies the tariff (1832)","Jackson threatens force (Force Bill); Clay's Compromise Tariff (1833) ends the crisis"]
+  ],
+  quiz:[
+    {q:"Marbury v. Madison (1803) is significant because it established:", o:["The national bank","Judicial review","The power of states to nullify laws","Interstate commerce rules"], a:1, e:"Judicial review = the Supreme Court can declare laws unconstitutional."},
+    {q:"Which Supreme Court case ruled that states could not tax the national bank?", o:["Gibbons v. Ogden","Worcester v. Georgia","McCulloch v. Maryland","Dred Scott v. Sandford"], a:2, e:"McCulloch v. Maryland (1819): 'the power to tax involves the power to destroy.' Federal > state."},
+    {q:"The Louisiana Purchase created a dilemma for Jefferson because:", o:["He opposed westward expansion","The Constitution did not explicitly give the president power to buy land","France demanded war","It added slave states"], a:1, e:"Jefferson was a strict constructionist, but he bought it anyway. Pragmatism beat ideology."},
+    {q:"The Missouri Compromise (1820):", o:["Ended slavery in the territories","Admitted Missouri as a slave state and Maine as a free state, and banned slavery north of 36°30'","Created popular sovereignty","Was declared constitutional by Dred Scott"], a:1, e:"It kept the Senate balanced. (Dred Scott later declared it unconstitutional in 1857!)"},
+    {q:"The Monroe Doctrine (1823) declared that:", o:["The U.S. would help Europe in its wars","The Western Hemisphere was closed to new European colonization","The U.S. would annex Mexico","Britain could keep its Latin American colonies forever"], a:1, e:"'Europe, stay out of the Americas, and we'll stay out of Europe.'"},
+    {q:"The Market Revolution of the early 1800s led most directly to:", o:["Less trade between regions","Increased economic ties between the North and West and the growth of factories","The end of slavery in the South","Fewer immigrants"], a:1, e:"Canals and railroads linked Western farms to Northern factories and cities."},
+    {q:"Which most directly caused the expansion of slavery in the early 1800s?", o:["The Northwest Ordinance","The invention of the cotton gin","The Missouri Compromise","The Second Great Awakening"], a:1, e:"Cotton became super profitable, so planters wanted more land and more enslaved workers."},
+    {s:"“We hold these truths to be self-evident: that all men and women are created equal…”", c:"Declaration of Sentiments, Seneca Falls Convention, 1848", q:"The authors of this document were most directly influenced by:", o:["The Federalist Papers","The Declaration of Independence and Second Great Awakening reform","The Monroe Doctrine","The Market Revolution"], a:1, e:"They copied the Declaration of Independence on purpose, and many were reformers from the abolition movement."},
+    {q:"The Nullification Crisis (1832–33) centered on:", o:["South Carolina's claim that it could void a federal tariff","The national bank's recharter","The removal of the Cherokee","Slavery in Missouri"], a:0, e:"Calhoun said states could nullify laws (an idea from the VA/KY Resolutions). Jackson threatened force; a compromise tariff ended it."},
+    {q:"How did President Jackson respond to Worcester v. Georgia (1832)?", o:["He enforced it with federal troops","He refused to enforce it, and Cherokee removal continued","He asked Congress to amend the Constitution","He resigned"], a:1, e:"Jackson ignored the Court → the Cherokee were forced west on the Trail of Tears (1838)."},
+    {q:"'Jacksonian Democracy' primarily refers to:", o:["Voting rights for women","The expansion of voting rights to nearly all white men","The abolition of slavery","A stronger national bank"], a:1, e:"Property requirements for voting fell away, but only for white men."},
+    {q:"The Second Great Awakening most directly encouraged:", o:["The Market Revolution","Reform movements like abolition and temperance","Federalist Party growth","The War of 1812"], a:1, e:"Revival preachers taught that people could improve themselves and society, so reform movements exploded."},
+    {q:"The Hartford Convention (1814) contributed to:", o:["The rise of the Whig Party","The decline of the Federalist Party","The start of the War of 1812","The Era of Good Feelings ending"], a:1, e:"Federalists opposed the war; when the U.S. 'won' at New Orleans, they looked disloyal and collapsed."},
+    {q:"The Whig Party formed mainly in opposition to:", o:["Thomas Jefferson","Andrew Jackson","Abraham Lincoln","John Adams"], a:1, e:"Whigs opposed 'King Andrew' Jackson's use of executive power (especially the Bank War)."}
+  ]
+},
+{
+  id:5, title:"Expansion, Civil War & Reconstruction", years:"1844–1877", weight:"10–17%", color:"--u5", emoji:"⚔️",
+  hook:"America grabs land from coast to coast, and every new acre forces the question: slave or free? Compromises fail, the country splits, 620,000+ die, slavery ends, and Reconstruction tries (and partly fails) to rebuild the nation with equality.",
+  story:[
+    "<b>Manifest Destiny</b> (1845, John O'Sullivan) was the belief that God wanted the U.S. to spread across the continent. <b>Texas</b> was annexed (1845), Oregon was split with Britain at the 49th parallel (1846), and President <b>Polk</b> fought the <b>Mexican-American War</b> (1846–48). With the <b>Treaty of Guadalupe Hidalgo</b>, the U.S. got California and the Southwest (the Mexican Cession). Then gold was found → the <b>Gold Rush</b> (1849).",
+    "<b>The problem: slavery in the new land.</b> The <b>Wilmot Proviso</b> (1846) tried to ban it in land from Mexico. It failed but split Congress by section. The <b>Compromise of 1850</b>: California free, popular sovereignty in Utah and New Mexico, no slave trade in DC, and a <b>tough Fugitive Slave Act</b> that made Northerners furious. <i>Uncle Tom's Cabin</i> (1852) turned many more Northerners against slavery.",
+    "<b>Things fall apart.</b> The <b>Kansas-Nebraska Act</b> (1854, Stephen Douglas) let those territories vote on slavery (<b>popular sovereignty</b>), which repealed the Missouri Compromise line, causing <b>“Bleeding Kansas”</b> and the birth of the <b>Republican Party</b> (stop slavery's expansion). <b>Dred Scott v. Sandford</b> (1857) said Black people weren't citizens and Congress couldn't ban slavery in territories. The <b>Lincoln-Douglas Debates</b> (1858) made Lincoln famous, and <b>John Brown's raid</b> on Harpers Ferry (1859) terrified the South.",
+    "<b>Lincoln wins (1860)</b> without a single Southern electoral vote → South Carolina <b>secedes</b>, others follow, and the Confederacy fires on <b>Fort Sumter</b> (1861). The North had the factories, railroads and people; the South had good generals and was fighting defensively. After <b>Antietam</b> (1862), Lincoln issued the <b>Emancipation Proclamation</b> (1863), freeing slaves in rebel states, making the war about slavery and keeping Britain and France out. <b>Gettysburg</b> and <b>Vicksburg</b> (July 1863) turned the tide; Sherman's March to the Sea (1864) destroyed the South's resources; Lee surrendered at <b>Appomattox</b> (1865). Days later, Lincoln was assassinated.",
+    "<b>Reconstruction (1865–1877):</b> President <b>Andrew Johnson</b> was lenient on the South, which passed <b>Black Codes</b> to control freedpeople. <b>Radical Republicans</b> took over: the <b>13th</b> (abolished slavery), <b>14th</b> (citizenship and equal protection) and <b>15th</b> (Black men's right to vote) Amendments, the <b>Freedmen's Bureau</b>, and military rule of the South (Reconstruction Acts 1867). Johnson was <b>impeached</b> (1868) but not removed. Black men voted and held office, but the <b>KKK</b> used terror, and <b>sharecropping</b> trapped freedpeople in debt. The <b>Compromise of 1877</b> gave Hayes the presidency in exchange for pulling federal troops out of the South, ending Reconstruction."
+  ],
+  concepts:[
+    ["Manifest Destiny & expansion", ["Texas: independence 1836 → annexed 1845","Oregon: 'Fifty-four forty or fight!' → compromise at 49° (1846)","Mexican-American War (1846–48) → Mexican Cession (CA, NV, UT, AZ, NM…)","Gadsden Purchase (1853): southern AZ/NM for a railroad","Gold Rush (1849): migration incl. Chinese immigrants; Natives in CA devastated"]],
+    ["Failed compromises (road to war)", ["Wilmot Proviso (1846): failed ban on slavery in the Mexican Cession","Compromise of 1850: CA free; popular sovereignty in Utah/NM; Fugitive Slave Act","Kansas-Nebraska Act (1854): popular sovereignty, repeals the 36°30' line → Bleeding Kansas","Dred Scott (1857): no Black citizenship; Missouri Compromise unconstitutional","Election of 1860 → secession"]],
+    ["New & dying parties", ["Whigs collapse after Kansas-Nebraska","Free Soil Party (1848): stop slavery's spread (to protect white free labor)","Know-Nothings: anti-immigrant","Republican Party (1854): free soil, free labor; Lincoln","Democrats split North/South in 1860"]],
+    ["Civil War: why the Union won", ["North: 2/3 of the population, ~90% of the factories, most railroads, navy (Anaconda Plan blockade)","South: defensive war, strong generals (Lee), 'King Cotton diplomacy' failed","Emancipation Proclamation: war about slavery; Europe stayed out; ~200,000 Black soldiers joined (54th Massachusetts)","Lincoln expanded federal power: suspended habeas corpus, the draft (→ NYC Draft Riots 1863)","Wartime laws: Homestead Act, Pacific Railway Act, Morrill Land-Grant Act (1862)"]],
+    ["Reconstruction plans", ["Lincoln: Ten Percent Plan (lenient)","Wade-Davis Bill: Congress wanted 50% loyalty oath (Lincoln pocket-vetoed it)","Johnson: lenient, pardoned ex-Confederates → Black Codes","Radical Republicans (Thaddeus Stevens, Charles Sumner): Civil Rights Act of 1866, 14th Amendment, Reconstruction Acts 1867 (5 military districts)","Johnson impeached (1868) for violating the Tenure of Office Act; acquitted by 1 vote"]],
+    ["How Reconstruction ended / what remained", ["KKK & white violence; Enforcement Acts (1870–71) tried to stop them","Northern fatigue + Panic of 1873 + Grant scandals","'Redeemers' (white Democrats) retake Southern governments","Compromise of 1877: Hayes president, troops out of the South","Legacy: 13th/14th/15th Amendments stay in the Constitution (used in the Civil Rights movement), but sharecropping & later Jim Crow"]]
+  ],
+  terms:[
+    ["Manifest Destiny","1845","Belief that the U.S. was destined by God to expand across the continent.","Justified westward expansion & the Mexican War."],
+    ["Texas annexation","1845","Texas (independent since 1836) joins the U.S. as a slave state.","Led to war with Mexico."],
+    ["James K. Polk","1845–49","President who achieved Texas, Oregon & the Mexican Cession.","Expansionist president."],
+    ["Oregon Treaty","1846","U.S. & Britain split Oregon at the 49th parallel.","Peaceful expansion (vs. war with Mexico)."],
+    ["Mexican-American War","1846–48","U.S. war with Mexico after a border dispute.","Gained a huge territory, which reopened the slavery debate."],
+    ["Wilmot Proviso","1846","Proposal to ban slavery in all land won from Mexico.","Never passed but split Congress by section, not party."],
+    ["Treaty of Guadalupe Hidalgo","1848","Ended the Mexican War; Mexico ceded CA & the Southwest for $15M.","Mexican Cession. Where does slavery go?"],
+    ["Free Soil Party","1848","Party opposing the spread of slavery into the West.","Forerunner of the Republican Party."],
+    ["California Gold Rush","1849","Gold discovery brought huge migration.","CA wanted to join as a free state → crisis."],
+    ["Compromise of 1850","1850","CA free; popular sovereignty in UT/NM; DC slave trade banned; strict Fugitive Slave Act.","Delayed war 10 years; the Fugitive Slave Act angered the North."],
+    ["Fugitive Slave Act","1850","Northerners required to help capture escaped slaves.","Turned many Northerners against slavery."],
+    ["Uncle Tom's Cabin","1852","Harriet Beecher Stowe's anti-slavery novel.","Made Northerners emotionally oppose slavery."],
+    ["Popular sovereignty","1850s","Letting the settlers of a territory vote on slavery.","Stephen Douglas's idea; caused Bleeding Kansas."],
+    ["Kansas-Nebraska Act","1854","Popular sovereignty in Kansas and Nebraska; repealed the Missouri Compromise line.","Bleeding Kansas, Whig collapse, Republican Party born."],
+    ["Bleeding Kansas","1855–56","Violent clashes between pro- and anti-slavery settlers.","Preview of the Civil War."],
+    ["Republican Party","1854","Formed to stop the expansion of slavery ('free soil, free labor').","Elected Lincoln in 1860."],
+    ["Caning of Charles Sumner","1856","Southern congressman beat an anti-slavery senator on the Senate floor.","Showed how violent sectional hatred had become."],
+    ["Dred Scott v. Sandford","1857","Black people aren't citizens; Congress can't ban slavery in territories.","Missouri Compromise ruled unconstitutional; outraged the North."],
+    ["Lincoln-Douglas Debates","1858","Illinois Senate debates; Douglas's Freeport Doctrine.","Made Lincoln nationally famous."],
+    ["John Brown's Raid","1859","Abolitionist raid on the Harpers Ferry arsenal to start a slave revolt.","Terrified the South; a martyr in the North."],
+    ["Election of 1860","1860","Lincoln (Republican) wins with no Southern electoral votes.","South Carolina secedes in December 1860."],
+    ["Fort Sumter","April 1861","Confederates fire on a federal fort in South Carolina.","Civil War begins."],
+    ["Anaconda Plan","1861","Union strategy: blockade the South and control the Mississippi.","Slowly strangled the Confederate economy."],
+    ["Antietam","1862","Bloodiest single day of the war; a Union strategic victory.","Gave Lincoln the chance to issue the Emancipation Proclamation."],
+    ["Emancipation Proclamation","Jan 1, 1863","Freed slaves in Confederate-held territory.","War becomes about slavery; Britain/France stay out; Black soldiers enlist."],
+    ["Homestead Act","1862","160 acres of free western land to settlers who farmed it for 5 years.","Encouraged western settlement."],
+    ["Gettysburg & Vicksburg","July 1863","Union victories: Lee's invasion stopped; the Union controls the Mississippi.","TURNING POINT of the war."],
+    ["Gettysburg Address","1863","Lincoln's speech: 'a new birth of freedom.'","Redefined the war's purpose around equality."],
+    ["Sherman's March to the Sea","1864","Total war through Georgia, destroying resources.","Broke Southern morale; helped Lincoln win re-election."],
+    ["Appomattox Court House","April 1865","Lee surrenders to Grant.","End of the Civil War."],
+    ["13th Amendment","1865","Abolished slavery.","Ended slavery everywhere in the U.S."],
+    ["Freedmen's Bureau","1865","Federal agency helping freedpeople with food, schools, jobs.","Big success in education (founded Black colleges)."],
+    ["Black Codes","1865–66","Southern laws restricting freedpeople's rights and labor.","Led Radical Republicans to take control."],
+    ["14th Amendment","1868","Citizenship for all born in the U.S.; equal protection; due process.","Overturned Dred Scott; basis for later civil rights cases."],
+    ["Radical Republicans","1860s","Congress members (Stevens, Sumner) wanting strong rights for freedpeople.","Took over Reconstruction from Johnson."],
+    ["Reconstruction Acts","1867","Divided the South into 5 military districts; required ratifying the 14th Amendment.","Congressional (Radical) Reconstruction."],
+    ["Johnson's impeachment","1868","House impeached Johnson for violating the Tenure of Office Act; Senate acquitted by 1 vote.","Congress vs. president power struggle."],
+    ["15th Amendment","1870","Voting can't be denied by race.","Black men vote, but women excluded → split in the women's movement."],
+    ["Sharecropping","1865 →","Farmers rented land and paid with a share of the crop.","Cycle of debt kept freedpeople poor and tied to the land."],
+    ["Ku Klux Klan","1865 →","White supremacist terror group.","Used violence to stop Black voting; Enforcement Acts tried to fight it."],
+    ["Compromise of 1877","1877","Hayes becomes president; federal troops leave the South.","END of Reconstruction → Jim Crow era begins."]
+  ],
+  timeline:[
+    [1845,"Texas annexed; 'Manifest Destiny' coined"],
+    [1846,"Mexican-American War begins; Wilmot Proviso; Oregon Treaty"],
+    [1848,"Treaty of Guadalupe Hidalgo; Free Soil Party"],
+    [1849,"California Gold Rush"],
+    [1850,"Compromise of 1850 & Fugitive Slave Act"],
+    [1852,"Uncle Tom's Cabin published"],
+    [1853,"Gadsden Purchase"],
+    [1854,"Kansas-Nebraska Act; Republican Party founded"],
+    [1856,"Bleeding Kansas; Sumner caned"],
+    [1857,"Dred Scott decision"],
+    [1858,"Lincoln-Douglas Debates"],
+    [1859,"John Brown's raid on Harpers Ferry"],
+    [1860,"Lincoln elected; South Carolina secedes"],
+    [1861,"Fort Sumter: Civil War begins"],
+    [1862,"Antietam; Homestead Act"],
+    [1863,"Emancipation Proclamation; Gettysburg & Vicksburg"],
+    [1864,"Sherman's March to the Sea"],
+    [1865,"Appomattox; Lincoln assassinated; 13th Amendment; Freedmen's Bureau"],
+    [1867,"Reconstruction Acts"],
+    [1868,"14th Amendment; Johnson impeached"],
+    [1870,"15th Amendment"],
+    [1877,"Compromise of 1877 ends Reconstruction"]
+  ],
+  hacks:[
+    ["Reconstruction Amendments","13-14-15 = FREE · CITIZEN · VOTE","13th freed the slaves. 14th made them citizens (equal protection). 15th let Black men vote."],
+    ["The road to war (in order)","'We Can Usually Keep Debates Low, Just Ending'","Wilmot (1846) → Compromise of 1850 → Uncle Tom's Cabin (1852) → Kansas-Nebraska (1854) → Dred Scott (1857) → Lincoln-Douglas (1858) → John Brown (1859) → Election of 1860."],
+    ["Turning points","July 1863 = G+V","Gettysburg (East) + Vicksburg (West) in the same week. After that, the Confederacy was on defense for good."],
+    ["Why emancipate?","'M-E-S': Military · Europe · Soldiers","It hurt the Southern war effort, kept Britain & France out (they had abolished slavery), and let Black men join the Union army."],
+    ["1877 deal","Hayes gets the House, the South gets the troops out","The Compromise of 1877 traded the presidency for ending Reconstruction."]
+  ],
+  chains:[
+    ["Mexican-American War","U.S. gains the Mexican Cession","Will the new land be slave or free? (Wilmot Proviso)","Compromise of 1850 → Fugitive Slave Act angers the North","Kansas-Nebraska Act → Bleeding Kansas","Republican Party → Lincoln elected → Secession → Civil War"],
+    ["Union victory & the 13th Amendment","Andrew Johnson's lenient plan","Southern states pass Black Codes","Radical Republicans take over: 14th Amendment, military Reconstruction","KKK violence & Northern fatigue","Compromise of 1877: troops leave → Jim Crow"]
+  ],
+  quiz:[
+    {s:"“…the fulfillment of our manifest destiny to overspread the continent allotted by Providence for the free development of our yearly multiplying millions.”", c:"John O'Sullivan, 1845", q:"The idea expressed in this passage was most directly used to justify:", o:["The abolition of slavery","U.S. territorial expansion, including the war with Mexico","Isolation from world affairs","The Monroe Doctrine's creation"], a:1, e:"Manifest Destiny = God wants us to expand. It was used to justify Texas, Oregon, and the Mexican War."},
+    {q:"The Wilmot Proviso (1846) was significant because it:", o:["Ended the Mexican-American War","Divided Congress along sectional lines over slavery in new territories","Created the Republican Party","Banned the slave trade in DC"], a:1, e:"It never passed, but votes split North vs. South instead of by party, a danger sign."},
+    {q:"Which part of the Compromise of 1850 most angered Northerners?", o:["California's admission as a free state","The Fugitive Slave Act","Banning the slave trade in Washington, D.C.","Popular sovereignty in Utah"], a:1, e:"Northerners were forced to help catch escaped slaves, bringing slavery to their doorstep."},
+    {q:"The Kansas-Nebraska Act (1854) led most directly to:", o:["The Missouri Compromise","Violence in Kansas and the formation of the Republican Party","The end of the Mexican War","The Emancipation Proclamation"], a:1, e:"Popular sovereignty brought armed settlers into Kansas → Bleeding Kansas. The Whigs split, and the Republicans formed."},
+    {q:"In Dred Scott v. Sandford (1857), the Supreme Court ruled that:", o:["Slavery was unconstitutional","African Americans were not citizens and Congress could not ban slavery in the territories","Popular sovereignty was illegal","Kansas must be a free state"], a:1, e:"The Missouri Compromise was ruled unconstitutional. Northerners were outraged, and it boosted the Republicans."},
+    {q:"Which was a major advantage of the Union during the Civil War?", o:["Better military leadership at the start","Fighting a defensive war on home ground","Greater industrial capacity and railroad network","Support from Great Britain"], a:2, e:"Factories, railroads, population. The South's advantages were defense and strong early generals."},
+    {q:"The Emancipation Proclamation (1863):", o:["Freed all enslaved people in the United States","Freed enslaved people only in areas in rebellion against the Union","Was passed as a constitutional amendment","Ended the Civil War"], a:1, e:"It didn't apply to loyal border states. Ending slavery everywhere took the 13th Amendment (1865)."},
+    {q:"Which goal did the Emancipation Proclamation help achieve internationally?", o:["Gaining French military support","Discouraging Britain and France from supporting the Confederacy","Ending the Monroe Doctrine","Purchasing Alaska"], a:1, e:"Britain had abolished slavery, so once the war was about freedom, supporting the South became politically impossible."},
+    {q:"The 14th Amendment (1868):", o:["Abolished slavery","Granted citizenship and equal protection of the laws to all persons born in the U.S.","Gave women the right to vote","Prohibited race-based voting restrictions"], a:1, e:"13 = free, 14 = citizen + equal protection, 15 = vote."},
+    {q:"Black Codes passed in Southern states after the Civil War were intended to:", o:["Protect freedpeople's voting rights","Restrict the freedom and labor of African Americans","Provide land to freedpeople","Ratify the 13th Amendment"], a:1, e:"They tried to recreate slavery-like control, which pushed the Radical Republicans to take charge."},
+    {q:"Sharecropping in the South after the Civil War resulted in:", o:["Widespread land ownership for freedpeople","A cycle of debt that limited economic opportunity for many Black and poor white farmers","The rapid industrialization of the South","The end of cotton farming"], a:1, e:"Farmers owed crops and credit to landowners, so they could rarely get out of debt."},
+    {q:"The Compromise of 1877:", o:["Started Radical Reconstruction","Ended Reconstruction by withdrawing federal troops from the South","Admitted California as a free state","Created the Freedmen's Bureau"], a:1, e:"Hayes got the presidency; the South got 'home rule.' Protections for Black Southerners collapsed."},
+    {q:"Radical Republicans in Congress during Reconstruction generally sought to:", o:["Quickly restore former Confederates to power","Protect the civil rights of freedpeople and punish the South","Support Andrew Johnson's lenient plan","Repeal the 13th Amendment"], a:1, e:"They passed the Civil Rights Act of 1866, the 14th & 15th Amendments, and the Reconstruction Acts, and impeached Johnson."},
+    {q:"The Homestead Act (1862) encouraged:", o:["Factory growth in the North","Settlement of the West by offering free land to farmers","Immigration restrictions","Southern secession"], a:1, e:"160 free acres if you lived on and farmed the land for 5 years."}
+  ]
+}
+];
+
+const PRESIDENTS = [
+  ["George Washington","1789–97","None (Federalist-leaning)","Hamilton's plan, Whiskey Rebellion, Neutrality Proclamation, Jay's Treaty, Farewell Address"],
+  ["John Adams","1797–1801","Federalist","XYZ Affair, Quasi-War, Alien & Sedition Acts"],
+  ["Thomas Jefferson","1801–09","Dem-Republican","Louisiana Purchase, Lewis & Clark, Marbury v. Madison, Embargo Act"],
+  ["James Madison","1809–17","Dem-Republican","War of 1812, Hartford Convention, Second Bank (1816)"],
+  ["James Monroe","1817–25","Dem-Republican","Era of Good Feelings, Missouri Compromise, Monroe Doctrine"],
+  ["John Quincy Adams","1825–29","Dem-Rep / Nat'l Rep","'Corrupt Bargain', Tariff of Abominations (1828)"],
+  ["Andrew Jackson","1829–37","Democrat","Indian Removal, Bank War, Nullification Crisis, spoils system"],
+  ["Martin Van Buren","1837–41","Democrat","Panic of 1837, Trail of Tears (1838)"],
+  ["William H. Harrison","1841","Whig","Died after one month"],
+  ["John Tyler","1841–45","Whig (sort of)","Texas annexation approved (1845)"],
+  ["James K. Polk","1845–49","Democrat","Manifest Destiny, Oregon, Mexican-American War"],
+  ["Zachary Taylor","1849–50","Whig","Mexican War hero; died in office"],
+  ["Millard Fillmore","1850–53","Whig","Compromise of 1850, Fugitive Slave Act"],
+  ["Franklin Pierce","1853–57","Democrat","Kansas-Nebraska Act, Gadsden Purchase, Ostend Manifesto"],
+  ["James Buchanan","1857–61","Democrat","Dred Scott, John Brown's raid, secession begins"],
+  ["Abraham Lincoln","1861–65","Republican","Civil War, Emancipation Proclamation, Gettysburg Address"],
+  ["Andrew Johnson","1865–69","Democrat (Nat'l Union)","Presidential Reconstruction, Black Codes, impeached 1868"],
+  ["Ulysses S. Grant","1869–77","Republican","15th Amendment, Enforcement Acts, scandals, Panic of 1873"],
+  ["Rutherford B. Hayes","1877–81","Republican","Compromise of 1877, end of Reconstruction"]
+];
+const CASES = [
+  ["Marbury v. Madison","1803","Judicial review","Court can strike down laws"],
+  ["Fletcher v. Peck","1810","Contracts protected","Court can void state laws"],
+  ["McCulloch v. Maryland","1819","Implied powers; states can't tax the national bank","Federal supremacy"],
+  ["Dartmouth College v. Woodward","1819","State can't change a private charter","Protects business contracts"],
+  ["Gibbons v. Ogden","1824","Congress controls interstate commerce","National economy"],
+  ["Cherokee Nation v. Georgia","1831","Cherokee = 'domestic dependent nation'","Couldn't sue as a foreign nation"],
+  ["Worcester v. Georgia","1832","Cherokee sovereign; GA law doesn't apply","Jackson ignored it → Trail of Tears"],
+  ["Dred Scott v. Sandford","1857","Black people not citizens; Missouri Compromise unconstitutional","Pushed the nation toward war"]
+];
+const COMPROMISES = [
+  ["Great Compromise","1787","Bicameral Congress (Senate equal, House by population)"],
+  ["Three-Fifths Compromise","1787","Enslaved people = 3/5 for representation"],
+  ["Missouri Compromise","1820","MO slave, ME free, 36°30' line"],
+  ["Compromise Tariff","1833","Lowered tariffs to end the Nullification Crisis"],
+  ["Compromise of 1850","1850","CA free, popular sovereignty, Fugitive Slave Act"],
+  ["Kansas-Nebraska Act","1854","Popular sovereignty; killed the Missouri line (not a 'compromise' but often grouped)"],
+  ["Compromise of 1877","1877","Hayes president, troops out → Reconstruction ends"]
+];
+const PARTIES = [
+  ["1790s–1810s","Federalists (Hamilton, Adams) vs. Democratic-Republicans (Jefferson, Madison)"],
+  ["1815–1824","Era of Good Feelings: basically one party (Dem-Republicans)"],
+  ["1828–1854","Second Party System: Democrats (Jackson) vs. Whigs (Clay, Webster)"],
+  ["1848–1854","Third parties: Free Soil (anti-slavery expansion), Know-Nothings (anti-immigrant)"],
+  ["1854 →","Republicans (Lincoln, anti-slavery expansion) vs. Democrats (split N/S in 1860)"]
+];
+
+/* =========================================================
+   STATE (saved in this browser)
+   ========================================================= */
+const store = {
+  get(k,d){ try{ const v = localStorage.getItem("apushq_"+k); return v ? JSON.parse(v) : d; }catch(e){ return d; } },
+  set(k,v){ try{ localStorage.setItem("apushq_"+k, JSON.stringify(v)); }catch(e){} }
+};
+let state = {
+  xp: store.get("xp",0),
+  mastered: store.get("mastered",{}),
+  qstats: store.get("qstats",{}),   // unit -> {c,t}
+  wrongs: store.get("wrongs",{}),   // qid -> true
+  ordBest: store.get("ordBest",0)
+};
+function save(){ for(const k in state) store.set(k,state[k]); }
+
+const LEVELS = [[0,"Colonist 🌱"],[100,"Minuteman 🥁"],[250,"Patriot 🔔"],[500,"Founder 📜"],[850,"Statesman 🏛️"],[1300,"Justice ⚖️"],[2000,"APUSH Legend 🏆"]];
+function levelInfo(xp){
+  let i = 0; for(let j=0;j<LEVELS.length;j++) if(xp>=LEVELS[j][0]) i=j;
+  const cur = LEVELS[i][0], next = LEVELS[i+1] ? LEVELS[i+1][0] : cur;
+  return {name:LEVELS[i][1], pct: next===cur ? 100 : Math.round((xp-cur)/(next-cur)*100), idx:i};
+}
+function addXP(n){
+  const before = levelInfo(state.xp).idx;
+  state.xp += n; save(); renderXP();
+  const after = levelInfo(state.xp);
+  if(after.idx > before){ toast("🎉 Level up! You're now a " + after.name); confetti(); }
+}
+function renderXP(){
+  const L = levelInfo(state.xp);
+  document.getElementById("xpPill").textContent = state.xp + " XP";
+  document.getElementById("levelPill").textContent = L.name;
+  document.getElementById("xpFill").style.width = L.pct + "%";
+}
+
+/* =========================================================
+   HELPERS
+   ========================================================= */
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const shuffle = a => { a = a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; };
+const unitColor = u => `var(${UNITS[u-1].color})`;
+function toast(msg){ const t=$("#toast"); t.textContent=msg; t.classList.add("show"); clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove("show"),2600); }
+function confetti(){
+  const em = ["⭐","🎉","🇺🇸","📜","✨","🔔"];
+  for(let i=0;i<28;i++){
+    const d=document.createElement("div"); d.className="confetti";
+    d.textContent=em[i%em.length]; d.style.left=Math.random()*100+"vw";
+    d.style.animationDuration=(1.6+Math.random()*1.6)+"s"; d.style.animationDelay=(Math.random()*.4)+"s";
+    document.body.appendChild(d); setTimeout(()=>d.remove(),3800);
+  }
+}
+function unitMastery(u){
+  const terms = UNITS[u-1].terms; let m=0;
+  terms.forEach((_,i)=>{ if(state.mastered[u+"-"+i]) m++; });
+  return {m, total:terms.length, pct: Math.round(m/terms.length*100)};
+}
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+let currentUnit = 1;
+function go(view, unit){
+  document.querySelectorAll(".view").forEach(v=>v.classList.remove("active"));
+  document.getElementById("view-"+view).classList.add("active");
+  document.querySelectorAll(".tab").forEach(t=>{
+    const on = t.dataset.view===view && (view!=="unit" || +t.dataset.unit===+unit);
+    t.classList.toggle("active", on);
+    if(on) t.scrollIntoView({block:"nearest",inline:"center",behavior:"smooth"});
+  });
+  if(view==="unit"){ currentUnit = +unit; renderUnit(currentUnit); }
+  if(view==="home") renderHome();
+  if(view==="cards") renderCardsView();
+  if(view==="quiz") renderQuizSetup();
+  if(view==="order") nextOrder();
+  if(view==="cheat") renderCheat();
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+document.getElementById("tabs").addEventListener("click",e=>{
+  const b = e.target.closest(".tab"); if(!b) return;
+  go(b.dataset.view, b.dataset.unit);
+});
+document.addEventListener("click",e=>{
+  const g = e.target.closest("[data-go]"); if(!g) return;
+  go(g.dataset.go, g.dataset.unit);
+});
+
+/* =========================================================
+   HOME
+   ========================================================= */
+function renderHome(){
+  const wrap = $("#unitCards");
+  wrap.innerHTML = UNITS.map(U=>{
+    const m = unitMastery(U.id); const qs = state.qstats[U.id];
+    const acc = qs && qs.t ? Math.round(qs.c/qs.t*100)+"%" : "–";
+    return `<div class="card unitcard" style="--uc:var(${U.color})" data-go="unit" data-unit="${U.id}">
+      <div class="row" style="justify-content:space-between"><span class="num">${U.id}</span><span class="weight">${U.weight} of exam</span></div>
+      <h3 style="margin-top:8px">${U.emoji} ${esc(U.title)}</h3>
+      <div class="small muted">${U.years}</div>
+      <div class="progress"><i style="width:${m.pct}%"></i></div>
+      <div class="small muted" style="margin-top:6px">${m.m}/${m.total} terms mastered · quiz accuracy ${acc}</div>
+    </div>`;
+  }).join("");
+  let totalM = 0; UNITS.forEach(U=> totalM += unitMastery(U.id).m);
+  let c=0,t=0; for(const k in state.qstats){ c+=state.qstats[k].c; t+=state.qstats[k].t; }
+  $("#statMastered").textContent = totalM;
+  $("#statAcc").textContent = t ? Math.round(c/t*100)+"%" : "–";
+  $("#statWrong").textContent = Object.keys(state.wrongs).length;
+  $("#missionText").innerHTML = "<b>🎯 Today's mission:</b> " + mission().text;
+}
+function mission(){
+  // first unit that isn't well-mastered
+  for(const U of UNITS){
+    const m = unitMastery(U.id); const qs = state.qstats[U.id];
+    if(m.pct < 60) return {text:`Study <b>Unit ${U.id}: ${esc(U.title)}</b>. Read the 60-second story, then flip cards until you master at least 60%.`, view:"unit", unit:U.id};
+    if(!qs || qs.t < 5) return {text:`You know your Unit ${U.id} terms. Now prove it! Take the <b>Unit ${U.id} quiz</b>.`, view:"quizU", unit:U.id};
+  }
+  if(Object.keys(state.wrongs).length) return {text:`Crush your <b>${Object.keys(state.wrongs).length} mistakes</b> in Review mode. Mistakes are where the points hide.`, view:"review"};
+  return {text:"You've covered everything. Take a <b>20-question mixed quiz</b> to keep it fresh. Legend behavior. 🏆", view:"mixed"};
+}
+$("#startMission").addEventListener("click",()=>{
+  const m = mission();
+  if(m.view==="unit") go("unit",m.unit);
+  else if(m.view==="quizU"){ go("quiz"); startQuiz([m.unit],10,false); }
+  else if(m.view==="review"){ go("quiz"); startQuiz([1,2,3,4,5],999,true); }
+  else { go("quiz"); startQuiz([1,2,3,4,5],20,false); }
+});
+
+/* =========================================================
+   UNIT VIEW
+   ========================================================= */
+function renderUnit(u){
+  const U = UNITS[u-1]; const m = unitMastery(u);
+  const v = $("#view-unit"); v.style.setProperty("--uc", `var(${U.color})`);
+  v.innerHTML = `
+  <div class="unit-hero">
+    <div class="kicker" style="color:rgba(255,255,255,.85)">Unit ${U.id} · ${U.years} · ${U.weight} of the exam</div>
+    <h2>${U.emoji} ${esc(U.title)}</h2>
+    <p style="max-width:65ch;opacity:.95">${U.hook}</p>
+    <div class="progress" style="background:rgba(255,255,255,.25);max-width:360px"><i style="width:${m.pct}%;background:#fff"></i></div>
+    <div class="small" style="opacity:.9;margin-top:6px">${m.m}/${m.total} terms mastered</div>
+    <div class="unitnav">
+      <button data-jump="u-story">📖 Story</button><button data-jump="u-concepts">🧩 Key Concepts</button>
+      <button data-jump="u-terms">🃏 Terms</button><button data-jump="u-timeline">⏳ Timeline</button>
+      <button data-jump="u-hacks">💡 Memory Hacks</button><button data-jump="u-chains">🔗 Chain Reactions</button>
+      <button data-jump="u-quiz">🎯 Quiz</button>
+    </div>
+  </div>
+
+  <div class="section card story" id="u-story">
+    <div class="kicker">Step 1 · read it like a story</div>
+    <h3>The 60-second story</h3>
+    <p class="big">${U.hook}</p>
+    ${U.story.map(p=>`<p>${p}</p>`).join("")}
+    <button class="btn sm dark" id="storyDone">✅ I read it (+10 XP)</button>
+  </div>
+
+  <div class="section" id="u-concepts">
+    <div class="kicker">Step 2 · the big ideas</div>
+    <h3>Key Concepts</h3>
+    <p class="muted small">Tap each one to open it. These are the “why” behind the facts, and MCQs love them.</p>
+    ${U.concepts.map((c,i)=>`<details class="acc"${i===0?" open":""}><summary>${esc(c[0])}</summary><div class="body"><ul>${c[1].map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div></details>`).join("")}
+  </div>
+
+  <div class="section" id="u-terms">
+    <div class="kicker">Step 3 · active recall</div>
+    <h3>Must-Know Terms</h3>
+    <p class="muted small">Look at the term → try to explain it out loud → tap to flip. Mark ✅ when you truly know it.</p>
+    <div class="flipgrid">${U.terms.map((t,i)=>flipCard(u,i,t)).join("")}</div>
+  </div>
+
+  <div class="section card" id="u-timeline">
+    <div class="kicker">Step 4 · put it in order</div>
+    <h3>Timeline</h3>
+    <div class="tl">${U.timeline.map(x=>`<div class="tl-item"><span class="y">${x[0]}</span>${esc(x[1])}</div>`).join("")}</div>
+  </div>
+
+  <div class="section" id="u-hacks">
+    <div class="kicker">Step 5 · lock it in</div>
+    <h3>Memory Hacks</h3>
+    <div class="grid g2">${U.hacks.map(h=>`<div class="hack"><h4>${esc(h[0])}</h4><div class="mn">${esc(h[1])}</div><div class="small">${esc(h[2])}</div></div>`).join("")}</div>
+  </div>
+
+  <div class="section" id="u-chains">
+    <div class="kicker">Step 6 · think like AP</div>
+    <h3>Chain Reactions (cause → effect)</h3>
+    <p class="muted small">Before you click, <b>guess</b> what happens next. That's exactly the causation skill the test checks.</p>
+    <div class="grid g2">${U.chains.map((c,ci)=>`<div class="card"><div class="chain" data-chain="${ci}">
+      ${c.map((s,si)=>`${si>0?`<div class="arrow${si>1?" hidden":""}">↓</div>`:""}<div class="link${si>1?" hidden":""}">${esc(s)}</div>`).join("")}
+      </div><button class="btn sm ghost" style="margin-top:10px" data-next-link>What happened next? →</button></div>`).join("")}</div>
+  </div>
+
+  <div class="section card" id="u-quiz" style="text-align:center">
+    <div class="kicker">Step 7 · boss battle</div>
+    <h3>Unit ${U.id} Quiz</h3>
+    <p class="muted">${U.quiz.length} AP-style questions with explanations. Every correct answer = +10 XP.</p>
+    <button class="btn" id="unitQuizBtn">🎯 Start Unit ${U.id} Quiz</button>
+    ${u<5?`<button class="btn ghost" data-go="unit" data-unit="${u+1}">Next: Unit ${u+1} →</button>`:""}
+  </div>`;
+  v.querySelectorAll("[data-jump]").forEach(b=>b.addEventListener("click",()=>document.getElementById(b.dataset.jump).scrollIntoView({behavior:"smooth",block:"start"})));
+  $("#storyDone").addEventListener("click",e=>{
+    const key="story"+u; if(store.get(key,false)){ toast("Already counted. Nice re-read though! 📖"); return; }
+    store.set(key,true); addXP(10); toast("+10 XP: story complete!"); e.target.textContent="✅ Story complete";
+  });
+  $("#unitQuizBtn").addEventListener("click",()=>{ go("quiz"); startQuiz([u],999,false); });
+  v.querySelectorAll("[data-next-link]").forEach(btn=>btn.addEventListener("click",()=>{
+    const ch = btn.previousElementSibling;
+    const hiddenLink = ch.querySelector(".link.hidden");
+    if(!hiddenLink){ ch.querySelectorAll(".link,.arrow").forEach((el,i)=>{ if(i>2) el.classList.add("hidden"); }); btn.textContent="What happened next? →"; return; }
+    hiddenLink.previousElementSibling.classList.remove("hidden"); hiddenLink.classList.remove("hidden");
+    if(!ch.querySelector(".link.hidden")){ btn.textContent="↺ Reset chain"; addXP(2); }
+  }));
+  bindFlips(v);
+}
+function flipCard(u,i,t,big){
+  const id = u+"-"+i; const done = !!state.mastered[id];
+  return `<div class="flip${big?" bigcard":""}" data-id="${id}" style="--uc:${unitColor(u)}">
+    <div class="inner">
+      <div class="face front">${done?'<span class="mastered-badge">✅</span>':""}
+        <b>${esc(t[0])}</b><div class="yr">${esc(t[1])}</div><div class="tap">tap to flip</div></div>
+      <div class="face back"><div>${esc(t[2])}</div><div class="why">⭐ Why it matters: ${esc(t[3])}</div>
+        <div class="row" style="margin-top:10px">
+          <button class="btn sm" data-master="${id}" style="background:var(--ok)">${done?"✅ Mastered":"✅ Got it"}</button>
+          <button class="btn sm ghost" data-unmaster="${id}">🔁 Still learning</button>
+        </div></div>
+    </div></div>`;
+}
+function bindFlips(root){
+  root.querySelectorAll(".flip").forEach(f=>f.addEventListener("click",e=>{
+    if(e.target.closest("[data-master]")){
+      e.stopPropagation(); const id=e.target.closest("[data-master]").dataset.master;
+      if(!state.mastered[id]){ state.mastered[id]=true; save(); addXP(5); toast("+5 XP: card mastered!"); }
+      markCard(f,true); if(root.id==="bigCardArea") setTimeout(()=>{ cardIdx++; drawBigCard(); },350);
+      return;
+    }
+    if(e.target.closest("[data-unmaster]")){
+      e.stopPropagation(); const id=e.target.closest("[data-unmaster]").dataset.unmaster;
+      delete state.mastered[id]; save(); markCard(f,false); toast("No problem, it'll come back around 🔁");
+      if(root.id==="bigCardArea") setTimeout(()=>{ cardIdx++; drawBigCard(); },350);
+      return;
+    }
+    f.classList.toggle("flipped");
+  }));
+}
+function markCard(f,done){
+  const front = f.querySelector(".front"); let b = front.querySelector(".mastered-badge");
+  if(done && !b){ b=document.createElement("span"); b.className="mastered-badge"; b.textContent="✅"; front.prepend(b); }
+  if(!done && b) b.remove();
+  const mb = f.querySelector("[data-master]"); if(mb) mb.textContent = done ? "✅ Mastered" : "✅ Got it";
+  f.classList.remove("flipped");
+}
+
+/* =========================================================
+   FLASHCARD MODE
+   ========================================================= */
+let cardUnits = new Set([1,2,3,4,5]), cardDeck = [], cardIdx = 0;
+function renderCardsView(){
+  $("#cardFilters").innerHTML = UNITS.map(U=>`<label class="chk" style="border-color:var(${U.color})"><input type="checkbox" data-cu="${U.id}" ${cardUnits.has(U.id)?"checked":""}> Unit ${U.id}</label>`).join("");
+  $("#cardFilters").querySelectorAll("input").forEach(i=>i.addEventListener("change",()=>{
+    i.checked ? cardUnits.add(+i.dataset.cu) : cardUnits.delete(+i.dataset.cu); buildDeck();
+  }));
+  buildDeck();
+}
+function buildDeck(shuf){
+  const hide = $("#hideMastered").checked; cardDeck = [];
+  UNITS.forEach(U=>{ if(!cardUnits.has(U.id)) return; U.terms.forEach((t,i)=>{ if(hide && state.mastered[U.id+"-"+i]) return; cardDeck.push([U.id,i]); }); });
+  if(shuf) cardDeck = shuffle(cardDeck);
+  cardIdx = 0; drawBigCard();
+}
+function drawBigCard(){
+  const area = $("#bigCardArea");
+  $("#cardCount").textContent = cardDeck.length ? `Card ${Math.min(cardIdx+1,cardDeck.length)} of ${cardDeck.length}` : "";
+  if(!cardDeck.length){ area.innerHTML = `<div class="card" style="text-align:center;max-width:600px;margin:0 auto"><div style="font-size:3rem">🏆</div><h3>Deck cleared!</h3><p class="muted">Every card here is mastered. Uncheck “Hide mastered” to review them, or pick other units.</p></div>`; return; }
+  if(cardIdx >= cardDeck.length){ area.innerHTML = `<div class="card" style="text-align:center;max-width:600px;margin:0 auto"><div style="font-size:3rem">🔁</div><h3>Round complete!</h3><p class="muted">Go again. Cards you marked ✅ will drop out.</p><button class="btn" id="againBtn">Next round</button></div>`; $("#againBtn").onclick=()=>buildDeck(true); confetti(); return; }
+  const [u,i] = cardDeck[cardIdx];
+  area.innerHTML = flipCard(u,i,UNITS[u-1].terms[i],true) + `
+    <div class="row" style="justify-content:center;margin-top:16px">
+      <button class="btn sm ghost" id="prevCard">← Prev</button>
+      <span class="tag" style="background:color-mix(in srgb,${unitColor(u)} 18%,transparent)">Unit ${u}</span>
+      <button class="btn sm ghost" id="nextCard">Skip →</button>
+    </div>`;
+  bindFlips(area);
+  $("#prevCard").onclick=()=>{ cardIdx=Math.max(0,cardIdx-1); drawBigCard(); };
+  $("#nextCard").onclick=()=>{ cardIdx++; drawBigCard(); };
+}
+$("#hideMastered").addEventListener("change",()=>buildDeck());
+$("#shuffleCards").addEventListener("click",()=>buildDeck(true));
+
+/* =========================================================
+   QUIZ ARENA
+   ========================================================= */
+let Q = null;
+function renderQuizSetup(){
+  if(Q && Q.active) return;
+  const nWrong = Object.keys(state.wrongs).length;
+  $("#quizArea").innerHTML = `
+    <div class="kicker">Practice like it's the real thing</div>
+    <h2>🎯 Quiz Arena</h2>
+    <p class="muted">AP-style multiple choice, some with primary sources just like the exam. Every answer comes with an explanation, so wrong answers are learning, not failing.</p>
+    <div class="card">
+      <h3>1. Pick your units</h3>
+      <div class="row" id="qUnits">${UNITS.map(U=>`<label class="chk"><input type="checkbox" value="${U.id}" checked> Unit ${U.id}</label>`).join("")}</div>
+      <h3 style="margin-top:18px">2. How many questions?</h3>
+      <div class="row" id="qCount">
+        <label class="chk"><input type="radio" name="qc" value="10" checked> 10 (quick)</label>
+        <label class="chk"><input type="radio" name="qc" value="20"> 20</label>
+        <label class="chk"><input type="radio" name="qc" value="999"> All of them</label>
+      </div>
+      <div class="row" style="margin-top:20px">
+        <button class="btn" id="qGo">Start quiz ▶</button>
+        <button class="btn ghost" id="qReview" ${nWrong?"":"disabled style='opacity:.5'"}>🔁 Review my mistakes (${nWrong})</button>
+      </div>
+    </div>`;
+  $("#qGo").onclick=()=>{
+    const units=[...document.querySelectorAll("#qUnits input:checked")].map(i=>+i.value);
+    if(!units.length){ toast("Pick at least one unit!"); return; }
+    startQuiz(units, +document.querySelector("#qCount input:checked").value, false);
+  };
+  $("#qReview").onclick=()=>{ if(nWrong) startQuiz([1,2,3,4,5],999,true); };
+}
+function startQuiz(units, n, reviewOnly){
+  let pool = [];
+  units.forEach(u=>UNITS[u-1].quiz.forEach((q,i)=>{ const id=u+"-q"+i; if(reviewOnly && !state.wrongs[id]) return; pool.push({...q,u,id}); }));
+  pool = shuffle(pool).slice(0,n);
+  if(!pool.length){ toast("Nothing to review. You're clean! ✨"); Q=null; renderQuizSetup(); return; }
+  // shuffle options per question
+  pool = pool.map(q=>{ const order = shuffle(q.o.map((_,i)=>i)); return {...q, o:order.map(i=>q.o[i]), a:order.indexOf(q.a)}; });
+  Q = {pool, i:0, score:0, active:true, review:reviewOnly, streak:0};
+  drawQ();
+}
+function drawQ(){
+  const q = Q.pool[Q.i]; const L = "ABCD";
+  $("#quizArea").innerHTML = `
+    <div class="qhead">
+      <span class="tag" style="background:color-mix(in srgb,${unitColor(q.u)} 20%,transparent)">Unit ${q.u}</span>
+      <div class="qbar"><i style="width:${Q.i/Q.pool.length*100}%"></i></div>
+      <span class="small"><b>${Q.i+1}</b>/${Q.pool.length} · ✅ ${Q.score}${Q.streak>=3?` · 🔥${Q.streak}`:""}</span>
+    </div>
+    <div class="card">
+      ${q.s?`<div class="stim">${esc(q.s)}<cite>— ${esc(q.c)}</cite></div>`:""}
+      <div class="qtext">${esc(q.q)}</div>
+      <div id="opts">${q.o.map((o,i)=>`<button class="opt" data-i="${i}"><span class="l">${L[i]}</span><span>${esc(o)}</span></button>`).join("")}</div>
+      <div id="qFeedback"></div>
+    </div>
+    <div class="row" style="margin-top:12px"><button class="btn sm ghost" id="qQuit">✕ Quit quiz</button></div>`;
+  document.querySelectorAll("#opts .opt").forEach(b=>b.addEventListener("click",()=>answer(+b.dataset.i)));
+  $("#qQuit").onclick=()=>{ Q.active=false; renderQuizSetup(); };
+}
+function answer(i){
+  const q = Q.pool[Q.i]; const ok = i===q.a;
+  document.querySelectorAll("#opts .opt").forEach((b,j)=>{ b.disabled=true; if(j===q.a) b.classList.add("right"); else if(j===i) b.classList.add("wrong"); });
+  const st = state.qstats[q.u] || {c:0,t:0}; st.t++; if(ok) st.c++; state.qstats[q.u]=st;
+  if(ok){ Q.score++; Q.streak++; delete state.wrongs[q.id]; addXP(Q.streak>=3?15:10); }
+  else { Q.streak=0; state.wrongs[q.id]=true; }
+  save();
+  const cheers = ["Nailed it!","Yes! That's AP thinking.","Correct, you're on fire!","Boom. 💥","Exactly right."];
+  $("#qFeedback").innerHTML = `<div class="explain ${ok?"good":"badx"}"><b>${ok?"✅ "+cheers[Math.floor(Math.random()*cheers.length)]:"❌ Not quite. Here's the key:"}</b><br>${esc(q.e)}${!ok?`<div class="small muted" style="margin-top:6px">Saved to your “Review my mistakes” pile.</div>`:""}</div>
+    <button class="btn" id="qNext">${Q.i+1<Q.pool.length?"Next question →":"See my results 🏁"}</button>`;
+  $("#qNext").onclick=()=>{ Q.i++; Q.i<Q.pool.length ? drawQ() : finishQuiz(); };
+  $("#qNext").focus({preventScroll:true});
+}
+function finishQuiz(){
+  Q.active=false; const pct = Math.round(Q.score/Q.pool.length*100);
+  let msg = pct>=90 ? "A-level work. You're ready. 🏆" : pct>=75 ? "Strong! Review the misses and you're there. 💪" : pct>=50 ? "Solid start. Hit the flashcards for those units, then try again." : "That's okay, this is exactly how learning works. Read the stories again, then come back. You'll see the jump.";
+  if(pct>=80) confetti();
+  addXP(pct===100?30:0);
+  $("#quizArea").innerHTML = `<div class="card" style="text-align:center">
+    <div class="kicker">Results</div>
+    <div class="score-big">${pct}%</div>
+    <p style="font-size:1.1rem"><b>${Q.score}</b> of ${Q.pool.length} correct${pct===100?" · +30 XP perfect bonus!":""}</p>
+    <p>${msg}</p>
+    <div class="row" style="justify-content:center;margin-top:10px">
+      <button class="btn" id="qAgain">Play again</button>
+      <button class="btn ghost" id="qRev">🔁 Review mistakes (${Object.keys(state.wrongs).length})</button>
+      <button class="btn ghost" data-go="cards">🃏 Flashcards</button>
+    </div></div>`;
+  $("#qAgain").onclick=()=>renderQuizSetup();
+  $("#qRev").onclick=()=>startQuiz([1,2,3,4,5],999,true);
+}
+
+/* =========================================================
+   WHICH CAME FIRST?
+   ========================================================= */
+let ordStreak = 0, ordPair = null;
+function allEvents(){
+  const sel = $("#ordUnit").value; const ev=[];
+  UNITS.forEach(U=>{ if(sel!=="all" && +sel!==U.id) return; U.timeline.forEach(t=>ev.push({y:t[0],e:t[1],u:U.id})); });
+  return ev;
+}
+function nextOrder(){
+  $("#ordBest").textContent = state.ordBest; $("#ordStreak").textContent = ordStreak;
+  const ev = allEvents(); let a,b,tries=0;
+  do{ a=ev[Math.floor(Math.random()*ev.length)]; b=ev[Math.floor(Math.random()*ev.length)]; tries++; } while((a.y===b.y) && tries<200);
+  ordPair=[a,b];
+  $("#ordArea").innerHTML = `<button class="evt" data-k="0">${esc(a.e)}<span class="yy">?</span></button><div class="or">OR</div><button class="evt" data-k="1">${esc(b.e)}<span class="yy">?</span></button>`;
+  $("#ordFeedback").innerHTML = "";
+  document.querySelectorAll(".evt").forEach(btn=>btn.addEventListener("click",()=>pickOrder(+btn.dataset.k)));
+}
+function pickOrder(k){
+  const [a,b]=ordPair; const earlier = a.y<b.y?0:1; const ok = k===earlier;
+  document.querySelectorAll(".evt").forEach((btn,j)=>{ btn.disabled=true; btn.querySelector(".yy").textContent=ordPair[j].y; btn.classList.add(j===earlier?"right":"wrong"); });
+  if(ok){ ordStreak++; addXP(3); if(ordStreak>state.ordBest){ state.ordBest=ordStreak; save(); if(ordStreak%10===0) confetti(); } }
+  else ordStreak=0;
+  $("#ordStreak").textContent=ordStreak; $("#ordBest").textContent=state.ordBest;
+  const gap = Math.abs(a.y-b.y);
+  $("#ordFeedback").innerHTML = `<div class="explain ${ok?"good":"badx"}"><b>${ok?"✅ Correct!":"❌ Other way around!"}</b> “${esc(ordPair[earlier].e)}” came ${gap} year${gap===1?"":"s"} earlier.</div><button class="btn" id="ordNext">Next pair →</button>`;
+  $("#ordNext").onclick=nextOrder; $("#ordNext").focus({preventScroll:true});
+}
+$("#ordUnit").addEventListener("change",()=>{ ordStreak=0; nextOrder(); });
+
+/* =========================================================
+   CHEAT SHEETS + SEARCH
+   ========================================================= */
+function renderCheat(){
+  if($("#cheatContent").dataset.done) return;
+  $("#cheatContent").dataset.done = 1;
+  $("#cheatContent").innerHTML = `
+  <div class="section card"><h3>🏛️ Presidents 1789–1877</h3><div class="scroll"><table class="tbl">
+    <tr><th>#</th><th>President</th><th>Years</th><th>Party</th><th>Know them for</th></tr>
+    ${PRESIDENTS.map((p,i)=>`<tr><td>${i+1}</td><td><b>${esc(p[0])}</b></td><td>${p[1]}</td><td><span class="tag">${esc(p[2])}</span></td><td>${esc(p[3])}</td></tr>`).join("")}
+  </table></div><p class="small muted" style="margin-top:8px">Trick for the first 7: “<b>W</b>ashington <b>A</b>nd <b>J</b>efferson <b>M</b>ade <b>M</b>any <b>A</b>wesome <b>J</b>okes” (Washington, Adams, Jefferson, Madison, Monroe, Adams, Jackson).</p></div>
+
+  <div class="section grid g2">
+    <div class="card"><h3>⚖️ Supreme Court cases</h3><div class="scroll"><table class="tbl">
+      <tr><th>Case</th><th>Year</th><th>Ruling</th></tr>
+      ${CASES.map(c=>`<tr><td><b>${esc(c[0])}</b></td><td>${c[1]}</td><td>${esc(c[2])}<div class="small muted">${esc(c[3])}</div></td></tr>`).join("")}
+    </table></div></div>
+    <div class="card"><h3>🤝 The great compromises</h3><div class="scroll"><table class="tbl">
+      <tr><th>Compromise</th><th>Year</th><th>Deal</th></tr>
+      ${COMPROMISES.map(c=>`<tr><td><b>${esc(c[0])}</b></td><td>${c[1]}</td><td>${esc(c[2])}</td></tr>`).join("")}
+    </table></div><p class="small muted" style="margin-top:8px">Pattern: every compromise over slavery bought time, and each one lasted less long than the last.</p></div>
+  </div>
+
+  <div class="section card"><h3>🎉 Political parties timeline</h3>
+    <div class="tl" style="--uc:var(--accent2)">${PARTIES.map(p=>`<div class="tl-item"><span class="y">${p[0]}</span>${esc(p[1])}</div>`).join("")}</div>
+  </div>
+
+  <div class="section grid g2">
+    <div class="card"><h3>🗺️ Colonial regions at a glance</h3><div class="scroll"><table class="tbl">
+      <tr><th>Region</th><th>Economy</th><th>Society</th></tr>
+      <tr><td><b>New England</b></td><td>Fishing, shipbuilding, small farms, trade</td><td>Puritan, families, town meetings, literacy</td></tr>
+      <tr><td><b>Middle</b></td><td>Wheat (“breadbasket”), ports</td><td>Most diverse, religious tolerance (Quakers)</td></tr>
+      <tr><td><b>Chesapeake</b></td><td>Tobacco</td><td>Indentured servants → slaves, young men, high death rate</td></tr>
+      <tr><td><b>Carolinas/Georgia</b></td><td>Rice, indigo</td><td>Enslaved majority, planter elite, strict slave codes</td></tr>
+    </table></div></div>
+    <div class="card"><h3>⚔️ North vs. South in 1861</h3><div class="scroll"><table class="tbl">
+      <tr><th>Union (North)</th><th>Confederacy (South)</th></tr>
+      <tr><td>~22 million people</td><td>~9 million (3.5 million enslaved)</td></tr>
+      <tr><td>~90% of factories</td><td>Cotton, little industry</td></tr>
+      <tr><td>Most railroads &amp; the navy</td><td>Defensive war on home ground</td></tr>
+      <tr><td>Lincoln; Grant (later)</td><td>Strong generals: Lee, “Stonewall” Jackson</td></tr>
+      <tr><td>Strategy: Anaconda Plan</td><td>Strategy: outlast the North; hope for British help</td></tr>
+    </table></div></div>
+  </div>`;
+}
+$("#cheatSearch").addEventListener("input",e=>{
+  const q = e.target.value.trim().toLowerCase(); const out = $("#searchResults");
+  if(q.length<2){ out.innerHTML=""; return; }
+  const hits=[];
+  UNITS.forEach(U=>{
+    U.terms.forEach(t=>{ if((t.join(" ")).toLowerCase().includes(q)) hits.push(`<div class="card" style="padding:12px 14px;margin-bottom:8px;border-left:5px solid var(${U.color})"><span class="tag">Unit ${U.id}</span> <b>${esc(t[0])}</b> <span class="muted small">(${esc(t[1])})</span><div class="small">${esc(t[2])} <i>${esc(t[3])}</i></div></div>`); });
+    U.timeline.forEach(t=>{ if((t[0]+" "+t[1]).toLowerCase().includes(q)) hits.push(`<div class="card" style="padding:10px 14px;margin-bottom:8px;border-left:5px solid var(${U.color})"><span class="tag">Unit ${U.id} · timeline</span> <b>${t[0]}</b>: ${esc(t[1])}</div>`); });
+  });
+  PRESIDENTS.forEach(p=>{ if(p.join(" ").toLowerCase().includes(q)) hits.push(`<div class="card" style="padding:10px 14px;margin-bottom:8px"><span class="tag">President</span> <b>${esc(p[0])}</b> (${p[1]}): ${esc(p[3])}</div>`); });
+  out.innerHTML = hits.length ? `<p class="small muted">${hits.length} result${hits.length>1?"s":""}</p>`+hits.slice(0,40).join("") : `<p class="muted">No matches. Try another word.</p>`;
+});
+
+/* =========================================================
+   FOCUS TIMER
+   ========================================================= */
+let tLeft = 15*60, tRunning = null, tMode = "focus";
+function drawTimer(){ const m=Math.floor(tLeft/60), s=tLeft%60; $("#timerDisplay").textContent=`${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`; }
+function setMode(mode){ tMode=mode; clearInterval(tRunning); tRunning=null; tLeft = mode==="focus"?15*60:5*60; $("#timerStart").textContent="Start"; $("#timerLabel").textContent = mode==="focus"?"Focus session":"Break: stretch, water, look away from the screen 🌿"; drawTimer(); }
+$("#timerStart").addEventListener("click",()=>{
+  if(tRunning){ clearInterval(tRunning); tRunning=null; $("#timerStart").textContent="Resume"; return; }
+  $("#timerStart").textContent="Pause";
+  tRunning = setInterval(()=>{ tLeft--; drawTimer(); if(tLeft<=0){ clearInterval(tRunning); tRunning=null;
+    if(tMode==="focus"){ addXP(20); confetti(); toast("Focus session done! +20 XP. Take your 5-minute break. 🌿"); setMode("break"); }
+    else { toast("Break's over. Ready for another round? 💪"); setMode("focus"); } } },1000);
+});
+$("#timerReset").addEventListener("click",()=>setMode(tMode));
+$("#timerBreak").addEventListener("click",()=>setMode(tMode==="focus"?"break":"focus"));
+
+/* =========================================================
+   THEME
+   ========================================================= */
+(function(){
+  const saved = store.get("theme",null); if(saved) document.documentElement.dataset.theme = saved;
+  $("#themeBtn").addEventListener("click",()=>{
+    const cur = document.documentElement.dataset.theme || (matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light");
+    const nxt = cur==="dark"?"light":"dark"; document.documentElement.dataset.theme=nxt; store.set("theme",nxt);
+  });
+})();
+
+/* INIT */
+renderXP(); renderHome(); drawTimer();
+</script>
+</body>
+</html>
